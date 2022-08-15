@@ -5,6 +5,7 @@ import com.tpavlyshyn.fp.dao.PortDao;
 import com.tpavlyshyn.fp.dao.RequestDao;
 import com.tpavlyshyn.fp.dto.CruisesNumberOfRows;
 import com.tpavlyshyn.fp.entity.Port;
+import com.tpavlyshyn.fp.entity.TranslationCruise;
 import com.tpavlyshyn.fp.exceptions.DaoException;
 import com.tpavlyshyn.fp.entity.Cruise;
 
@@ -13,9 +14,12 @@ import com.tpavlyshyn.fp.services.CruiseService;
 import org.apache.log4j.Logger;
 
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 public class CruiseServiceImpl implements CruiseService {
 
@@ -34,7 +38,6 @@ public class CruiseServiceImpl implements CruiseService {
 
     @Override
     public CruisesNumberOfRows showCruisesWithParam(Integer from, Integer to, Optional<Integer> month, Optional<Integer> year, int currentPage, int recordsPerPage, String lang) throws ServiceException {
-        List<Cruise> cruises = null;
         CruisesNumberOfRows cruisesNumberOfRows;
         Optional<String> whereDurationOpt = builtWhereDurationOpt(from, to);
         Optional<String> whereMonthOpt = builtWhereMonthOpt(month, year);
@@ -97,6 +100,21 @@ public class CruiseServiceImpl implements CruiseService {
     }
 
     @Override
+    public boolean addTranslationCruise(TranslationCruise translationCruise) throws ServiceException {
+        boolean result;
+        try {
+            result = cruiseDao.createTranslationCruise(translationCruise);
+            if (result) log.info("TranslationCruise was added-->" + translationCruise);
+            else log.info("TranslationCruise wasn`t added-->" + translationCruise);
+        } catch (DaoException ex) {
+            log.error(ex.getMessage(), ex);
+            throw new ServiceException(ex);
+        }
+        return result;
+
+    }
+
+    @Override
     public boolean updateCruise(Cruise cruise) throws ServiceException {
         boolean result = false;
         try {
@@ -145,6 +163,10 @@ public class CruiseServiceImpl implements CruiseService {
         List<Cruise> cruises = null;
         try {
             cruises = cruiseDao.findAllByLang(lang);
+            for (Cruise cruise:cruises) {
+                List<Port> portList = portDao.findAllByCruiseId(cruise.getId(), lang);
+                cruise.setPortList(portList);
+            }
             if (!cruises.isEmpty()) log.info("Found cruises-->" + cruises);
             else log.info("Cruises weren`t found");
         } catch (DaoException ex) {
@@ -154,11 +176,35 @@ public class CruiseServiceImpl implements CruiseService {
         return cruises;
     }
 
+    @Override
+    public List<Port> showPorts(String lang) throws ServiceException {
+        List<Port> portList ;
+        try {
+            portList = portDao.findAllByLang(lang);
+            if (!portList.isEmpty()) log.info("Found ports-->" + portList);
+            else log.info("Ports weren`t found");
+        } catch (DaoException ex) {
+            log.error(ex.getMessage(), ex);
+            throw new ServiceException(ex);
+        }
+        return portList;
+    }
+
 
     @Override
     public boolean checkCruiseHasRequests( int id) {
         try {
             return requestDao.findRequestByCruiseId(id);
+        } catch (DaoException ex) {
+            log.error(ex.getMessage(), ex);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean addPortToCruise(int cruiseId, int portId, int sequence_number, LocalDateTime arrivalTime) throws ServiceException {
+        try {
+            return cruiseDao.addPortToCruise(cruiseId, portId, sequence_number, arrivalTime);
         } catch (DaoException ex) {
             log.error(ex.getMessage(), ex);
         }

@@ -21,18 +21,11 @@
         <param-name>jakarta.servlet.jsp.jstl.fmt.localizationContext</param-name>
         <param-value>messages</param-value>
     </context-param>
-    <!-- this way we set the default locale (optional) -->
-    <!-- the (preferable) browser's locale will be used if we don't set the default locale -->
+
     <context-param>
-        <param-name>jakarta.servlet.jsp.jstl.fmt.locale</param-name>
+        <param-name>locale</param-name>
         <param-value>en</param-value>
     </context-param>
-    <!-- supported locales -->
-    <context-param>
-        <param-name>locales</param-name>
-        <param-value>ua en</param-value>
-    </context-param>
-
 
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
@@ -66,5 +59,8 @@
         </filter-mapping>-->
     <listener>
         <listener-class>com.tpavlyshyn.fp.listener.ContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.tpavlyshyn.fp.listener.SessionListener</listener-class>
     </listener>
 </web-app>

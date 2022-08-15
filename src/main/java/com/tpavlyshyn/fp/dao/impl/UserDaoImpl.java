@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao {
     private static final String SQL__DELETE_USER_BY_LOGIN = "DELETE FROM user WHERE login=?";
     private static final String SQL_FIND_ALL_USERS = "SELECT * FROM user ";
     private static final String SQL_UPDATE_URL_DOCUMENTS = "UPDATE user SET url_document = ? WHERE id=?;";
-    private static final String SQL__SELECT_USER_BY_LOGIN = "SELECT * FROM user WHERE login=?";
+    private static final String SQL_FIND_ALL_BY_CRUISE_ID = "SELECT * FROM user" + " INNER JOIN request r on user.id = r.user_id " + "WHERE cruise_id=?;";
 
 
     private final DataSource ds;
@@ -57,6 +57,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement pstmt = connection.prepareStatement(SQL__DELETE_USER);) {
             pstmt.setInt(1, id);
             result = pstmt.executeUpdate() > 0;
+            connection.commit();
         } catch (SQLException ex) {
             log.error(ex.getMessage(), ex);
             throw new DaoException(ex);
@@ -170,7 +171,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean findByLogin(String login) throws DaoException {
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__SELECT_USER_BY_LOGIN);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_USER_BY_LOGIN);) {
             pstmt.setString(1, login);
 
             try (ResultSet resultSet = pstmt.executeQuery();) {
@@ -182,6 +183,23 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
+    public List<User> findByCruiseId(Integer cruiseId) throws DaoException {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = ds.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(SQL_FIND_ALL_BY_CRUISE_ID);) {
+            pstmt.setInt(1 , cruiseId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    users.add(extractUser(rs));
+                }
+            }
+        } catch (SQLException ex) {
+            log.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
+        }
+        return users;
+    }
 
     public static User extractUser(ResultSet rs) {
         try {

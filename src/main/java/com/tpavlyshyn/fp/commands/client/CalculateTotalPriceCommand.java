@@ -30,6 +30,7 @@ public class CalculateTotalPriceCommand implements Command {
             totalPrice = requestService.calculateTotalPrice(requestId);
             request.setAttribute("totalPrice", totalPrice);
             request.setAttribute("requestId", requestId);
+            request.setAttribute("requestU", request.getParameter("request"));
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
             return new Redirect("error page");

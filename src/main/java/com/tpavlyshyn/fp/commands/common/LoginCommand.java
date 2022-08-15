@@ -38,7 +38,7 @@ public class LoginCommand implements Command {
                 request.setAttribute("user", user.get());
                 HttpSession currentSession = request.getSession();
                 currentSession.setAttribute("user", user.get());
-                return new Forward(Path.PAGE__INDEX);
+                return new Redirect(request.getContextPath() + "/" + Path.PAGE__INDEX);
             }
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);

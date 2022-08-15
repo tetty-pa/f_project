@@ -61,19 +61,13 @@ DROP TABLE IF EXISTS `fp_db`.`cruise`;
 
 CREATE TABLE IF NOT EXISTS `fp_db`.`cruise`
 (
-    `id`              INT          NOT NULL,
-/*    `cruise_name`     VARCHAR(50)  NOT NULL,
-*/
-    `cruise_photo`    VARCHAR(100) NULL DEFAULT NULL,
-/*    `description`     VARCHAR(255) NOT NULL,
-*/
-    `number_of_ports` INT          NOT NULL,
-    `price`           INT          NOT NULL,
-/*    `route`           VARCHAR(250) NULL DEFAULT NULL,
-*/
-    `start_date`      DATETIME     NULL DEFAULT NULL,
-    `end_date`        DATETIME     NULL DEFAULT NULL,
-    `liner_id`        INT          NOT NULL,
+    `id`              INT AUTO_INCREMENT NOT NULL,
+    `cruise_photo`    VARCHAR(100)       NULL DEFAULT NULL,
+    `number_of_ports` INT                NOT NULL,
+    `price`           INT                NOT NULL,
+    `start_date`      DATETIME           NULL DEFAULT NULL,
+    `end_date`        DATETIME           NULL DEFAULT NULL,
+    `liner_id`        INT                NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_cruise_liner1_idx` (`liner_id` ASC) VISIBLE,
     CONSTRAINT `fk_cruise_liner1`
@@ -93,9 +87,8 @@ CREATE TABLE IF NOT EXISTS `fp_db`.`translation_cruise`
 (
     `cruise_id`   INT          NOT NULL,
     `lang`        VARCHAR(2)   NOT NULL,
-    `cruise_name`        VARCHAR(100) NULL,
+    `cruise_name` VARCHAR(100) NULL,
     `description` VARCHAR(200) NULL,
-    `route`       VARCHAR(200) NULL,
     PRIMARY KEY (lang, cruise_id),
     INDEX `fk_translation_cruise_cruise1_idx` (`cruise_id` ASC) VISIBLE,
     CONSTRAINT `fk_translation_cruise_cruise1`
@@ -129,7 +122,7 @@ DROP TABLE IF EXISTS `fp_db`.`user`;
 CREATE TABLE IF NOT EXISTS `fp_db`.`user`
 (
     `id`           INT          NOT NULL AUTO_INCREMENT,
-    `login`        VARCHAR(40)  NOT NULL UNIQUE ,
+    `login`        VARCHAR(40)  NOT NULL UNIQUE,
     `password`     VARCHAR(20)  NOT NULL,
     `name`         VARCHAR(20)  NULL DEFAULT NULL,
     `surname`      VARCHAR(20)  NULL DEFAULT NULL,

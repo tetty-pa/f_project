@@ -1,81 +1,66 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Tetiana Pavlyshyn
-  Date: 7/15/2022
-  Time: 3:23 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
-
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="messages"/>
 
 <head>
     <jsp:include page="/jsp/header.jsp"/>
     <title>Main</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/file.css"/>
-
 </head>
 
+<body>
 <%--Intro--%>
 <div class="intro">
     <div class="container">
         <div class="intro__inner">
-            <h1 class="intro__greeting">Welcome</h1>
-            <h1 class="intro__greeting">to our</h1>
-            <h1 class="intro__title">CompUs Company</h1>
-            <h2 class="intro__subtitle">we aspire to deliver unmatched joyful vacations for our guests,
-                always exceeding their expectations and in doing so driving outstanding shareholder value
-            </h2>
-            <%--
-            <h1 class="intro__title">*Cruise Company Name*</h1>
---%>
+            <h1 class="intro__greeting"><fmt:message key="index.greeting1"/></h1>
+            <h1 class="intro__greeting"><fmt:message key="index.greeting2"/></h1>
+            <h1 class="intro__title"><fmt:message key="index.title"/></h1>
+            <h2 class="intro__subtitle"><fmt:message key="index.subtitle"/></h2>
         </div>
     </div>
 </div>
-
-<%--Features--%>
 <div class="container">
-    <div class="title">how we deliver</div>
+    <%--Features--%>
+    <div class="title"><fmt:message key="index.features.title"/></div>
     <div class="features">
         <div class="row">
             <div class="col-md-3">
                 <img class="features__img" src="${pageContext.request.contextPath}/img/icons/1.png" alt="">
-                <h3 class="feature__text">Ensure safe, responsible and secure operations</h3>
+                <h3 class="feature__text"><fmt:message key="index.feature1"/></h3>
             </div>
             <div class="col-md-3">
                 <img class="features__img" src="${pageContext.request.contextPath}/img/icons/2.png" alt="">
-                <h3 class="feature__text">Warmly welcome our guests and team members to our home, making them feel a
-                    part of
-                    the CompUs family</h3>
+                <h3 class="feature__text"><fmt:message key="index.feature2"/></h3>
             </div>
             <div class="col-md-3">
                 <img class="features__img" src="${pageContext.request.contextPath}/img/icons/3.png" alt="">
-                <h3 class="feature__text">Embrace our diversity and be inclusive</h3>
+                <h3 class="feature__text"><fmt:message key="index.feature3"/></h3>
             </div>
             <div class="col-md-3">
                 <img class="features__img" src="${pageContext.request.contextPath}/img/icons/4.png" alt="">
-                <h3 class="feature__text">Anticipate needs, respond rapidly & own issues until they are resolved</h3>
+                <h3 class="feature__text"><fmt:message key="index.feature4"/></h3>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
                 <img class="features__img" src="${pageContext.request.contextPath}/img/icons/5.png" alt="">
-                <h3 class="feature__text">Live & share a positive attitude</h3>
+                <h3 class="feature__text"><fmt:message key="index.feature5"/></h3>
             </div>
             <div class="col-md-3">
                 <img class="features__img" src="${pageContext.request.contextPath}/img/icons/6.png" alt="">
-                <h3 class="feature__text">Show pride in our jobs and our company</h3>
+                <h3 class="feature__text"><fmt:message key="index.feature6"/></h3>
             </div>
             <div class="col-md-3">
                 <img class="features__img" src="${pageContext.request.contextPath}/img/icons/7.png" alt="">
-                <h3 class="feature__text">Show trust, care and respect for each other, our ships and the
-                    environment</h3>
+                <h3 class="feature__text"><fmt:message key="index.feature7"/></h3>
             </div>
             <div class="col-md-3">
                 <img class="features__img" src="${pageContext.request.contextPath}/img/icons/8.png" alt="">
-                <h3 class="feature__text">Include fun in everything we do!</h3>
+                <h3 class="feature__text"><fmt:message key="index.feature8"/></h3>
             </div>
         </div>
     </div>
@@ -110,7 +95,6 @@
     <button>Registration</button>
 </a>
 <br>
-`
 
 <form id="comm2" method="GET" action="${pageContext.request.contextPath}/controller/">
     <input type="hidden" name="command" value="showUsersRequests"/>
@@ -133,13 +117,16 @@
 </form>
 
 
-
-
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Launch demo modal
 </button>
 
+
+<form method="GET" action="${pageContext.request.contextPath}/controller/">
+    <input type="hidden" name="command" value="showAllPorts"/>
+    <input type="submit" value="show all ports"/>
+</form>
 <tag:editProfile/>
 </body>
-</html>
+
 

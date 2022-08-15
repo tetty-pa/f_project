@@ -2,6 +2,7 @@ package com.tpavlyshyn.fp.listener;
 
 import com.tpavlyshyn.fp.commands.Command;
 import com.tpavlyshyn.fp.commands.CommandContainer;
+import com.tpavlyshyn.fp.commands.PdfCommand;
 import com.tpavlyshyn.fp.commands.admin.*;
 import com.tpavlyshyn.fp.commands.client.*;
 import com.tpavlyshyn.fp.commands.common.*;
@@ -38,6 +39,7 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         log.debug("Servlet context initialization starts");
+        jakarta.servlet.jsp.jstl.fmt.LocaleSupport l;
         ServletContext context = event.getServletContext();
         initDatasource(context);
         initLog4J(context);
@@ -126,8 +128,18 @@ public class ContextListener implements ServletContextListener {
         commands.addCommand("newPassword", command);
         command = new ChangeLangCommand();
         commands.addCommand("changeLang", command);
+        command = new ShowUsersByCruiseIdCommand(userService);
+        commands.addCommand("showAllUsersByCruise", command);
+        command = new PdfCommand(requestService);
+        commands.addCommand("pdf", command);
 
+        command = new ShowAllPortsCommand(cruiseService);
+        commands.addCommand("showAllPorts", command);
+
+        command = new AddPortToCruiseCommand(cruiseService);
+        commands.addCommand("addPortToCruise", command);
         context.setAttribute("commandContainer", commands);
+
         log.trace("context.setAttribute 'commandContainer': {" + commands + "}");
     }
 

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PortDao extends AbstractDao <Integer, Port>{
     List<Port> findAllByCruiseId(int cruiseId, String lang) throws DaoException;
-
+    List<Port> findAllByLang(String lang) throws DaoException;
 }

@@ -1,13 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Tetiana Pavlyshyn
-  Date: 7/5/2022
-  Time: 11:35 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="messages"/>
 
 <html>
 <head>
@@ -57,26 +53,25 @@
                             <c:when test="${sessionScope.user.roleId==1}">
                                 <li class="nav-item">
                                     <a class="nav-link link-light"
-                                       href="${pageContext.request.contextPath}/controller/?command=showUsersRequests">My
-                                        orders</a>
+                                       href="${pageContext.request.contextPath}/controller/?command=showUsersRequests"><fmt:message key="header.my_orders"/> </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link link-light"
-                                       href="${pageContext.request.contextPath}/controller/?command=showCruises&currentPage=1">Cruises</a>
+                                       href="${pageContext.request.contextPath}/controller/?command=showCruises&currentPage=1"><fmt:message key="header.find_a_cruise"/></a>
                                 </li>
                             </c:when>
                             <c:otherwise>
                                 <li class="nav-item">
                                     <a class="nav-link link-light"
-                                       href="${pageContext.request.contextPath}/controller/?command=showAllCruises">Cruises</a>
+                                       href="${pageContext.request.contextPath}/controller/?command=showAllCruises"><fmt:message key="header.cruises"/></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link link-light"
-                                       href="${pageContext.request.contextPath}/controller/?command=showAllRequests">Requests</a>
+                                       href="${pageContext.request.contextPath}/controller/?command=showAllRequests"><fmt:message key="header.orders"/></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link link-light"
-                                       href="${pageContext.request.contextPath}/controller/?command=showAllUsers">Users</a>
+                                       href="${pageContext.request.contextPath}/controller/?command=showAllUsers"><fmt:message key="header.users"/></a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
@@ -88,18 +83,18 @@
                     <c:when test="${sessionScope.user==null}">
                         <li class="nav-item">
                             <a class="nav-link link-light"
-                               href="${pageContext.request.contextPath}/jsp/common/login.jsp">Login</a>
+                               href="${pageContext.request.contextPath}/jsp/common/login.jsp"><fmt:message key="header.login"/></a>
                         </li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item">
                             <a class="nav-link link-light" data-bs-toggle="modal"
                                data-bs-target="#profile-modal">
-                                Profile</a>
+                                <fmt:message key="header.profile"/> </a>
                         </li>
                         <li class="nav-item">
                             <a class=" nav-link link-light"
-                               href="${pageContext.request.contextPath}/controller/?command=logout">Logout</a>
+                               href="${pageContext.request.contextPath}/controller/?command=logout"><fmt:message key="header.logout"/></a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -119,7 +114,6 @@
 </div>
 
 <tag:editProfile/>
-
 
 </body>
 </html>

@@ -2,8 +2,11 @@ package com.tpavlyshyn.fp.dao;
 
 import com.tpavlyshyn.fp.dto.CruisesNumberOfRows;
 import com.tpavlyshyn.fp.entity.Cruise;
+import com.tpavlyshyn.fp.entity.TranslationCruise;
 import com.tpavlyshyn.fp.exceptions.DaoException;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,5 +22,6 @@ public interface CruiseDao extends AbstractDao<Integer, Cruise>{
                                          int recordsPerPage,
                                          String land) throws DaoException;
     int getFreePlaces(int cruise_id) throws DaoException;
-
-}
+    boolean createTranslationCruise(TranslationCruise cruise) throws DaoException;
+    boolean addPortToCruise(int cruiseId, int portId, int sequenceNumber, LocalDateTime arrivalTime) throws DaoException;
+    }

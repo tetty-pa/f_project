@@ -10,16 +10,18 @@ public interface UserService {
 
     boolean signUp(User user) throws ServiceException;
 
-    public Optional<User> signIn(String login, String password) throws ServiceException;
+    Optional<User> signIn(String login, String password) throws ServiceException;
 
-    public boolean setDocuments(int userId, String urlDocuments) throws ServiceException;
+    boolean setDocuments(int userId, String urlDocuments) throws ServiceException;
 
-    public boolean setNewPassword(String password, String login) throws ServiceException;
+    boolean setNewPassword(String password, String login) throws ServiceException;
 
-    public List<User> showUsers() throws ServiceException;
+    List<User> showUsers() throws ServiceException;
 
-    public boolean editProfile(User user) throws ServiceException;
+    List<User> showUsersByCruiseId(int cruiseId) throws ServiceException;
 
-    public boolean checkUserLoginForUnique(String login);
+    boolean editProfile(User user) throws ServiceException;
+
+    boolean checkUserLoginForUnique(String login);
 
 }

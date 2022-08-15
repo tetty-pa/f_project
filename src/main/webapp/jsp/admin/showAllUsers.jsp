@@ -1,12 +1,9 @@
+<%@ page import="com.tpavlyshyn.fp.entity.user.Role" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Tetiana Pavlyshyn
-  Date: 7/11/2022
-  Time: 11:11 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
     <title>Users</title>
@@ -16,17 +13,17 @@
 <body>
 
 <div class="table__container">
-    <div class="title">Users</div>
+    <div class="title"><fmt:message key="showAllUsers.title"/></div>
 
     <table class="table table-bordered table-light">
 
         <thead>
         <tr>
-            <th>User Login</th>
-            <th>User Name</th>
-            <th>User Surname</th>
-            <th>UrlDocument</th>
-            <th>Role</th>
+            <th><fmt:message key="label.email"/></th>
+            <th><fmt:message key="label.name"/></th>
+            <th><fmt:message key="label.surname"/></th>
+            <th><fmt:message key="label.urlDocuments"/></th>
+            <th><fmt:message key="label.role"/></th>
         </tr>
         </thead>
         <c:forEach items="${requestScope.users}" var="user">
@@ -36,7 +33,7 @@
                 <td>${user.name}</td>
                 <td>${user.surname}</td>
                 <td>${user.urlDocument}</td>
-                <td>${user.roleId}</td>
+                <td>${user.role}</td>
             </tr>
         </c:forEach>
     </table>

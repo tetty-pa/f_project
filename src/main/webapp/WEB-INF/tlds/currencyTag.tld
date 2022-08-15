@@ -24,7 +24,7 @@
             <name>locale</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
-            <type>java.util.Locale</type>
+            <type>java.lang.String</type>
         </attribute>
     </tag>
 </taglib>

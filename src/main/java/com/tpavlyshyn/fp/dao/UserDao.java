@@ -10,9 +10,7 @@ public interface UserDao extends AbstractDao<Integer, User> {
 
     Optional<User> findUserByLogin(String login) throws DaoException;
 
-/*
-        boolean deleteUserByLogin(String login) throws DaoException;
-*/
+    List<User> findByCruiseId(Integer cruiseId) throws DaoException ;
 
     boolean updatePassword(String password, String login) throws DaoException;
 

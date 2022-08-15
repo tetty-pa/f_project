@@ -6,6 +6,7 @@ import com.tpavlyshyn.fp.commands.action.Dispatcher;
 import com.tpavlyshyn.fp.commands.action.Forward;
 import com.tpavlyshyn.fp.commands.action.Redirect;
 import com.tpavlyshyn.fp.entity.Cruise;
+import com.tpavlyshyn.fp.entity.TranslationCruise;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.CruiseService;
 import com.tpavlyshyn.fp.services.impl.CruiseServiceImpl;
@@ -28,34 +29,41 @@ public class AddCruiseCommand implements Command {
 
     @Override
     public Dispatcher execute(HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
         int numberOfPorts = Integer.parseInt(request.getParameter("numberOfPorts"));
         int price = Integer.parseInt(request.getParameter("price"));
-        String route = request.getParameter("route");
         Date startDate = Date.valueOf(request.getParameter("startDate"));
         Date endDate = Date.valueOf(request.getParameter("endDate"));
         int linerId = Integer.parseInt(request.getParameter("linerId"));
+        String nameUa = request.getParameter("nameUa");
+        String nameEn = request.getParameter("nameEn");
+        String descriptionUa = request.getParameter("descriptionUa");
+        String descriptionEn = request.getParameter("descriptionEn");
         Cruise cruise = new Cruise();
-        cruise.setCruiseName(name);
-        cruise.setDescription(description);
         cruise.setNumberOfPorts(numberOfPorts);
         cruise.setPrice(price);
         cruise.setStartDate(startDate);
         cruise.setEndDate(endDate);
         cruise.setLinerId(linerId);
-        boolean result;
-        try {
-            result = cruiseService.addCruise(cruise);
 
-            if (result) {
-                request.setAttribute("cruise", cruise);
-                return new Forward("/index.jsp");
+        boolean resultCruise;
+        boolean resultTranslationUa;
+        boolean resultTranslationEn;
+        try {
+            resultCruise = cruiseService.addCruise(cruise);
+            TranslationCruise translationCruiseUa = new TranslationCruise(cruise.getId(), "ua", nameUa, descriptionUa);
+            TranslationCruise translationCruiseEn = new TranslationCruise(cruise.getId(), "en", nameEn, descriptionEn);
+
+            resultTranslationUa = cruiseService.addTranslationCruise(translationCruiseUa);
+            resultTranslationEn = cruiseService.addTranslationCruise(translationCruiseEn);
+            if (resultCruise && resultTranslationUa && resultTranslationEn) {
+                request.setAttribute("cruiseId", cruise.getId());
+                return new Forward(Path.COMMAND__SHOW_ALL_PORTS+cruise.getId());
             }
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
+            ex.getCause();
             return new Redirect("error page");
         }
-        return new Forward(Path.PAGE__REGISTRATION);
+        return new Forward(Path.COMMAND__SHOW_ALL_PORTS);
     }
 }

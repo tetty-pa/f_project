@@ -100,6 +100,20 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @Override
+    public List<User> showUsersByCruiseId(int cruiseId) throws ServiceException {
+        List<User> users = new ArrayList<>();
+        try {
+            users = userDao.findByCruiseId(cruiseId);
+            if (!users.isEmpty()) log.info("Found users-->" + users);
+            else log.info("Users wasn`t found");
+        } catch (DaoException ex) {
+            log.error(ex.getMessage(), ex);
+            throw new ServiceException(ex);
+        }
+        return users;
+    }
+
 
     @Override
     public boolean editProfile(User user) throws ServiceException {

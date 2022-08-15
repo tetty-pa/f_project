@@ -1,13 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Tetiana Pavlyshyn
-  Date: 6/9/2022
-  Time: 9:54 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
     <title>Cruise</title>
@@ -16,19 +11,16 @@
 </head>
 <body>
 <div class="container">
-    <%--
-        <div class="title"> Title</div>
-    --%>
     <div class="container__detailed">
         <div class="container__cruise_info">
             <div class="cruise__name">${requestScope.cruise.cruiseName}</div>
             <div class="cruise__description">${requestScope.cruise.description}</div>
             <div class="cruise__price">Price: ${requestScope.cruise.price}$</div>
             <div class="text-black">
-                ${requestScope.cruise.numberOfPorts} ports visited,
-                dates: ${requestScope.cruise.startDate}-
+                ${requestScope.cruise.numberOfPorts} <fmt:message key="showCruises.ports_visited"/> ,
+                    <fmt:message key="showCruiseInfo.dates"/> ${requestScope.cruise.startDate}-
                 ${requestScope.cruise.endDate}
-                <div class="text-center text-uppercase">Route: </div>
+                <div class="text-center text-uppercase"><fmt:message key="showCruiseInfo.route"/> </div>
                     <div class="">
                         <c:forEach var="port" items="${requestScope.cruise.portList}">
                             <c:set var="k" value="${k+1}"/>

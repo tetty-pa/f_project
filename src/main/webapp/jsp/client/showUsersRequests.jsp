@@ -1,13 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%--
-  Created by IntelliJ IDEA.
-  User: Tetiana Pavlyshyn
-  Date: 6/10/2022
-  Time: 7:34 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
     <title>My orders</title>
@@ -19,37 +14,15 @@
 </head>
 <body>
 <div class="table__container">
-    <div class="title">My orders</div>
+    <div class="title"><fmt:message key="showUsersOrders.title"/> </div>
 
     <table class="table table-bordered table-light">
 
-        <thead>
-        <%--    <thead>
-            <tr>
-                <td>Name</td>
-                <td>Start Date</td>
-                <td>End Date</td>
-                <td>Amount</td>
-            </tr>
-            </thead>
-            <c:forEach var="cruise" items="${requestScope.cruises}">
-                <tr>
-                    <td><c:out value="${cruise.name}"/></td>
-                    <td><c:out value="${cruise.startDate}"/></td>
-                    <td><c:out value="${cruise.endDate}"/></td>
-                </tr>
-            </c:forEach>
-            <c:forEach var="request" items="${requestScope.requests}">
-                <tr>
-                    <td><c:out value="${request.amount}"/></td>
-                </tr>
-            </c:forEach>--%>
-        <thead>
         <tr>
-            <td><B>Name</B></td>
-            <td><B>Start Date</B></td>
-            <td><B>End Date</B></td>
-            <td><b>Amount</b></td>
+            <td><B><fmt:message key="label.name"/></B></td>
+            <td><B><fmt:message key="label.start_date"/></B></td>
+            <td><B><fmt:message key="label.end_date"/></B></td>
+            <td><b><fmt:message key="label.amount"/></b></td>
             <td></td>
 
         </tr>
@@ -65,12 +38,27 @@
                     <form id="comm3" method="GET" action="${pageContext.request.contextPath}/controller/">
                         <input type="hidden" name="command" value="calculateTotalPrice"/>
                         <input type="hidden" name="requestId" value="${requestU.id}"/>
-                        <input type="submit" value="pay/uploadDoc"/>
+<%--
+                        <input type="hidden" name="request" value="${requestU}"/>
+--%>
+                        <button class="btn btn-secondary" type="submit"><fmt:message key="button.pay_upload_doc"/></button>
                     </form>
-                    <%--<a href="${pageContext.request.contextPath}/jsp/client/pay.jsp?requestId=${requestU.id}">pay</a>--%>
-                    <%--<a href="${pageContext.request.contextPath}/jsp/client/pay.jsp">upload file</a>--%>
-                </c:if>
+                    </c:if>
+                    <c:if test="${requestU.status == 'PAID'}">
+                        <form method="GET" action="${pageContext.request.contextPath}/controller/">
+                            <input type="hidden" name="command" value="pdf"/>
+                            <input type="hidden" name="requestId" value="${requestU.id}"/>
+                            <input type="hidden" name="cruiseName" value="${requestU.cruise.cruiseName}"/>
+                            <input type="hidden" name="startDate" value="${requestU.cruise.startDate}"/>
+                            <input type="hidden" name="endDate" value="${requestU.cruise.endDate}"/>
+                            <input type="hidden" name="amount" value="${requestU.amount}"/>
+                            <button class="btn btn-secondary" type="submit">Download report</button>
+                        </form>
+                    </c:if>
                 </td>
+
+
+
             </tr>
         </c:forEach>
     </table>

@@ -1,18 +1,10 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
 
-    <%--	<link
-                href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-                rel="stylesheet" id="bootstrap-css">--%>
-    <%--<script
-            src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>--%>
-    <!------ Include the above in your HEAD tag ---------->
-
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <jsp:include page="/jsp/header.jsp"/>
-
     <style>
         .form-gap {
             padding-top: 100px;
@@ -46,7 +38,7 @@
                         <h3>
                             <i class="fa fa-lock fa-4x"></i>
                         </h3>
-                        <div class="title">Enter OTP</div>
+                        <div class="title"><fmt:message key="enterOtp.title"/></div>
                         <%
                             if (request.getAttribute("message") != null) {
                                 out.print("<p class='text-danger ml-1'>" + request.getAttribute("message") + "</p>");
@@ -55,19 +47,18 @@
 
                         <div class="panel-body">
 
-                            <form id="enter-otp-form" action="${pageContext.request.contextPath}/controller/" role="form"
+                            <form id="enter-otp-form" action="${pageContext.request.contextPath}/controller/"
+                                  role="form"
                                   autocomplete="off"
                                   class="form" method="post">
-                                <%--
-                                                                <input type="hidden" name="command" value="validateOtp">
-                                --%>
+
                                 <input type="hidden" name="command" value="${requestScope.command}">
 
                                 <div class="form-group">
                                     <div class="input-group">
-											<span class="input-group-addon"><i
-                                                    class="glyphicon glyphicon-envelope color-red"></i></span> <input
-                                            id="opt" name="otp" placeholder="Enter OTP"
+											<span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-envelope color-red"></i></span> <input
+                                            id="opt" name="otp" placeholder="<fmt:message key="enterOtp.title"/>"
                                             class="form-control border-danger" type="text" required="required">
                                     </div>
                                 </div>
@@ -75,11 +66,9 @@
                                 <div class="form-group">
                                     <input name="recover-submit"
                                            class="btn btn-secondary btn-block"
-                                           value="Confirm" type="submit">
+                                           value="<fmt:message key="enterOtp.button_confirm"/>" type="submit">
                                 </div>
 
-                                <%--<input type="hidden" class="hide" name="token" id="token"
-                                    value="">--%>
                             </form>
 
                         </div>

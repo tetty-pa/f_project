@@ -1,8 +1,18 @@
 package com.tpavlyshyn.fp.entity;
 
-public class Port extends Entity{
+public class Port extends Entity {
+    String land;
     String city;
     String country;
+
+
+    public String getLand() {
+        return land;
+    }
+
+    public void setLand(String land) {
+        this.land = land;
+    }
 
     public String getCity() {
         return city;
@@ -22,9 +32,6 @@ public class Port extends Entity{
 
     @Override
     public String toString() {
-        return "Port{" +
-                "city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+        return "[" + city + "," + country + "]";
     }
 }

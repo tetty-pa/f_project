@@ -1,4 +1,8 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -12,7 +16,7 @@
                                                                                  src="${pageContext.request.contextPath}/img/logo.png"
                                                                                  alt=""></a>
 
-        <div class="title">Login</div>
+        <div class="title"><fmt:message key="login.title"/> </div>
         <div class="text-danger">
             <%
                 if (request.getAttribute("message") != null) {
@@ -24,47 +28,28 @@
             <input type="hidden" name="command" value="login"/>
             <div class="input__field">
                 <input type="text" name="login" required>
-                <label>Email</label>
+                <label><fmt:message key="label.email"/></label>
             </div>
             <div class="input__field">
                 <input type="password" name="password" required>
-                <label>Password</label>
+                <label><fmt:message key="label.password"/></label>
             </div>
             <a class="nav__link" style="font-size: 14px"
-               href="${pageContext.request.contextPath}/jsp/common/forgotPassword.jsp">Forgot password?</a>
+               href="${pageContext.request.contextPath}/jsp/common/forgotPassword.jsp"><fmt:message key="login.forgot_password"/></a>
             <br>
             <br>
-            <button type="submit" class="button_1">Sign in</button>
+            <button type="submit" class="button_1"><fmt:message key="button.sign_in"/></button>
             <br>
             <br>
             <div class="page-link link-dark text-center d-inline">
-                Don`t have an account?
+                <fmt:message key="login.message"/>
                 <a class="page-link link-light text-center d-inline"
-                   href="${pageContext.request.contextPath}/jsp/common/registration.jsp"> Sign up </a>
+                   href="${pageContext.request.contextPath}/jsp/common/registration.jsp"> <fmt:message key="button.sign_up"/> </a>
             </div>
 
         </form>
     </div>
 </div>
 
-
-<%--<div class="form">
-    <form id="a" method="POST" action="${pageContext.request.contextPath}/controller/">
-        <input type="hidden" name="command" value="login"/>
-        <div class="field">
-            <input type="text" name="login" value="" required/>Email<br>
-            <span class="spin"></span>
-        </div>
-        <div class="field">
-            <input type="password" name="password" value="" required/>Password<br>
-            <span class="spin"></span>
-
-        </div>
-        <br>
-
-        <button type="button" class="button_2">Submit</button>
-
-    </form>
-</div>--%>
 </body>
 </html>

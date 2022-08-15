@@ -39,77 +39,44 @@ VALUES (default, 'Flower', '/img/linerPhoto/4.png', 800, 1);
 -- cruise values
 -- ---------------
 INSERT INTO cruise
-VALUES (1, /*'7-Day Canada & New England',*/ '/img/cruisePhoto/1.png',
-           /*'Roundtrip from New York City (Manhattan or Brooklyn), New York',*/ 5, 569,
-           /*'New York - Newport - Boston - Bar Harbor - Saint John - Halifax',*/ '2022-05-12', '2022-05-19', 1);
+VALUES (1, '/img/cruisePhoto/1.png', 5, 569, '2022-05-12', '2022-05-19', 1);
 INSERT INTO cruise
-VALUES (2, /*'15-Day British Isles & Norway Passage',*/ '/img/cruisePhoto/2.png',
-           /*'Southampton (London), England to New York City (Manhattan or Brooklyn), New York',*/ 5, 759,
-           /*'London - Bergen - Belfast - Cork - Azores Islands - Boston - New York ',*/ '2022-07-01', '2022-07-15', 2);
+VALUES (2, '/img/cruisePhoto/2.png', 5, 759, '2022-07-01', '2022-07-15', 2);
 INSERT INTO cruise
-VALUES (3, /*'14-Day Spanish Passage',*/ '/img/cruisePhoto/3.png', /*'Ft. Lauderdale, Florida to Barcelona, Spain',*/ 5,
-        787, /*'Ft. Lauderdale - Madeira - Seville - Malaga - Cartagena - Mallorca - Marseille - Barcelona',*/
-        '2022-12-1',
-        '2022-12-15', 3);
+VALUES (3, '/img/cruisePhoto/3.png', 5, 787, '2022-12-1', '2022-12-15', 3);
 INSERT INTO cruise
-VALUES (4, /*'10-Day Southern Caribbean with Curacao',*/ '/img/cruisePhoto/4.png',
-           /*'Roundtrip from Ft. Lauderdale, Florida',*/ 6, 901,
-           /*'Ft. Lauderdale - Princess Cays - St.Thomas - Dominica - Grenada - Bonaire - Curacao - Aruba - Ft. Lauderdale ',*/
-        '2022-07-05', '2022-07-15', 3);
+VALUES (4, '/img/cruisePhoto/4.png', 6, 901, '2022-07-05', '2022-07-15', 3);
 INSERT INTO cruise
-VALUES (5, /*'14-Day Caribbean Islander',*/ '/img/cruisePhoto/5.png',
-           /*'New York City (Manhattan or Brooklyn), New York to Ft. Lauderdale, Florida',*/ 7, 979,
-/*        'New York - San Juan - St.Maarten - St. Kitts - St. Lucia - Bonaire - Curacao - Aruba - Ft. Lauderdale ',*/
-        '2022-07-01', '2022-07-15', 4);
+VALUES (5, '/img/cruisePhoto/5.png', 7, 979, '2022-07-01', '2022-07-15', 4);
 INSERT INTO cruise
-VALUES (6, /*'4-Day Netherlands & Channel Islands Sampler',*/ '/img/cruisePhoto/6.png',
-           /*'Roundtrip from Southampton (London), England',*/ 2, 201, /*'London - Rotterdam - Guernsey - London',*/
-        '2022-07-05',
-        '2022-07-09', 1);
+VALUES (6, '/img/cruisePhoto/6.png', 2, 201, '2022-07-05', '2022-07-09', 1);
 INSERT INTO cruise
-VALUES (7,/* '7-Day Sports Stars Themed Cruise Spain & France',*/ '/img/cruisePhoto/7.png',
-           /* 'Roundtrip from Southampton (London), England',*/ 4, 649,
-           /*'London - Guernsey - La Rochelle - Bordeaux - Bilbao - La Coruna - London ',*/ '2022-06-09', '2022-06-16',
-        2);
+VALUES (7, '/img/cruisePhoto/7.png', 4, 649, '2022-06-09', '2022-06-16', 2);
 
 
 -- ---------------
 -- translation_cruise values
 -- ---------------
 INSERT INTO translation_cruise
-VALUES (1, 'en', '7-Day Canada & New England', 'Roundtrip from New York City (Manhattan or Brooklyn), New York',
-        'New York - Newport - Boston - Bar Harbor - Saint John - Halifax'),
-       (1, 'ua', '7-Днів Канада та Нова Англія', 'Туди й назад з Нью-Йорка (Манхеттен або Бруклін), Нью-Йорк',
-        'Нью-Йорк – Ньюпорт – Бостон – Бар-Харбор – Сент-Джон – Галіфакс'),
+VALUES (1, 'en', '7-Day Canada & New England', 'Roundtrip from New York City (Manhattan or Brooklyn), New York'),
+       (1, 'ua', '7-Днів Канада та Нова Англія', 'Туди й назад з Нью-Йорка (Манхеттен або Бруклін), Нью-Йорк'),
        (2, 'en', '15-Day British Isles & Norway Passage',
-        'Southampton (London), England to New York City (Manhattan or Brooklyn), New York',
-        'London - Bergen - Belfast - Cork - Azores Islands - Boston - New York '),
+        'Southampton (London), England to New York City (Manhattan or Brooklyn), New York'),
        (2, 'ua', '15-Днів Британські острови та Норвезький прохід',
-        'Саутгемптон (Лондон), Англія – Нью-Йорк (Манхеттен або Бруклін), Нью-Йорк',
-        'Лондон – Берген – Белфаст – Корк – Азорські острови – Бостон – Нью-Йорк'),
-       (3, 'en', '14-Day Spanish Passage', 'Ft. Lauderdale, Florida to Barcelona, Spain',
-        'Ft. Lauderdale - Madeira - Seville - Malaga - Cartagena - Mallorca - Marseille - Barcelona'),
-       (3, 'ua', '14-Днів Іспанський Пасаж', 'Ft. Лодердейл, Флорида, до Барселони, Іспанія',
-        'Ft. Лодердейл - Мадейра - Севілья - Малага - Картахена - Майорка - Марсель - Барселона'),
-       (4, 'en', '10-Day Southern Caribbean with Curacao', 'Roundtrip from Ft. Lauderdale, Florida',
-        'Ft. Lauderdale - Princess Cays - St.Thomas - Dominica - Grenada - Bonaire - Curacao - Aruba - Ft. Lauderdale '),
-       (4, 'ua', '10-Днів Південні Кариби з Кюрасао', 'Туди й назад із Ft. Лодердейл, Флорида',
-        'Ft. Лодердейл - Принсес-Кейс - Сент-Томас - Домініка - Гренада - Бонайре - Кюрасао - Аруба - Форт. Лодердейл'),
+        'Саутгемптон (Лондон), Англія – Нью-Йорк (Манхеттен або Бруклін), Нью-Йорк'),
+       (3, 'en', '14-Day Spanish Passage', 'Ft. Lauderdale, Florida to Barcelona, Spain'),
+       (3, 'ua', '14-Днів Іспанський Пасаж', 'Ft. Лодердейл, Флорида, до Барселони, Іспанія'),
+       (4, 'en', '10-Day Southern Caribbean with Curacao', 'Roundtrip from Ft. Lauderdale, Florida'),
+       (4, 'ua', '10-Днів Південні Кариби з Кюрасао', 'Туди й назад із Ft. Лодердейл, Флорида'),
        (5, 'en', '14-Day Caribbean Islander',
-        'New York City (Manhattan or Brooklyn), New York to Ft. Lauderdale, Florida',
-        'New York - San Juan - St.Maarten - St. Kitts - St. Lucia - Bonaire - Curacao - Aruba - Ft. Lauderdale '),
+        'New York City (Manhattan or Brooklyn), New York to Ft. Lauderdale, Florida'),
        (5, 'ua', '14-Днів Карибський островянин',
-        'Нью-Йорк (Манхеттен або Бруклін), Нью-Йорк до Ft. Лодердейл, Флорида',
-        'Нью-Йорк – Сан-Хуан – Сент-Мартен – Сент-Кітс – Сент-Люсія – Бонайре – Кюрасао – Аруба – Форт. Лодердейл'),
-       (6, 'en', '4-Day Netherlands & Channel Islands Sampler', 'Roundtrip from Southampton (London), England',
-        'London - Rotterdam - Guernsey - London'),
-       (6, 'ua', '4-Дні Нідерланди та Семплер Нормандських островів', 'Туди й назад із Саутгемптона (Лондон), Англія',
-        'Лондон - Роттердам - Гернсі - Лондон'),
-       (7, 'en', '7-Day Sports Stars Themed Cruise Spain & France', 'Roundtrip from Southampton (London), England',
-        'London - Guernsey - La Rochelle - Bordeaux - Bilbao - La Coruna - London '),
+        'Нью-Йорк (Манхеттен або Бруклін), Нью-Йорк до Ft. Лодердейл, Флорида'),
+       (6, 'en', '4-Day Netherlands & Channel Islands Sampler', 'Roundtrip from Southampton (London), England'),
+       (6, 'ua', '4-Дні Нідерланди та Семплер Нормандських островів', 'Туди й назад із Саутгемптона (Лондон), Англія'),
+       (7, 'en', '7-Day Sports Stars Themed Cruise Spain & France', 'Roundtrip from Southampton (London), England'),
        (7, 'ua', '7-Днів Тематичний круїз Sports Stars по Іспанії та Франції',
-        'Туди й назад із Саутгемптона (Лондон), Англія',
-        'Лондон - Гернсі - Ла-Рошель - Бордо - Більбао - Ла-Корунья - Лондон');
+        'Туди й назад із Саутгемптона (Лондон), Англія');
 
 -- ---------------
 -- request values
@@ -271,7 +238,6 @@ VALUES (1, 1, 1, '2022-05-12 12:00:00'),
        (6, 30, 2, '2022-07-06 12:00:00'),
        (6, 31, 3, '2022-07-08 12:00:00'),
        (6, 6, 4, '2022-07-09 12:00:00'),
-       -- 'London - Guernsey - La Rochelle - Bordeaux - Bilbao - La Coruna - London ', '2022-06-09', '2022-06-16', 2);
 
        (7, 6, 1, '2022-06-09 12:00:00'),
        (7, 31, 2, '2022-06-10 12:00:00'),
@@ -283,15 +249,20 @@ VALUES (1, 1, 1, '2022-05-12 12:00:00'),
 ;
 
 
-SELECT *
-FROM request
-         INNER JOIN cruise c on request.cruise_id = c.id
-         INNER JOIN user u on request.user_id = u.id
-         INNER JOIN translation_cruise t on c.id = t.cruise_id
-where lang='ua';
-
-select *
+select * from port
+where lang='en'
+ORDER BY city ASC
+/*SELECT *
+FROM port
+         join cruise_has_port chp on port.id = chp.port_id
+         join cruise c on c.id = chp.cruise_id
+         JOIN translation_cruise tc on c.id = tc.cruise_id
+         JOIN liner l on l.id = c.liner_id
+WHERE port.lang = 'ua'
+  AND tc.lang = 'ua';
+*/
+/*select *
 from user
 
-
+*/
 

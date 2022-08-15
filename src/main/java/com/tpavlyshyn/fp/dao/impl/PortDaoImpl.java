@@ -19,10 +19,15 @@ public class PortDaoImpl implements PortDao {
     private final static Logger log = Logger.getLogger(PortDaoImpl.class);
 
 
-    private static final String SQL__FIND_ALL_PORTS = "SELECT * " +
+    private static final String SQL__FIND_CRUISES_PORTS = "SELECT * " +
             "FROM port " +
             "INNER JOIN cruise_has_port chp ON port.id = chp.port_id " +
             "WHERE chp.cruise_id=? AND lang = ?;";
+
+    private static final String SQL__FIND_ALL_PORTS = "SELECT * " +
+            "FROM port " +
+            "WHERE lang = ?"+
+            " ORDER BY city ASC";
 
     private final DataSource ds;
 
@@ -30,11 +35,13 @@ public class PortDaoImpl implements PortDao {
         this.ds = ds;
     }
 
+
+
     @Override
     public List<Port> findAllByCruiseId(int cruiseId, String lang) throws DaoException {
         List<Port> portList = new ArrayList<>();
         try (Connection con = ds.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(SQL__FIND_ALL_PORTS)) {
+             PreparedStatement pstmt = con.prepareStatement(SQL__FIND_CRUISES_PORTS)) {
 
             pstmt.setInt(1, cruiseId);
             pstmt.setString(2, lang);
@@ -51,6 +58,25 @@ public class PortDaoImpl implements PortDao {
         }
         return portList;
     }
+
+    @Override
+    public List<Port> findAllByLang(String lang) throws DaoException {
+        List<Port> portList = new ArrayList<>();
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(SQL__FIND_ALL_PORTS)) {
+            pstmt.setString(1, lang);
+            try(ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Port port = PortDaoImpl.extractPort(rs);
+                    portList.add(port);
+                }
+            }
+
+        } catch (SQLException ex) {
+            log.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
+        }
+        return portList;    }
 
     @Override
     public Optional<Port> findById(Integer id) throws DaoException {

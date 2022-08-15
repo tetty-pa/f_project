@@ -5,7 +5,13 @@ public class TranslationCruise {
     String land;
     String cruiseNameLand;
     String descriptionLand;
-    String routeLand;
+
+    public TranslationCruise(int cruiseId, String land, String cruiseNameLand, String descriptionLand) {
+        this.cruiseId = cruiseId;
+        this.land = land;
+        this.cruiseNameLand = cruiseNameLand;
+        this.descriptionLand = descriptionLand;
+    }
 
     public int getCruiseId() {
         return cruiseId;
@@ -37,13 +43,5 @@ public class TranslationCruise {
 
     public void setDescriptionLand(String descriptionLand) {
         this.descriptionLand = descriptionLand;
-    }
-
-    public String getRouteLand() {
-        return routeLand;
-    }
-
-    public void setRouteLand(String routeLand) {
-        this.routeLand = routeLand;
     }
 }

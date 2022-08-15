@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Tetiana Pavlyshyn
@@ -6,6 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
     <title>Registration Page</title>
@@ -21,7 +24,7 @@
                  src="${pageContext.request.contextPath}/img/logo.png"
                  alt=""></a>
 
-        <div class="title">Registration</div>
+        <div class="title"><fmt:message key="registration.title"/> </div>
         <%
             if(request.getAttribute("message")!=null)
             {
@@ -32,25 +35,25 @@
             <input type="hidden" name="command" value="registration"/>
             <div class="input__field">
                 <input type="text" name="name" value="" required/>
-                <label>Name</label>
+                <label><fmt:message key="label.name"/></label>
             </div>
             <div class="input__field">
                 <input type="text" name="surname" value="" required/>
-                <label>Surname</label>
+                <label><fmt:message key="label.surname"/></label>
             </div>
             <div class="input__field">
                 <input type="text" name="email" value="" required/>
-                <label>Email</label>
+                <label><fmt:message key="label.email"/></label>
             </div>
             <div class="input__field">
                 <input type="password" name="password" value="" required/>
-                <label>Password</label>
+                <label><fmt:message key="label.password"/></label>
             </div>
             <br>
-            <button type="submit" id="submit-reg" class="button_1">Sign up</button>
+            <button type="submit" id="submit-reg" class="button_1"><fmt:message key="button.sign_up"/></button>
 
             <div class="style__text">
-                <a href="${pageContext.request.contextPath}/jsp/common/login.jsp"> Sign in </a>
+                <a href="${pageContext.request.contextPath}/jsp/common/login.jsp"> <fmt:message key="button.sign_in"/> </a>
             </div>
 
         </form>

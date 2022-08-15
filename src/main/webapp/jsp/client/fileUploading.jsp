@@ -15,14 +15,7 @@
 
 Select a file to upload: <br/>
 
-<%--<form id="comm1" method="POST" action="${pageContext.request.contextPath}/controller/"  enctype = "multipart/form-data">
-    <input type="hidden" name="command" value="uploadDocuments"/>
-    <input type = "file" name = "file" size = "50" />
-    <br>
-    <input class="btn btn-secondary" type = "submit" value = "Upload File" />
-
-</form>--%>
-<form class="form_file" id="comm1" method="POST" action="${pageContext.request.contextPath}/controller/"
+<form <%--class="form_file"--%> id="comm1" method="POST" action="${pageContext.request.contextPath}/controller/"
       enctype="multipart/form-data">
     <input type="hidden" name="command" value="uploadDocuments"/>
     <input class="input_file" type="file" name="file"/>

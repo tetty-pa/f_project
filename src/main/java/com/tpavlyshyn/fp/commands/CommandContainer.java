@@ -14,7 +14,6 @@ public class CommandContainer {
     private static CommandContainer instance = null;
 */
 
-
     /*    static {
             commands.put("registration", new RegistrationCommand());
             commands.put("showCruises", new ShowCruisesCommand());

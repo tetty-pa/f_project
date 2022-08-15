@@ -1,17 +1,13 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="messages"/>
 <html>
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title></title>
-
-    <%--<link
-        href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css'
-        rel='stylesheet'>
-    <link href='' rel='stylesheet'>
-    <script type='text/javascript'
-        src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>--%>
-    <jsp:include page="/jsp/header.jsp"/>
+   <jsp:include page="/jsp/header.jsp"/>
 
     <style>
         body {
@@ -19,8 +15,6 @@
             background-color: #eee;
             background-size: cover;
             color: #505050;
-
-
         }
 
         .forgot {
@@ -40,25 +34,24 @@
         }
     </style>
 </head>
-<body <%--oncontextmenu='return false' class='snippet-body'--%>>
+<body>
 <div class="container padding-bottom-3x mb-3 mt-5 ">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
             <div class="forgot">
-                <div class="title m-3">Forgot your password?</div>
-                <p>Change your password in three easy steps. This will help you
-                    to secure your password!</p>
+                <div class="title m-3"><fmt:message key="forgot_password.title"/> </div>
+                <p><fmt:message key="forgot_password.description"/></p>
                 <ol class="list-styled">
                     <li><span class="text-primary text-medium">
-                    </span>Enter your email address below.
+                    </span><fmt:message key="forgot_password.step1"/>
                     </li>
                     <br>
                     <li><span class="text-primary text-medium">
-                    </span>Our system will send you an OTP to your email
+                    </span><fmt:message key="forgot_password.step2"/>
                     </li>
                     <br>
                     <li><span class="text-primary text-medium">
-                    </span>Enter the OTP on the next page
+                    </span><fmt:message key="forgot_password.step3"/>
                     </li>
                 </ol>
             </div>
@@ -66,19 +59,17 @@
                 <input type="hidden" name="command" value="forgotPassword">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="email-for-pass">Enter your email address</label>
+                        <label for="email-for-pass"><fmt:message key="forgot_password.enter_email"/></label>
                         <input
                             class="form-control border-danger" type="text" name="email" id="email-for-pass" required=""><small
-                            class="form-text text-muted">Enter the registered email address . Then we'll
-                        email a OTP to this address.</small>
+                            class="form-text text-muted"><fmt:message key="forgot_password.enter_email_sub"/></small>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-outline-secondary" type="submit">Get New
-                        Password
+                    <button class="btn btn-outline-secondary" type="submit"><fmt:message key="forgot_password.button_get_new_pass"/>
                     </button>
-                    <button class="btn btn-secondary" type="submit">Back to
-                        Login
+                    <button class="btn btn-secondary" type="submit">
+                        <fmt:message key="forgot_password.button_back_to_login"/>
                     </button>
                 </div>
             </form>
