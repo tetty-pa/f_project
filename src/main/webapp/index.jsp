@@ -6,8 +6,8 @@
 <fmt:setBundle basename="messages"/>
 
 <head>
-    <jsp:include page="/jsp/header.jsp"/>
     <title>Main</title>
+    <jsp:include page="/jsp/header.jsp"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/file.css"/>
 </head>
 
@@ -121,11 +121,8 @@
     Launch demo modal
 </button>
 
+<a href="jsp/admin/addCruise.jsp">addcruise</a>
 
-<form method="GET" action="${pageContext.request.contextPath}/controller/">
-    <input type="hidden" name="command" value="showAllPorts"/>
-    <input type="submit" value="show all ports"/>
-</form>
 <tag:editProfile/>
 </body>
 

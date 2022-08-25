@@ -231,6 +231,8 @@ h1, h2, h3, h4 {
 .cruise__photo {
     position: relative;
     margin: 10px;
+    width: 1200px;
+    height: 350px;
 }
 
 .cruise__container {
@@ -288,7 +290,7 @@ h1, h2, h3, h4 {
     width: 500px;
     float: right;
     text-transform: none;
-    background: rgba(101, 100, 91, 0.71);
+    background: rgba(246, 255, 243, 0.32);
 }
 
 .cruise__date {
@@ -485,7 +487,9 @@ nav {
     /*
     margin: auto;
     */
+    /*
     text-align: center;
+    */
 }
 
 .edit {

@@ -6,18 +6,17 @@
 <html>
 <head>
     <title>My orders</title>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">--%>
     <jsp:include page="/jsp/header.jsp"/>
 
 </head>
 <body>
 <div class="table__container">
-    <div class="title"><fmt:message key="showUsersOrders.title"/> </div>
+    <div class="title"><fmt:message key="showUsersOrders.title"/></div>
 
     <table class="table table-bordered table-light">
-
+        <c:if test="${not empty requestScope.requests}">
         <tr>
             <td><B><fmt:message key="label.name"/></B></td>
             <td><B><fmt:message key="label.start_date"/></B></td>
@@ -26,7 +25,7 @@
             <td></td>
 
         </tr>
-        </thead>
+
         <c:forEach items="${requestScope.requests}" var="requestU">
 
             <tr>
@@ -38,12 +37,10 @@
                     <form id="comm3" method="GET" action="${pageContext.request.contextPath}/controller/">
                         <input type="hidden" name="command" value="calculateTotalPrice"/>
                         <input type="hidden" name="requestId" value="${requestU.id}"/>
-<%--
-                        <input type="hidden" name="request" value="${requestU}"/>
---%>
-                        <button class="btn btn-secondary" type="submit"><fmt:message key="button.pay_upload_doc"/></button>
+                        <button class="btn btn-secondary" type="submit"><fmt:message
+                                key="button.pay_upload_doc"/></button>
                     </form>
-                    </c:if>
+                </c:if>
                     <c:if test="${requestU.status == 'PAID'}">
                         <form method="GET" action="${pageContext.request.contextPath}/controller/">
                             <input type="hidden" name="command" value="pdf"/>
@@ -58,10 +55,14 @@
                 </td>
 
 
-
             </tr>
         </c:forEach>
-    </table>
+
+            </table>
+    </c:if>
+    <c:if test="${ empty requestScope.requests}">
+        you hadn`t made an order yet
+    </c:if>
 </div>
 </body>
 </html>

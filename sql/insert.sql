@@ -249,20 +249,4 @@ VALUES (1, 1, 1, '2022-05-12 12:00:00'),
 ;
 
 
-select * from port
-where lang='en'
-ORDER BY city ASC
-/*SELECT *
-FROM port
-         join cruise_has_port chp on port.id = chp.port_id
-         join cruise c on c.id = chp.cruise_id
-         JOIN translation_cruise tc on c.id = tc.cruise_id
-         JOIN liner l on l.id = c.liner_id
-WHERE port.lang = 'ua'
-  AND tc.lang = 'ua';
-*/
-/*select *
-from user
-
-*/
-
+select * from cruise_has_port

@@ -15,19 +15,10 @@
         --black: #525252;
         --orange: #FF4742;
         --white: #F7FBFC;
-        /*
-        --grey: #C2C2C2;
-        */
     }
 
     #page {
         width: 100%;
-        /*
-        height: 100vh;
-        */
-        /*
-        background-color: whitesmoke;
-        */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -37,24 +28,10 @@
         width: 41.875rem;
         height: 18.4375rem;
         background-color: var(--black);
-        /*
-        font-family: 'Questrial', sans-serif;
-        */
         position: relative;
         z-index: 1;
         justify-content: left;
     }
-
-    /*    .product-container {
-            width: 21.25rem;
-            height: 17.1875rem;
-            background-color: var(--orange);
-            position: relative;
-            top: -2.7rem;
-            left: -4.4rem;
-            overflow: hidden;
-        }*/
-
     h2 {
         color: white;
         font-size: 18px;
@@ -249,9 +226,6 @@
                     <label for="cvc">cvc
                         <input type="text" id="cvc" placeholder="000">
                     </label>
-                    <%--<button class="button_red m">
-                        <i class="fa fa-angle-right"></i>
-                    </button>--%>
                     <label for="remember"><fmt:message key="pay.save_info"/>
                         <input type="checkbox" checked="checked" id="remember">
                     </label>

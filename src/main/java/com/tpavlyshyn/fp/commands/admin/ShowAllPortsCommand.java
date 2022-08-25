@@ -4,6 +4,7 @@ import com.tpavlyshyn.fp.commands.Command;
 import com.tpavlyshyn.fp.commands.Path;
 import com.tpavlyshyn.fp.commands.action.Dispatcher;
 import com.tpavlyshyn.fp.commands.action.Forward;
+import com.tpavlyshyn.fp.dto.PortsNumberOfRows;
 import com.tpavlyshyn.fp.entity.Port;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.CruiseService;
@@ -23,11 +24,31 @@ public class ShowAllPortsCommand implements Command {
     public Dispatcher execute(HttpServletRequest request, HttpServletResponse response) {
         String land = (String) request.getSession().getAttribute("locale");
         try {
-            List<Port> portList = cruiseService.showPorts(land);
-            request.setAttribute("ports", portList);
+            int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+            int recordsPerPage = 20;
+            int start = currentPage * recordsPerPage - recordsPerPage;
+
+            PortsNumberOfRows portList = cruiseService.showPorts(land, start, recordsPerPage);
+            request.setAttribute("ports", portList.getPorts());
+            int numberOfPages = getNumberOfPages(recordsPerPage, portList.getNumberOfRows());
+            request.setAttribute("numberOfPages", numberOfPages);
+            request.setAttribute("currentPage", currentPage);
+            request.setAttribute("recordsPerPage", recordsPerPage);
+
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        return new Forward(Path.PAGE__ADD_CRUISE);
+        return new Forward(Path.PAGE__SHOW_ALL_PORTS);
+    }
+    public int getNumberOfPages(int recordsPerPage, int numberOfRows) throws ServiceException {
+        int numberOfPages;
+        numberOfPages = numberOfRows / recordsPerPage;
+        if (numberOfRows % recordsPerPage > 0) {
+            numberOfPages++;
+        }
+  /*      log.debug("Number of rows--> " + numberOfRows);
+        log.debug("Records per page--> " + recordsPerPage);
+        log.debug("Number of pages--> " + numberOfPages);*/
+        return numberOfPages;
     }
 }

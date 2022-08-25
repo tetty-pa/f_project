@@ -15,7 +15,7 @@
         <div class="container__cruise_info">
             <div class="cruise__name">${requestScope.cruise.cruiseName}</div>
             <div class="cruise__description">${requestScope.cruise.description}</div>
-            <div class="cruise__price">Price: ${requestScope.cruise.price}$</div>
+            <div class="cruise__price"><fmt:message key="label.price"/>: ${requestScope.cruise.price}$</div>
             <div class="text-black">
                 ${requestScope.cruise.numberOfPorts} <fmt:message key="showCruises.ports_visited"/> ,
                     <fmt:message key="showCruiseInfo.dates"/> ${requestScope.cruise.startDate}-
@@ -36,7 +36,7 @@
         </div>
         <img src="${pageContext.request.contextPath}${requestScope.cruise.liner.linerPhoto}">
         <div class="text-black-50 offset-sm-1">
-            ${requestScope.cruise.liner.linerName}, ${requestScope.cruise.liner.passengerCapacity} passengers
+            ${requestScope.cruise.liner.linerName}, ${requestScope.cruise.liner.passengerCapacity} <fmt:message key="liner.passengers"/>
         </div>
 
         <form id="comm" method="POST" action="${pageContext.request.contextPath}/controller/">
@@ -45,13 +45,13 @@
             <div class="field">
                 <br>
                 <hr>
-                <div class=" col-md-3 "> have many places do you need ?</div>
+                <div class=" col-md-3 "> <fmt:message key="showCruiseInfo.have_many_places"/></div>
                 <label>
                     <input type="number" value="1" min="1" name="amount" required/>
-                </label>amount<br>
+                </label><fmt:message key="label.amount"/><br>
                 <hr>
             </div>
-            <button class="button_red" role="button">Book now</button>
+            <button class="button_red" role="button"><fmt:message key="button.book_now"/></button>
 
         </form>
 

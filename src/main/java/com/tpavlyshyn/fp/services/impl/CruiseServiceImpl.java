@@ -3,7 +3,9 @@ package com.tpavlyshyn.fp.services.impl;
 import com.tpavlyshyn.fp.dao.CruiseDao;
 import com.tpavlyshyn.fp.dao.PortDao;
 import com.tpavlyshyn.fp.dao.RequestDao;
+import com.tpavlyshyn.fp.dto.CruisePort;
 import com.tpavlyshyn.fp.dto.CruisesNumberOfRows;
+import com.tpavlyshyn.fp.dto.PortsNumberOfRows;
 import com.tpavlyshyn.fp.entity.Port;
 import com.tpavlyshyn.fp.entity.TranslationCruise;
 import com.tpavlyshyn.fp.exceptions.DaoException;
@@ -39,7 +41,7 @@ public class CruiseServiceImpl implements CruiseService {
     @Override
     public CruisesNumberOfRows showCruisesWithParam(Integer from, Integer to, Optional<Integer> month, Optional<Integer> year, int currentPage, int recordsPerPage, String lang) throws ServiceException {
         CruisesNumberOfRows cruisesNumberOfRows;
-        Optional<String> whereDurationOpt = builtWhereDurationOpt(from, to);
+        Optional<String> whereDurationOpt = builtWhereDurationOpt();
         Optional<String> whereMonthOpt = builtWhereMonthOpt(month, year);
         String whereClauseOpt;
         log.debug("Building where clause for query");
@@ -59,7 +61,7 @@ public class CruiseServiceImpl implements CruiseService {
         return cruisesNumberOfRows;
     }
 
-    private Optional<String> builtWhereDurationOpt(Integer fromOpt, Integer toOpt) {
+    private Optional<String> builtWhereDurationOpt() {
         List<String> params = new ArrayList<>();
         params.add("?");
         params.add("?");
@@ -80,9 +82,6 @@ public class CruiseServiceImpl implements CruiseService {
         return params.stream().reduce((a, b) -> " month(start_date) = " + a + " AND year(start_date) = " + b);
     }
 
-    private Optional<Integer> getOpt(Optional<String> param) {
-        return param.map(Integer::parseInt);
-    }
 
 
     @Override
@@ -99,7 +98,7 @@ public class CruiseServiceImpl implements CruiseService {
         return result;
     }
 
-    @Override
+/*    @Override
     public boolean addTranslationCruise(TranslationCruise translationCruise) throws ServiceException {
         boolean result;
         try {
@@ -112,7 +111,7 @@ public class CruiseServiceImpl implements CruiseService {
         }
         return result;
 
-    }
+    }*/
 
     @Override
     public boolean updateCruise(Cruise cruise) throws ServiceException {
@@ -177,11 +176,11 @@ public class CruiseServiceImpl implements CruiseService {
     }
 
     @Override
-    public List<Port> showPorts(String lang) throws ServiceException {
-        List<Port> portList ;
+    public PortsNumberOfRows showPorts(String lang, int currentPage, int recordsPerPage) throws ServiceException {
+        PortsNumberOfRows portList ;
         try {
-            portList = portDao.findAllByLang(lang);
-            if (!portList.isEmpty()) log.info("Found ports-->" + portList);
+            portList = portDao.findAllByLang(lang, currentPage, recordsPerPage);
+            if (!portList.getPorts().isEmpty()) log.info("Found ports-->" + portList);
             else log.info("Ports weren`t found");
         } catch (DaoException ex) {
             log.error(ex.getMessage(), ex);
@@ -201,32 +200,25 @@ public class CruiseServiceImpl implements CruiseService {
         return false;
     }
 
-    @Override
-    public boolean addPortToCruise(int cruiseId, int portId, int sequence_number, LocalDateTime arrivalTime) throws ServiceException {
+/*    @Override
+    public boolean addPortToCruise(int cruiseId, int portId, int sequence_number, Date arrivalTime) throws ServiceException {
         try {
             return cruiseDao.addPortToCruise(cruiseId, portId, sequence_number, arrivalTime);
         } catch (DaoException ex) {
             log.error(ex.getMessage(), ex);
         }
         return false;
+    }*/
+
+    @Override
+    public boolean addCruiseWithTranslations(Cruise cruise, TranslationCruise translationCruiseEn, TranslationCruise translationCruiseUa, List<CruisePort> cruisePorts) throws ServiceException {
+        try {
+            return cruiseDao.createCruiseWithTranslations(cruise, translationCruiseUa, translationCruiseEn, cruisePorts);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
- /*   public int getNumberOfPages(int recordsPerPage) throws ServiceException {
-        int numberOfPages;
-        int numberOfRows;
-        try {
-            numberOfRows = cruiseDao.getNumOfRows();
-            numberOfPages = numberOfRows / recordsPerPage;
-            if (numberOfPages % recordsPerPage > 0) {
-                numberOfPages++;
-            }
-            log.debug("Records per page--> " + recordsPerPage);
-            log.debug("Number of pages--> " + numberOfPages);
-        } catch (DaoException ex) {
-            log.error(ex.getMessage(), ex);
-            throw new ServiceException(ex);
-        }
-        return numberOfPages;
-    }
-*/
+
 }

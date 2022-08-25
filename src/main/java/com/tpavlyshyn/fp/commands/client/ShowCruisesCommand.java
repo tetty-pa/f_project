@@ -8,7 +8,6 @@ import com.tpavlyshyn.fp.dto.CruisesNumberOfRows;
 import com.tpavlyshyn.fp.entity.Cruise;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.CruiseService;
-import com.tpavlyshyn.fp.services.impl.CruiseServiceImpl;
 import com.tpavlyshyn.fp.commands.Command;
 import com.tpavlyshyn.fp.commands.action.Dispatcher;
 import com.tpavlyshyn.fp.commands.action.Forward;

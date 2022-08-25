@@ -1,6 +1,7 @@
 package com.tpavlyshyn.fp.dao.impl;
 
 import com.tpavlyshyn.fp.dao.CruiseDao;
+import com.tpavlyshyn.fp.dto.CruisePort;
 import com.tpavlyshyn.fp.dto.CruisesNumberOfRows;
 import com.tpavlyshyn.fp.entity.TranslationCruise;
 import com.tpavlyshyn.fp.exceptions.DaoException;
@@ -27,7 +28,7 @@ public class CruiseDaoImpl implements CruiseDao {
                     "WHERE cruise.id = ? " +
                     "  AND tc.lang = ? ";
     private static final String SQL__FIND_ALL_CRUISES_WITH_PARAMETERS =
-            "SELECT *,  COUNT(*) OVER() as number_of_rows FROM cruise " +
+            "SELECT *, COUNT(*) OVER() as number_of_rows FROM cruise " +
                     "INNER JOIN translation_cruise tc on cruise.id = tc.cruise_id ";
 
     private static final String SQL__FIND_ALL_CRUISES =
@@ -44,9 +45,20 @@ public class CruiseDaoImpl implements CruiseDao {
                     "start_date, end_date, liner_id) VALUES " +
                     " (default, ?, ?, ?, ?, ?);";
 
+    private static final String SQL__ADD_PHOTO =
+            "UPDATE cruise SET cruise_photo =? " +
+                    "WHERE id=?";
+
     private static final String SQL__ADD_TRANSLATION_CRUISE =
             "INSERT INTO translation_cruise(cruise_id, lang, cruise_name, description) " +
                     "VALUES (?, ?, ?, ?)";
+    private static final String SQL__ADD_CRUISE1 =
+            "INSERT INTO cruise(id, number_of_ports, price, " +
+                    "start_date, end_date, liner_id) VALUES " +
+                    " (default, ?, ?, ?, ?, ?);" +
+                    "INSERT INTO translation_cruise(cruise_id, lang, cruise_name, description) VALUES(?, ?, ?, ?), (?, ?, ?, ?)";
+
+
     private static final String SQL__FIND_FREE_PLACES_BY_ID =
             "SELECT l.passenger_capacity - COALESCE(current_usage, 0) as free_places FROM cruise c " +
                     "JOIN liner l ON l.id = c.liner_id " +
@@ -57,8 +69,6 @@ public class CruiseDaoImpl implements CruiseDao {
                     ") r on c.id = r.cruise_id " +
                     "WHERE c.id = ?;";
 
-    private static final String SQL__GET_NUMBER_OF_PAGES =
-            "SELECT COUNT(id) AS number_of_rows FROM cruise";
 
     private static final String SQL__UPDATE_CRUISE =
             " UPDATE cruise SET cruise_name =?, description=? , number_of_ports=? , price=? ," +
@@ -74,21 +84,20 @@ public class CruiseDaoImpl implements CruiseDao {
         this.ds = ds;
     }
 
-
+@Override
     public Optional<Cruise> findByIdAndLang(Integer id, String lang) throws DaoException {
         Cruise cruise = null;
 
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_CRUISE_BY_ID);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_CRUISE_BY_ID)) {
             pstmt.setInt(1, id);
             pstmt.setString(2, lang);
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     cruise = extractCruise(rs);
                     cruise.setLiner(LinerDaoImpl.extractLiner(rs));
                 }
             }
-
         } catch (SQLException ex) {
             log.error(ex.getMessage(), ex);
             throw new DaoException(ex.getMessage(), ex);
@@ -97,15 +106,15 @@ public class CruiseDaoImpl implements CruiseDao {
     }
 
     @Override
-    public Optional<Cruise> findById(Integer id) throws DaoException {
+    public Optional<Cruise> findById(Integer id) {
         return Optional.empty();
     }
 
     @Override
     public boolean delete(Integer id) throws DaoException {
-        boolean result = false;
+        boolean result;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__DELETE_CRUISE);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__DELETE_CRUISE)) {
 
             pstmt.setInt(1, id);
             result = pstmt.executeUpdate() > 0;
@@ -121,7 +130,7 @@ public class CruiseDaoImpl implements CruiseDao {
     public boolean create(Cruise cruise) throws DaoException {
         boolean result;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_CRUISE, Statement.RETURN_GENERATED_KEYS);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_CRUISE, Statement.RETURN_GENERATED_KEYS)) {
 
             setCruise(pstmt, cruise);
             result = pstmt.executeUpdate() > 0;
@@ -141,27 +150,108 @@ public class CruiseDaoImpl implements CruiseDao {
     }
 
     @Override
-    public boolean addPortToCruise(int cruiseId, int portId, int sequenceNumber, LocalDateTime arrivalTime) {
+    public boolean createCruiseWithTranslations(Cruise cruise, TranslationCruise translationCruiseUa, TranslationCruise translationCruiseEn, List<CruisePort> cruisePorts) throws DaoException {
+        boolean resultCruise;
+        boolean resultTranslationEn;
+        boolean resultTranslationUa;
+        boolean resultPhoto;
+        try {
+            Connection connection = ds.getConnection();
+            try (PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_CRUISE, Statement.RETURN_GENERATED_KEYS);
+                 PreparedStatement pstmt1 = connection.prepareStatement(SQL__ADD_PHOTO);
+                 PreparedStatement pstmt2 = connection.prepareStatement(SQL__ADD_TRANSLATION_CRUISE);
+                 PreparedStatement pstmt3 = connection.prepareStatement(SQL__ADD_TRANSLATION_CRUISE);
+                 PreparedStatement pstmt4 = connection.prepareStatement(SQL__ADD_PORT_TO_CRUISE)) {
+                setCruise(pstmt, cruise);
+                resultCruise = pstmt.executeUpdate() > 0;
+                int cruiseId = 0;
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        cruiseId = generatedKeys.getInt(1);
+                        cruise.setId(cruiseId);
+                    }
+                }
+                pstmt1.setString(1, "/img/cruisePhoto/" + cruiseId % 20 + ".png");
+                pstmt1.setInt(2, cruiseId);
+                resultPhoto = pstmt1.executeUpdate() > 0;
+                translationCruiseUa.setCruiseId(cruiseId);
+                translationCruiseEn.setCruiseId(cruiseId);
+                setTranslation(translationCruiseUa, pstmt2);
+                setTranslation(translationCruiseEn, pstmt3);
+
+                resultTranslationUa = pstmt2.executeUpdate() > 0;
+                resultTranslationEn = pstmt3.executeUpdate() > 0;
+
+                for (CruisePort cruisePort : cruisePorts) {
+                    pstmt3.setInt(1, cruiseId);
+                    pstmt3.setInt(2, cruisePort.getPortId());
+                    pstmt3.setInt(3, cruisePort.getSequenceNumber());
+                    pstmt3.setTimestamp(4, cruisePort.getArrivalTime());
+                    pstmt3.addBatch();
+                }
+
+                pstmt4.executeBatch();
+                connection.commit();
+
+            } catch (SQLException ex) {
+                try {
+                    connection.rollback();
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                log.error(ex.getMessage(), ex);
+                throw new DaoException(ex.getMessage(), ex);
+            }
+        } catch (SQLException ex) {
+            log.error(ex.getMessage(), ex);
+            throw new DaoException(ex.getMessage(), ex);
+        }
+        return resultCruise && resultTranslationEn && resultTranslationUa && resultPhoto;
+    }
+
+    private void setTranslation(TranslationCruise translationCruise, PreparedStatement pstmt) throws SQLException {
+        pstmt.setInt(1, translationCruise.getCruiseId());
+        pstmt.setString(2, translationCruise.getLand());
+        pstmt.setString(3, translationCruise.getCruiseNameLand());
+        pstmt.setString(4, translationCruise.getDescriptionLand());
+    }
+
+/*    private boolean addTranslation(TranslationCruise translationCruise, Connection connection, PreparedStatement pstmt) throws SQLException {
+        boolean result;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL__ADD_TRANSLATION_CRUISE)) {
+            preparedStatement.setInt(1, translationCruise.getCruiseId());
+            preparedStatement.setString(2, translationCruise.getLand());
+            preparedStatement.setString(3, translationCruise.getCruiseNameLand());
+            preparedStatement.setString(4, translationCruise.getDescriptionLand());
+            result = pstmt.executeUpdate() > 0;
+        }
+        return result;
+    }*/
+
+
+/*    @Override
+    public boolean addPortToCruise(int cruiseId, int portId, int sequenceNumber, Date arrivalTime) {
         boolean result = false;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_PORT_TO_CRUISE);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_PORT_TO_CRUISE)) {
             pstmt.setInt(1, cruiseId);
             pstmt.setInt(2, portId);
             pstmt.setInt(3, sequenceNumber);
-            pstmt.setDate(4, Date.valueOf(String.valueOf(arrivalTime)));
+            pstmt.setDate(4, arrivalTime);
             result = pstmt.executeUpdate() > 0;
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;
-    }
+    }*/
 
-    @Override
+/*    @Override
     public boolean createTranslationCruise(TranslationCruise translationCruise) throws DaoException {
         boolean result;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_TRANSLATION_CRUISE);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_TRANSLATION_CRUISE)) {
             pstmt.setInt(1, translationCruise.getCruiseId());
             pstmt.setString(2, translationCruise.getLand());
             pstmt.setString(3, translationCruise.getCruiseNameLand());
@@ -174,13 +264,13 @@ public class CruiseDaoImpl implements CruiseDao {
             throw new DaoException(ex.getMessage(), ex);
         }
         return result;
-    }
+    }*/
 
     @Override
     public boolean update(Cruise cruise) throws DaoException {
-        boolean result = false;
+        boolean result;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__UPDATE_CRUISE);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__UPDATE_CRUISE)) {
 
             setCruise(pstmt, cruise);
             pstmt.setInt(7, cruise.getId());
@@ -203,12 +293,12 @@ public class CruiseDaoImpl implements CruiseDao {
                                                 int currentPage,
                                                 int recordsPerPage,
                                                 String lang) throws DaoException {
-        List<Cruise> cruises = new ArrayList();
+        List<Cruise> cruises = new ArrayList<>();
         CruisesNumberOfRows cruisesNumberOfRows = new CruisesNumberOfRows();
         int numberOfRows = 0;
 
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_ALL_CRUISES_WITH_PARAMETERS + whereExpression);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_ALL_CRUISES_WITH_PARAMETERS + whereExpression)) {
 
             setFindAllPstmt(from, to, month, year, currentPage, recordsPerPage, lang, pstmt);
 
@@ -253,11 +343,11 @@ public class CruiseDaoImpl implements CruiseDao {
 
     @Override
     public List<Cruise> findAllByLang(String lang) throws DaoException {
-        List<Cruise> cruiseList = new ArrayList();
+        List<Cruise> cruiseList = new ArrayList<>();
         try (Connection connection = ds.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_ALL_CRUISES)) {
             pstmt.setString(1, lang);
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Cruise cruise = extractCruise(rs);
                     cruise.setLiner(LinerDaoImpl.extractLiner(rs));
@@ -280,7 +370,7 @@ public class CruiseDaoImpl implements CruiseDao {
              PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_FREE_PLACES_BY_ID);) {
 
             pstmt.setInt(1, cruise_id);
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next())
                     freePlaces = rs.getInt("free_places");
             }

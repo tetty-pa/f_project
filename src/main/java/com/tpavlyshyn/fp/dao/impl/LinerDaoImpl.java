@@ -1,16 +1,16 @@
 package com.tpavlyshyn.fp.dao.impl;
 
 import com.tpavlyshyn.fp.Fields;
+import com.tpavlyshyn.fp.entity.Port;
 import com.tpavlyshyn.fp.exceptions.DaoException;
 import com.tpavlyshyn.fp.dao.LinerDao;
 import com.tpavlyshyn.fp.entity.Liner;
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class LinerDaoImpl implements LinerDao {
@@ -19,6 +19,8 @@ public class LinerDaoImpl implements LinerDao {
 
     private static final String SQL__FIND_LINER_BY_ID =
             "SELECT * FROM liner WHERE id=?";
+    private static final String SQL__FIND_ALL=
+            "SELECT * FROM liner";
 
     private final DataSource ds;
 
@@ -42,6 +44,25 @@ public class LinerDaoImpl implements LinerDao {
             throw new DaoException(ex);
         }
         return Optional.ofNullable(liner);
+    }
+
+    @Override
+    public List<Liner> findAll() throws DaoException {
+        List<Liner> linerList = new ArrayList<>();
+        try (Connection con = ds.getConnection();
+             Statement pstmt = con.createStatement()) {
+            try(ResultSet rs = pstmt.executeQuery(SQL__FIND_ALL)) {
+                while (rs.next()) {
+                    Liner liner = extractLiner(rs);
+                    linerList.add(liner);
+                }
+            }
+
+        } catch (SQLException ex) {
+            log.error(ex.getMessage(), ex);
+            throw new DaoException(ex);
+        }
+        return linerList;
     }
 
     public static Liner extractLiner(ResultSet rs) {

@@ -1,28 +1,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Tetiana Pavlyshyn
-  Date: 6/20/2022
-  Time: 5:20 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="messages"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>File Uploading</title>
 </head>
 <body>
 
-Select a file to upload: <br/>
+<fmt:message key="label.select_file"/> <br/>
 
-<form <%--class="form_file"--%> id="comm1" method="POST" action="${pageContext.request.contextPath}/controller/"
+<form id="comm1" method="POST" action="${pageContext.request.contextPath}/controller/"
       enctype="multipart/form-data">
     <input type="hidden" name="command" value="uploadDocuments"/>
     <input class="input_file" type="file" name="file"/>
-    <p>Drag your files here or click in this area.</p>
+    <p><fmt:message key="label.drag_files"/></p>
 
     <br>
-    <button class="button_red" type="submit">Upload File</button>
+    <button class="button_red" type="submit"><fmt:message key="button.upload_file"/></button>
 
 </form>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>

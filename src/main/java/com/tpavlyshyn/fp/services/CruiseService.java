@@ -1,6 +1,8 @@
 package com.tpavlyshyn.fp.services;
 
+import com.tpavlyshyn.fp.dto.CruisePort;
 import com.tpavlyshyn.fp.dto.CruisesNumberOfRows;
+import com.tpavlyshyn.fp.dto.PortsNumberOfRows;
 import com.tpavlyshyn.fp.entity.Cruise;
 import com.tpavlyshyn.fp.entity.Port;
 import com.tpavlyshyn.fp.entity.TranslationCruise;
@@ -16,7 +18,9 @@ public interface CruiseService {
 
     boolean addCruise(Cruise cruise) throws ServiceException;
 
+/*
     boolean addTranslationCruise(TranslationCruise translationCruise) throws ServiceException;
+*/
 
     boolean updateCruise(Cruise cruise) throws ServiceException;
 
@@ -26,9 +30,14 @@ public interface CruiseService {
 
     List<Cruise> showCruises(String land) throws ServiceException;
 
-    List<Port> showPorts(String land) throws ServiceException;
+    PortsNumberOfRows showPorts(String land, int currentPage, int recordsPerPage) throws ServiceException;
 
     boolean checkCruiseHasRequests(int id);
 
-    boolean addPortToCruise(int cruiseId, int portId, int sequence_number, LocalDateTime arrivalTime) throws ServiceException;
+/*
+    boolean addPortToCruise(int cruiseId, int portId, int sequence_number, Date arrivalTime) throws ServiceException;
+*/
+
+    boolean addCruiseWithTranslations(Cruise cruise, TranslationCruise translationCruiseEn, TranslationCruise translationCruiseUa, List<CruisePort> cruisePorts) throws ServiceException;
+
 }

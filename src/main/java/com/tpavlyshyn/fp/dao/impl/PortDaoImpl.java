@@ -2,6 +2,8 @@ package com.tpavlyshyn.fp.dao.impl;
 
 import com.tpavlyshyn.fp.Fields;
 import com.tpavlyshyn.fp.dao.PortDao;
+import com.tpavlyshyn.fp.dto.CruisesNumberOfRows;
+import com.tpavlyshyn.fp.dto.PortsNumberOfRows;
 import com.tpavlyshyn.fp.entity.Port;
 import com.tpavlyshyn.fp.exceptions.DaoException;
 import org.apache.log4j.Logger;
@@ -24,17 +26,16 @@ public class PortDaoImpl implements PortDao {
             "INNER JOIN cruise_has_port chp ON port.id = chp.port_id " +
             "WHERE chp.cruise_id=? AND lang = ?;";
 
-    private static final String SQL__FIND_ALL_PORTS = "SELECT * " +
+    private static final String SQL__FIND_ALL_PORTS = "SELECT *,  COUNT(*) OVER() as number_of_rows " +
             "FROM port " +
-            "WHERE lang = ?"+
-            " ORDER BY city ASC";
+            "WHERE lang = ?" +
+            " ORDER BY city ASC  LIMIT ?, ?";
 
     private final DataSource ds;
 
     public PortDaoImpl(DataSource ds) {
         this.ds = ds;
     }
-
 
 
     @Override
@@ -45,7 +46,7 @@ public class PortDaoImpl implements PortDao {
 
             pstmt.setInt(1, cruiseId);
             pstmt.setString(2, lang);
-            try(ResultSet rs = pstmt.executeQuery()) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Port port = PortDaoImpl.extractPort(rs);
                     portList.add(port);
@@ -60,23 +61,31 @@ public class PortDaoImpl implements PortDao {
     }
 
     @Override
-    public List<Port> findAllByLang(String lang) throws DaoException {
+    public PortsNumberOfRows findAllByLang(String lang, int currentPage,
+                                    int recordsPerPage) throws DaoException {
         List<Port> portList = new ArrayList<>();
+        PortsNumberOfRows portsNumberOfRows = new PortsNumberOfRows();
+        int numberOfRows = 0;
         try (Connection con = ds.getConnection();
              PreparedStatement pstmt = con.prepareStatement(SQL__FIND_ALL_PORTS)) {
             pstmt.setString(1, lang);
-            try(ResultSet rs = pstmt.executeQuery()) {
+            pstmt.setInt(2, currentPage);
+            pstmt.setInt(3, recordsPerPage);
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Port port = PortDaoImpl.extractPort(rs);
                     portList.add(port);
+                    numberOfRows = Integer.parseInt(rs.getString("number_of_rows"));
                 }
             }
-
+            portsNumberOfRows.setNumberOfRows(numberOfRows);
+            portsNumberOfRows.setPorts(portList);
         } catch (SQLException ex) {
             log.error(ex.getMessage(), ex);
             throw new DaoException(ex);
         }
-        return portList;    }
+        return portsNumberOfRows;
+    }
 
     @Override
     public Optional<Port> findById(Integer id) throws DaoException {
@@ -101,6 +110,7 @@ public class PortDaoImpl implements PortDao {
     public static Port extractPort(ResultSet rs) {
         Port port = new Port();
         try {
+            port.setId(Integer.parseInt(rs.getString(Fields.ENTITY__ID)));
             port.setCity(rs.getString(Fields.PORT_CITY));
             port.setCountry(rs.getString(Fields.PORT_COUNTRY));
 

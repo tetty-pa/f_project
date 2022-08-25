@@ -32,17 +32,17 @@
 
             <button class="btn btn-secondary" role="button"><fmt:message key="showCruises.button_apply"/></button>
 
-
         </div>
     </form>
 </div>
 
 <div class="table__cruises">
-    <form>
         <div class="container">
             <c:forEach var="cruise" items="${requestScope.cruises}">
-                <div class="cruise__photo">
-                    <img src="${pageContext.request.contextPath}${cruise.cruisePhoto}" alt="cruisePhoto">
+                <div class="cruise__photo" style="background-color: #505050">
+                    <img src="${pageContext.request.contextPath}${cruise.cruisePhoto}" alt="cruisePhoto" width="1200px" height="350px">
+             <%--       <img src="${pageContext.request.contextPath}/img/cruisePhoto/marek-piwnicki-mwG5EclMMWU-unsplash.jpg"   width="1200px" height="350px" alt="cruisePhoto" >
+--%>
                     <div class="cruise__container">
 
                         <div class="table__cruise_item">
@@ -62,18 +62,15 @@
                                     <%--
                                                                     <div class="cruise__price"> ${cruise.price}</div>
                                     --%>
-                                <div class="cruise__date"><fmt:message
-                                        key="label.start_date"/> ${cruise.startDate}</div>
+                                <div class="cruise__date"><fmt:message key="label.start_date"/> ${cruise.startDate}</div>
                                 <div class="cruise__date"><fmt:message key="label.end_date"/> ${cruise.endDate}</div>
-                                <div class="cruise__port">${cruise.numberOfPorts} <fmt:message
-                                        key="showCruises.ports_visited"/></div>
+                                <div class="cruise__port">${cruise.numberOfPorts} <fmt:message key="showCruises.ports_visited"/></div>
 
                             </div>
                             <form method="GET" action="${pageContext.request.contextPath}/controller/">
                                 <input type="hidden" name="command" value="showCruiseInfo"/>
                                 <input type="hidden" name="cruiseId" value="${cruise.id}"/>
-                                <button class="button_2" role="button"><fmt:message
-                                        key="showCruises.cruise_detailes"/></button>
+                                <button class="button_2" role="button"><fmt:message key="showCruises.cruise_detailes"/></button>
                             </form>
                         </div>
                     </div>
@@ -81,11 +78,11 @@
                 </div>
             </c:forEach>
             <nav>
-                <div class="pagination panel-info">
+                <div class="pagination ">
                     <c:if test="${requestScope.numberOfPages gt 1}">
 
                         <c:if test="${requestScope.currentPage != 1}">
-                            <li class="page-item">
+                            <li class="">
                                 <a class="page-link link-dark"
                                    href="${pageContext.request.contextPath}/controller/?command=showCruises&month=${pageContext.request.getParameter("month")}&duration=${pageContext.request.getParameter("duration")}&currentPage=${requestScope.currentPage-1}"><fmt:message
                                         key="showCruises.pagination.previous"/> </a>
@@ -95,7 +92,7 @@
                         <c:forEach begin="1" end="${requestScope.numberOfPages}" var="i">
                             <c:choose>
                                 <c:when test="${requestScope.currentPage eq i}">
-                                    <li class="page-item "><a class="page-link link-dark active">
+                                    <li class=""><a class="page-link link-dark active" style="background-color: #FF4742">
                                             ${i} <span class="sr-only"></span></a>
                                     </li>
                                 </c:when>
@@ -109,22 +106,16 @@
                         </c:forEach>
 
                         <c:if test="${requestScope.currentPage lt requestScope.numberOfPages}">
-                            <li class="page-item">
+                            <li class="">
                                 <a class="page-link link-dark"
                                    href="${pageContext.request.contextPath}/controller/?command=showCruises&month=${pageContext.request.getParameter("month")}&duration=${pageContext.request.getParameter("duration")}&currentPage=${requestScope.currentPage+1}"><fmt:message
                                         key="showCruises.pagination.next"/> </a>
-
                             </li>
                         </c:if>
                     </c:if>
                 </div>
             </nav>
         </div>
-    </form>
 </div>
-<style>
-    .sr-only{
-        color: #FF4742;
-    }
-</style>
+
 </html>

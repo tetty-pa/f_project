@@ -26,7 +26,7 @@ public class CommandSecurityFilter implements Filter {
 
 
     public CommandSecurityFilter() {
-        urls = new ArrayList<String>();
+        urls = new ArrayList<>();
         accessibleCommands = new HashSet<>();
         commonCommands = new HashSet<>();
         clientCommands = new HashSet<>();
@@ -37,18 +37,22 @@ public class CommandSecurityFilter implements Filter {
         accessibleCommands.add("registration");
         accessibleCommands.add("showCruiseInfo");
         accessibleCommands.add("logout");
-
+        accessibleCommands.add("submitRegistration");
+        accessibleCommands.add("forgotPassword");
+        accessibleCommands.add("validateOtp");
+        accessibleCommands.add("newPassword");
+        accessibleCommands.add("changeLang");
         // common commands
-        /*commonCommands.add("login");
-        commonCommands.add("showCruises");*/
+
 
         // client commands
-        clientCommands.add("calculateTotalPrice");
         clientCommands.add("makeRequest");
         clientCommands.add("pay");
         clientCommands.add("showUsersRequests");
         clientCommands.add("uploadDocuments");
-
+        clientCommands.add("pdf");
+        clientCommands.add("calculateTotalPrice");
+        clientCommands.add("editProfile");
 
         // admin commands
         adminCommands.add("addCruise");
@@ -56,7 +60,15 @@ public class CommandSecurityFilter implements Filter {
         adminCommands.add("showAllCruises");
         adminCommands.add("showAllUsers");
         adminCommands.add("submitRequest");
-
+        adminCommands.add("showAllPorts");
+        adminCommands.add("addPortToCruise");
+        adminCommands.add("findAllLiners");
+        adminCommands.add("removePortFromCruise");
+        adminCommands.add("putCruiseIntoSession");
+        adminCommands.add("deleteCruise");
+        adminCommands.add("showAllUsersByCruise");
+        adminCommands.add("updateCruise");
+        adminCommands.add("showUsersRequests");
 
     }
 

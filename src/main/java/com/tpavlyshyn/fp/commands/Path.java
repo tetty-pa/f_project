@@ -15,6 +15,7 @@ public final class Path {
     public static final String PAGE__SHOW_ALL_CRUISES = "/jsp/admin/showAllCruises.jsp";
     public static final String PAGE__ADD_CRUISE = "/jsp/admin/addCruise.jsp";
     public static final String PAGE__PAY = "/jsp/client/pay.jsp";
+    public static final String PAGE__SHOW_ALL_PORTS = "/jsp/admin/addPort.jsp";
 
     public static final String PAGE__INDEX = "/index.jsp";
     public static final String PAGE__ENTER_OTP = "/jsp/common/enterOtp.jsp";
@@ -25,7 +26,7 @@ public final class Path {
     public static final String IMAGES_STORE = "C:\\Users\\Tetiana Pavlyshyn\\IdeaProjects\\f_project - Copy\\src\\main\\webapp\\img\\usersDocuments";
     public static final String COMMAND__SHOW_CRUISES = "/controller?command=showUsersRequests&userId=";
     public static final String COMMAND__SHOW_ALL_CRUISES = "/controller?command=showAllCruises";
-    public static final String COMMAND__SHOW_ALL_PORTS = "/controller?command=showAllPorts&cruiseId=";
+    public static final String COMMAND__SHOW_ALL_PORTS = "/controller?command=showAllPorts";
 
 	/*
 	public static final String COMMAND__SHOW_USERS_CRUISES = "/controller?command=showUsersCruises";

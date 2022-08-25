@@ -5,6 +5,7 @@
 			username="root" password="root"
 			driverClassName="com.mysql.cj.jdbc.Driver"
 			defaultAutoCommit="false"
+			allowMultiQueries="true"
 			defaultTransactionIsolation="READ_COMMITTED"
 			url="jdbc:mysql://localhost:3306/fp_db"/>
 </Context>

@@ -5,7 +5,7 @@ import com.tpavlyshyn.fp.exceptions.DaoException;
 
 import java.util.Optional;
 
-public interface AbstractDao<KEY, ENTITY extends Entity> {
+public interface AbstractDao <KEY, ENTITY extends Entity> {
 
         Optional<ENTITY> findById(KEY id) throws DaoException;
 

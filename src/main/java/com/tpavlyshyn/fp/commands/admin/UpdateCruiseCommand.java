@@ -29,31 +29,31 @@ public class UpdateCruiseCommand implements Command {
 
     @Override
     public Dispatcher execute(HttpServletRequest request, HttpServletResponse response) {
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        String cruiseName = request.getParameter("cruiseName");
-//        String description = request.getParameter("description");
-//
-//        int numberOfPorts = Integer.parseInt(request.getParameter("numberOfPorts"));
-//        Date startDate = Date.valueOf(request.getParameter("startDate"));
-//        Date endDate = Date.valueOf(request.getParameter("endDate"));
-//        int price = Integer.parseInt(request.getParameter("price"));
-//        Cruise cruise = new Cruise(price, numberOfPorts, cruiseName, description, startDate, endDate);
-//        cruise.setId(id);
-//        try {
-//            boolean result = cruiseService.updateCruise(cruise);
-//        } catch (ServiceException ex) {
-//            log.error(ex.getMessage(), ex);
-//            return new Redirect("error page");
-//        }
-//
-        var gson = new GsonBuilder()
+        int id = Integer.parseInt(request.getParameter("id"));
+        String cruiseName = request.getParameter("cruiseName");
+        String description = request.getParameter("description");
+
+        int numberOfPorts = Integer.parseInt(request.getParameter("numberOfPorts"));
+        Date startDate = Date.valueOf(request.getParameter("startDate"));
+        Date endDate = Date.valueOf(request.getParameter("endDate"));
+        int price = Integer.parseInt(request.getParameter("price"));
+        Cruise cruise = new Cruise(price, numberOfPorts, cruiseName, description, startDate, endDate);
+        cruise.setId(id);
+        try {
+            boolean result = cruiseService.updateCruise(cruise);
+        } catch (ServiceException ex) {
+            log.error(ex.getMessage(), ex);
+            return new Redirect("error page");
+        }
+
+       /* var gson = new GsonBuilder()
                 .create();
         try {
             var cruise = gson.fromJson(request.getReader(), Cruise.class);
             cruiseService.updateCruise(cruise);
         } catch (Exception e) {
             return new Redirect("ERROR");
-        }
-        return new Forward(Path.PAGE__INDEX);
+        }*/
+        return new Redirect(request.getContextPath()+Path.PAGE__INDEX);
     }
 }

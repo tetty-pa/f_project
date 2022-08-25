@@ -2,22 +2,18 @@ package com.tpavlyshyn.fp.listener;
 
 import com.tpavlyshyn.fp.commands.Command;
 import com.tpavlyshyn.fp.commands.CommandContainer;
-import com.tpavlyshyn.fp.commands.PdfCommand;
+import com.tpavlyshyn.fp.commands.client.PdfCommand;
 import com.tpavlyshyn.fp.commands.admin.*;
 import com.tpavlyshyn.fp.commands.client.*;
 import com.tpavlyshyn.fp.commands.common.*;
-import com.tpavlyshyn.fp.dao.CruiseDao;
-import com.tpavlyshyn.fp.dao.PortDao;
-import com.tpavlyshyn.fp.dao.RequestDao;
-import com.tpavlyshyn.fp.dao.UserDao;
-import com.tpavlyshyn.fp.dao.impl.CruiseDaoImpl;
-import com.tpavlyshyn.fp.dao.impl.PortDaoImpl;
-import com.tpavlyshyn.fp.dao.impl.RequestDaoImpl;
-import com.tpavlyshyn.fp.dao.impl.UserDaoImpl;
+import com.tpavlyshyn.fp.dao.*;
+import com.tpavlyshyn.fp.dao.impl.*;
 import com.tpavlyshyn.fp.services.CruiseService;
+import com.tpavlyshyn.fp.services.LinerService;
 import com.tpavlyshyn.fp.services.RequestService;
 import com.tpavlyshyn.fp.services.UserService;
 import com.tpavlyshyn.fp.services.impl.CruiseServiceImpl;
+import com.tpavlyshyn.fp.services.impl.LinerServiceImpl;
 import com.tpavlyshyn.fp.services.impl.RequestServiceImpl;
 import com.tpavlyshyn.fp.services.impl.UserServiceImpl;
 import jakarta.servlet.ServletContext;
@@ -39,7 +35,6 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         log.debug("Servlet context initialization starts");
-        jakarta.servlet.jsp.jstl.fmt.LocaleSupport l;
         ServletContext context = event.getServletContext();
         initDatasource(context);
         initLog4J(context);
@@ -72,11 +67,13 @@ public class ContextListener implements ServletContextListener {
         RequestDao requestDao = new RequestDaoImpl(dataSource);
         CruiseDao cruiseDao = new CruiseDaoImpl(dataSource);
         PortDao portDao = new PortDaoImpl(dataSource);
+        LinerDao linerDao = new LinerDaoImpl(dataSource);
 
         //create services
         UserService userService = new UserServiceImpl(userDao);
         RequestService requestService = new RequestServiceImpl(requestDao, cruiseDao);
         CruiseService cruiseService = new CruiseServiceImpl(cruiseDao, portDao, requestDao);
+        LinerService linerService = new LinerServiceImpl(linerDao);
 
         CommandContainer commands = new CommandContainer();
         Command command = new RegistrationCommand(userService);
@@ -86,8 +83,8 @@ public class ContextListener implements ServletContextListener {
         commands.addCommand("showCruises", command);
         command = new LoginCommand(userService);
         commands.addCommand("login", command);
-        command = new AddCruiseCommand(cruiseService);
-        commands.addCommand("addCruise", command);
+        command = new PutCruiseIntoSessionCommand();
+        commands.addCommand("putCruiseIntoSession", command);
         command = new MakeRequestCommand(requestService);
         commands.addCommand("makeRequest", command);
         command = new ShowCruiseInfoCommand(cruiseService);
@@ -138,6 +135,16 @@ public class ContextListener implements ServletContextListener {
 
         command = new AddPortToCruiseCommand(cruiseService);
         commands.addCommand("addPortToCruise", command);
+
+        command = new AddCruiseCommand(cruiseService);
+        commands.addCommand("addCruise", command);
+
+        command = new FindAllLinersCommand(linerService);
+        commands.addCommand("findAllLiners", command);
+
+        command = new RemovePortFromCruiseCommand();
+        commands.addCommand("removePortFromCruise", command);
+
         context.setAttribute("commandContainer", commands);
 
         log.trace("context.setAttribute 'commandContainer': {" + commands + "}");
