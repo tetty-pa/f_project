@@ -6,8 +6,6 @@ import com.tpavlyshyn.fp.entity.Cruise;
 import com.tpavlyshyn.fp.entity.TranslationCruise;
 import com.tpavlyshyn.fp.exceptions.DaoException;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

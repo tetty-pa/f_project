@@ -30,7 +30,7 @@ public class ShowCruiseInfoCommand implements Command {
         try {
             String land = (String) request.getSession().getAttribute("locale");
             cruise = cruiseService.showCruiseInfo(cruiseId, land);
-        request.setAttribute("cruise", cruise);
+            request.setAttribute("cruise", cruise);
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
             return new Redirect("error page");

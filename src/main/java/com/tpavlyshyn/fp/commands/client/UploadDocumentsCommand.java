@@ -44,8 +44,8 @@ public class UploadDocumentsCommand implements Command {
 
             InputStream is = part.getInputStream();
             boolean test = uploadFile(is, path);
-            userService.setDocuments(userId, path);
-            if (test) {
+            boolean result = userService.setDocuments(userId, path);
+            if (test && result) {
                 return new Forward(Path.PAGE__INDEX);
             }
         } catch (ServiceException | ServletException | IOException ex) {

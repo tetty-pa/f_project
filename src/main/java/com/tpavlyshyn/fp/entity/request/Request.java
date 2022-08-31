@@ -36,6 +36,16 @@ public class Request extends Entity {
 
     public void setStatus(Status status) {this.status = status;}
 
+    public Request() {
+    }
+
+    public Request(int amount, int userId, int cruiseId, Status status) {
+        this.amount = amount;
+        this.userId = userId;
+        this.cruiseId = cruiseId;
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Request{" +

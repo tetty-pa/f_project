@@ -247,6 +247,18 @@ VALUES (1, 1, 1, '2022-05-12 12:00:00'),
        (7, 35, 6, '2022-06-15 12:00:00'),
        (7, 6, 7, '2022-06-16 12:00:00')
 ;
+CREATE EVENT e_hourly
+    ON SCHEDULE
+        EVERY 1 HOUR
+    COMMENT 'Makes request closed'
+    DO
+    UPDATE request INNER JOIN cruise c on request.cruise_id = c.id
+    SET request.status='CLOSED'
+    WHERE c.end_date < now();
 
 
-select * from cruise_has_port
+SELECT cruise_id, port_id, lang, city, country
+FROM port
+         INNER JOIN cruise_has_port chp on port.id = chp.port_id
+WHERE lang = 'en'
+  AND cruise_id IN (1, 2)

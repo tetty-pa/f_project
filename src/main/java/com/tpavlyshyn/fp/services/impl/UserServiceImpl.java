@@ -1,5 +1,6 @@
 package com.tpavlyshyn.fp.services.impl;
 
+import com.tpavlyshyn.fp.validators.UserDataValidator;
 import com.tpavlyshyn.fp.dao.UserDao;
 import com.tpavlyshyn.fp.exceptions.DaoException;
 import com.tpavlyshyn.fp.entity.user.User;
@@ -29,11 +30,12 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean signUp(User user) throws ServiceException {
-        boolean result = false;
+        boolean result;
         try {
             result = userDao.create(user);
             if (result) log.info("User was created-->" + user);
             else log.info("User wasn`t created-->" + user);
+
         } catch (DaoException ex) {
             log.error(ex.getMessage(), ex);
             throw new ServiceException(ex);
@@ -73,12 +75,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean setNewPassword(String password, String login) throws ServiceException {
-        boolean result;
+        boolean result = false;
+        UserDataValidator userDataValidator = new UserDataValidator();
         try {
-            result = userDao.updatePassword(password, login);
-            if (result) log.info("User with login " + login + " changed password");
-            else log.info("User with login " + login + "did NOT change password");
-
+            if (userDataValidator.checkPassword(password)) {
+                result = userDao.updatePassword(password, login);
+                if (result) log.info("User with login " + login + " changed password");
+                else log.info("User with login " + login + " did NOT change password");
+            }
         } catch (DaoException ex) {
             log.error(ex.getMessage(), ex);
             throw new ServiceException(ex);
@@ -88,7 +92,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> showUsers() throws ServiceException {
-        List<User> users = new ArrayList<>();
+        List<User> users;
         try {
             users = userDao.findAll();
             if (!users.isEmpty()) log.info("Found users-->" + users);
@@ -132,8 +136,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkUserLoginForUnique(String login) {
         try {
-
-            return userDao.findByLogin(login);
+            return !userDao.findByLogin(login);
         } catch (DaoException ex) {
             log.error(ex.getMessage(), ex);
         }

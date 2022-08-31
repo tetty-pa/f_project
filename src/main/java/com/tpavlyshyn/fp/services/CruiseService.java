@@ -14,15 +14,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CruiseService {
+
     CruisesNumberOfRows showCruisesWithParam(Integer from, Integer to, Optional<Integer> month, Optional<Integer> year, int currentPage, int recordsPerPage, String land) throws ServiceException;
 
-    boolean addCruise(Cruise cruise) throws ServiceException;
-
-/*
-    boolean addTranslationCruise(TranslationCruise translationCruise) throws ServiceException;
-*/
-
-    boolean updateCruise(Cruise cruise) throws ServiceException;
 
     boolean deleteCruise(int cruiseId) throws ServiceException;
 
@@ -33,10 +27,6 @@ public interface CruiseService {
     PortsNumberOfRows showPorts(String land, int currentPage, int recordsPerPage) throws ServiceException;
 
     boolean checkCruiseHasRequests(int id);
-
-/*
-    boolean addPortToCruise(int cruiseId, int portId, int sequence_number, Date arrivalTime) throws ServiceException;
-*/
 
     boolean addCruiseWithTranslations(Cruise cruise, TranslationCruise translationCruiseEn, TranslationCruise translationCruiseUa, List<CruisePort> cruisePorts) throws ServiceException;
 

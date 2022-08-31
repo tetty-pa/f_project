@@ -21,15 +21,16 @@ public class PortDaoImpl implements PortDao {
     private final static Logger log = Logger.getLogger(PortDaoImpl.class);
 
 
-    private static final String SQL__FIND_CRUISES_PORTS = "SELECT * " +
-            "FROM port " +
-            "INNER JOIN cruise_has_port chp ON port.id = chp.port_id " +
-            "WHERE chp.cruise_id=? AND lang = ?;";
-
     private static final String SQL__FIND_ALL_PORTS = "SELECT *,  COUNT(*) OVER() as number_of_rows " +
             "FROM port " +
             "WHERE lang = ?" +
             " ORDER BY city ASC  LIMIT ?, ?";
+    private static final String SQL__FIND_CRUISES_PORTS1 =
+            "SELECT cruise_id, port.id, lang, city, country\n" +
+                    "FROM port\n" +
+                    "         INNER JOIN cruise_has_port chp on port.id = chp.port_id\n" +
+                    "WHERE lang = ?\n" +
+                    "  AND cruise_id IN ";
 
     private final DataSource ds;
 
@@ -38,17 +39,23 @@ public class PortDaoImpl implements PortDao {
     }
 
 
-    @Override
-    public List<Port> findAllByCruiseId(int cruiseId, String lang) throws DaoException {
-        List<Port> portList = new ArrayList<>();
-        try (Connection con = ds.getConnection();
-             PreparedStatement pstmt = con.prepareStatement(SQL__FIND_CRUISES_PORTS)) {
 
-            pstmt.setInt(1, cruiseId);
-            pstmt.setString(2, lang);
+
+
+    @Override
+    public List<Port> findAllByCruiseIds(List<Integer> cruises, String lang) throws DaoException {
+        List<Port> portList = new ArrayList<>();
+        String query = SQL__FIND_CRUISES_PORTS1 + builtPstmt(cruises);
+        try (Connection con = ds.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setString(1, lang);
+            for (int i = 2; i < cruises.size()+2; i++) {
+                pstmt.setInt(i, cruises.get(i-2));
+            }
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Port port = PortDaoImpl.extractPort(rs);
+                    port.setCruiseId(rs.getInt("cruise_id"));
                     portList.add(port);
                 }
             }
@@ -60,9 +67,20 @@ public class PortDaoImpl implements PortDao {
         return portList;
     }
 
+    private String builtPstmt(List<Integer> list) {
+        String s = "(";
+
+        for (int i = 0; i < list.size(); i++) {
+            if (i != list.size() - 1) {
+                s = s  +"?" + ",";
+            } else s = s + "?" + ")";
+        }
+        return s;
+    }
+
     @Override
     public PortsNumberOfRows findAllByLang(String lang, int currentPage,
-                                    int recordsPerPage) throws DaoException {
+                                           int recordsPerPage) throws DaoException {
         List<Port> portList = new ArrayList<>();
         PortsNumberOfRows portsNumberOfRows = new PortsNumberOfRows();
         int numberOfRows = 0;

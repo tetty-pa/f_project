@@ -3,6 +3,7 @@ package com.tpavlyshyn.fp.dao.impl;
 import com.tpavlyshyn.fp.dao.CruiseDao;
 import com.tpavlyshyn.fp.dto.CruisePort;
 import com.tpavlyshyn.fp.dto.CruisesNumberOfRows;
+import com.tpavlyshyn.fp.entity.Port;
 import com.tpavlyshyn.fp.entity.TranslationCruise;
 import com.tpavlyshyn.fp.exceptions.DaoException;
 import com.tpavlyshyn.fp.Fields;
@@ -25,8 +26,10 @@ public class CruiseDaoImpl implements CruiseDao {
                     "FROM cruise " +
                     "INNER JOIN liner l on cruise.liner_id = l.id " +
                     "INNER JOIN translation_cruise tc on cruise.id = tc.cruise_id " +
-                    "WHERE cruise.id = ? " +
-                    "  AND tc.lang = ? ";
+                    "INNER JOIN cruise_has_port chp on cruise.id = chp.cruise_id " +
+                    "INNER JOIN port p on chp.port_id = p.id" +
+                    " WHERE cruise.id = ? " +
+                    " AND tc.lang = ? AND p.lang=? ";
     private static final String SQL__FIND_ALL_CRUISES_WITH_PARAMETERS =
             "SELECT *, COUNT(*) OVER() as number_of_rows FROM cruise " +
                     "INNER JOIN translation_cruise tc on cruise.id = tc.cruise_id ";
@@ -84,20 +87,26 @@ public class CruiseDaoImpl implements CruiseDao {
         this.ds = ds;
     }
 
-@Override
+    @Override
     public Optional<Cruise> findByIdAndLang(Integer id, String lang) throws DaoException {
         Cruise cruise = null;
-
+        List<Port> ports = new ArrayList<>();
         try (Connection connection = ds.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_CRUISE_BY_ID)) {
             pstmt.setInt(1, id);
             pstmt.setString(2, lang);
+            pstmt.setString(3, lang);
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     cruise = extractCruise(rs);
                     cruise.setLiner(LinerDaoImpl.extractLiner(rs));
+
+                    Port port = PortDaoImpl.extractPort(rs);
+                    ports.add(port);
                 }
             }
+            assert cruise != null;
+            cruise.setPortList(ports);
         } catch (SQLException ex) {
             log.error(ex.getMessage(), ex);
             throw new DaoException(ex.getMessage(), ex);
@@ -128,25 +137,7 @@ public class CruiseDaoImpl implements CruiseDao {
 
     @Override
     public boolean create(Cruise cruise) throws DaoException {
-        boolean result;
-        try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_CRUISE, Statement.RETURN_GENERATED_KEYS)) {
-
-            setCruise(pstmt, cruise);
-            result = pstmt.executeUpdate() > 0;
-
-            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    cruise.setId(generatedKeys.getInt(1));
-                }
-            }
-            connection.commit();
-
-        } catch (SQLException ex) {
-            log.error(ex.getMessage(), ex);
-            throw new DaoException(ex.getMessage(), ex);
-        }
-        return result;
+        return false;
     }
 
     @Override
@@ -196,12 +187,13 @@ public class CruiseDaoImpl implements CruiseDao {
             } catch (SQLException ex) {
                 try {
                     connection.rollback();
-                    connection.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
                 log.error(ex.getMessage(), ex);
                 throw new DaoException(ex.getMessage(), ex);
+            } finally {
+                connection.close();
             }
         } catch (SQLException ex) {
             log.error(ex.getMessage(), ex);
@@ -217,70 +209,11 @@ public class CruiseDaoImpl implements CruiseDao {
         pstmt.setString(4, translationCruise.getDescriptionLand());
     }
 
-/*    private boolean addTranslation(TranslationCruise translationCruise, Connection connection, PreparedStatement pstmt) throws SQLException {
-        boolean result;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SQL__ADD_TRANSLATION_CRUISE)) {
-            preparedStatement.setInt(1, translationCruise.getCruiseId());
-            preparedStatement.setString(2, translationCruise.getLand());
-            preparedStatement.setString(3, translationCruise.getCruiseNameLand());
-            preparedStatement.setString(4, translationCruise.getDescriptionLand());
-            result = pstmt.executeUpdate() > 0;
-        }
-        return result;
-    }*/
-
-
-/*    @Override
-    public boolean addPortToCruise(int cruiseId, int portId, int sequenceNumber, Date arrivalTime) {
-        boolean result = false;
-        try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_PORT_TO_CRUISE)) {
-            pstmt.setInt(1, cruiseId);
-            pstmt.setInt(2, portId);
-            pstmt.setInt(3, sequenceNumber);
-            pstmt.setDate(4, arrivalTime);
-            result = pstmt.executeUpdate() > 0;
-            connection.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }*/
-
-/*    @Override
-    public boolean createTranslationCruise(TranslationCruise translationCruise) throws DaoException {
-        boolean result;
-        try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_TRANSLATION_CRUISE)) {
-            pstmt.setInt(1, translationCruise.getCruiseId());
-            pstmt.setString(2, translationCruise.getLand());
-            pstmt.setString(3, translationCruise.getCruiseNameLand());
-            pstmt.setString(4, translationCruise.getDescriptionLand());
-            result = pstmt.executeUpdate() > 0;
-            connection.commit();
-
-        } catch (SQLException ex) {
-            log.error(ex.getMessage(), ex);
-            throw new DaoException(ex.getMessage(), ex);
-        }
-        return result;
-    }*/
 
     @Override
     public boolean update(Cruise cruise) throws DaoException {
-        boolean result;
-        try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__UPDATE_CRUISE)) {
 
-            setCruise(pstmt, cruise);
-            pstmt.setInt(7, cruise.getId());
-            result = pstmt.executeUpdate() > 0;
-
-        } catch (SQLException ex) {
-            log.error(ex.getMessage(), ex);
-            throw new DaoException();
-        }
-        return result;
+        return false;
     }
 
 

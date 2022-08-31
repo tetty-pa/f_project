@@ -68,60 +68,6 @@
 
 <jsp:include page="/jsp/common/showCruises.jsp"/>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-<div class="form">
-    <form id="comm" method="GET" action="controller/">
-        <input type="hidden" name="command" value="showCruises"/>
-        <input type="submit" value="Cruises" name="Cruises"/>
-    </form>
-</div>
-<a href="${pageContext.request.contextPath}/jsp/admin/addCruise.jsp">
-    <button>AddCruise</button>
-</a>
-<br>
-<br>
-<a href="${pageContext.request.contextPath}/jsp/common/login.jsp">
-    <button>Login</button>
-</a>
-
-<a href="${pageContext.request.contextPath}/jsp/common/registration.jsp">
-    <button>Registration</button>
-</a>
-<br>
-
-<form id="comm2" method="GET" action="${pageContext.request.contextPath}/controller/">
-    <input type="hidden" name="command" value="showUsersRequests"/>
-    <input type="submit" value="show users requests" name="showUsersRequests"/>
-</form>
-
-<form id="comm3" method="GET" action="${pageContext.request.contextPath}/controller/">
-    <input type="hidden" name="command" value="showAllRequests"/>
-    <input type="submit" value="show all requests" name="showAllRequests"/>
-</form>
-
-<form id="comm3" method="GET" action="${pageContext.request.contextPath}/controller/">
-    <input type="hidden" name="command" value="showAllUsers"/>
-    <input type="submit" value="show all users"/>
-</form>
-
-<form id="comm3" method="GET" action="${pageContext.request.contextPath}/controller/">
-    <input type="hidden" name="command" value="showAllCruises"/>
-    <input type="submit" value="show all cruises"/>
-</form>
-
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-</button>
-
-<a href="jsp/admin/addCruise.jsp">addcruise</a>
 
 <tag:editProfile/>
 </body>

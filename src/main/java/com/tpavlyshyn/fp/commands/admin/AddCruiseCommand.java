@@ -35,7 +35,6 @@ public class AddCruiseCommand implements Command {
         try {
             if(!ports.isEmpty()) {
                 boolean result = cruiseService.addCruiseWithTranslations(cruise, ua, en, ports);
-                if (result) log.info("YOUU cool");
             }
             else log.info("ports can`t be empty");
         } catch (ServiceException e) {

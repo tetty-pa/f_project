@@ -1,4 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <LINER id='1' liner_name='Grey T-Shirt'  passenger_capacity='10' />
+    <LINER id='1' liner_name='Dream' passenger_capacity='1210'/>
+    <LINER id='2' liner_name='Sleep' passenger_capacity='1110'/>
+    <LINER id='3' liner_name='Star' passenger_capacity='1000'/>
+    <LINER id='4' liner_name='Flower' passenger_capacity='800'/>
+
+    <CRUISE ID="2" NUMBER_OF_PORTS="0" PRICE="21" START_DATE="2022-08-08 00:00:00.0" END_DATE="2022-08-08 00:00:00.0"
+            LINER_ID="1"/>
+    <TRANSLATION_CRUISE CRUISE_ID="2" LANG="en" CRUISE_NAME="name1" DESCRIPTION="description1"/>
+    <ROLE ID='1' NAME="client"/>
+
+    <PORT ID="1" LANG="en" CITY="New York" COUNTRY="USA"/>
+    <PORT ID="2" LANG="en" CITY="Boston" COUNTRY="USA"/>
+    <PORT ID="3" LANG="en" CITY="Madeira" COUNTRY="Lisbon"/>
+
+    <PORT ID="4" LANG="ua" CITY="Нью-Йорк" COUNTRY="США"/>
+    <PORT ID="5" LANG="ua" CITY="Бостон" COUNTRY="США"/>
+    <PORT ID="6" LANG="ua" CITY="Мадейра" COUNTRY="Португалія"/>
+
+    <CRUISE_HAS_PORT CRUISE_ID="2" PORT_ID="1" SEQUENCE_NUMBER="1" ARRIVAL_TIME="2022-05-12 12:00:00"/>
+    <CRUISE_HAS_PORT CRUISE_ID="2" PORT_ID="2" SEQUENCE_NUMBER="2" ARRIVAL_TIME="2022-05-12 12:00:00"/>
+    <CRUISE_HAS_PORT CRUISE_ID="2" PORT_ID="3" SEQUENCE_NUMBER="3" ARRIVAL_TIME="2022-05-12 12:00:00"/>
+
+    <USER ID="2" LOGIN="lina.nerv@ukr.net" PASSWORD="linanerv" NAME="Lina" SURNAME="Nerv" URL_DOCUMENT='hi' ROLE_ID="1"/>
+    <USER ID="3" LOGIN="dana.kulk@gmail.com" PASSWORD="danakulk" NAME="Dana" SURNAME="Kulk" URL_DOCUMENT='hi' ROLE_ID="1"/>
+    <USER ID="4" LOGIN="vlad.black@gmail.com" PASSWORD="vladblack" NAME="Vlad" SURNAME="Black" URL_DOCUMENT='hi' ROLE_ID="1"/>
+
+    <REQUEST ID="4" AMOUNT="1" CRUISE_ID="2" USER_ID="2" />
+    <REQUEST ID="5" AMOUNT="1" CRUISE_ID="2" USER_ID="3" />
+
 </dataset>

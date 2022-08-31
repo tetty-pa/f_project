@@ -16,16 +16,15 @@ public class UserDaoImpl implements UserDao {
 
     private final static Logger log = Logger.getLogger(UserDaoImpl.class);
 
-    private static final String SQL__FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login=?";
-    private static final String SQL__FIND_USER_BY_ID = "SELECT * FROM user WHERE id=?";
+    private static final String SQL__FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login=?;";
+    private static final String SQL__FIND_USER_BY_ID = "SELECT * FROM user WHERE id=?;";
     private static final String SQL_UPDATE_USER = "UPDATE user SET login=?, password=?, name=?, surname=?" + " WHERE id=?";
     private static final String SQL_UPDATE_PASSWORD = "UPDATE user SET password=?" + " WHERE login=?";
     private static final String SQL__ADD_USER = "INSERT INTO user( id, login, password, name, surname, role_id ) " + "VALUES (default , ?, ?, ?, ?, 1) ";
     private static final String SQL__DELETE_USER = "DELETE FROM user WHERE id=?";
-    private static final String SQL__DELETE_USER_BY_LOGIN = "DELETE FROM user WHERE login=?";
     private static final String SQL_FIND_ALL_USERS = "SELECT * FROM user ";
     private static final String SQL_UPDATE_URL_DOCUMENTS = "UPDATE user SET url_document = ? WHERE id=?;";
-    private static final String SQL_FIND_ALL_BY_CRUISE_ID = "SELECT * FROM user" + " INNER JOIN request r on user.id = r.user_id " + "WHERE cruise_id=?;";
+    private static final String SQL_FIND_ALL_BY_CRUISE_ID = "SELECT * FROM user u" + " INNER JOIN request r on u.id = r.user_id " + "WHERE cruise_id=?;";
 
 
     private final DataSource ds;
@@ -67,9 +66,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean create(User user) throws DaoException {
-        boolean result = false;
+        boolean result ;
         try (Connection connection = ds.getConnection();
-                PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_USER, Statement.RETURN_GENERATED_KEYS);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_USER, Statement.RETURN_GENERATED_KEYS);) {
             setUser(pstmt, user);
             result = pstmt.executeUpdate() > 0;
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
@@ -173,7 +172,6 @@ public class UserDaoImpl implements UserDao {
         try (Connection connection = ds.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_USER_BY_LOGIN);) {
             pstmt.setString(1, login);
-
             try (ResultSet resultSet = pstmt.executeQuery();) {
                 return resultSet.next();
             }

@@ -6,6 +6,7 @@ import com.tpavlyshyn.fp.commands.Path;
 import com.tpavlyshyn.fp.commands.action.Dispatcher;
 import com.tpavlyshyn.fp.commands.action.Forward;
 
+import com.tpavlyshyn.fp.commands.action.Redirect;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -36,7 +37,7 @@ public class ValidateOtpCommand implements Command {
             request.setAttribute("email", request.getParameter("email"));
 */
             request.setAttribute("command", "newPassword");
-            return new Forward(Path.PAGE__NEW_PASSWORD);
+            return new Redirect(request.getContextPath()+Path.PAGE__NEW_PASSWORD);
         }else {
 /*
             request.setAttribute("message","wrong otp");

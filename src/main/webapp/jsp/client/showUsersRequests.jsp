@@ -61,7 +61,7 @@
             </table>
     </c:if>
     <c:if test="${ empty requestScope.requests}">
-        you hadn`t made an order yet
+        <fmt:message key="label.haveNotOrders"/>
     </c:if>
 </div>
 </body>

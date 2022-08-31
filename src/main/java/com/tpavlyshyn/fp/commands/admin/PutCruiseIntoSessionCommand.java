@@ -11,6 +11,7 @@ import com.tpavlyshyn.fp.entity.TranslationCruise;
 import com.tpavlyshyn.fp.services.CruiseService;
 
 
+import com.tpavlyshyn.fp.validators.CruiseDataValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -31,12 +32,9 @@ public class PutCruiseIntoSessionCommand implements Command {
         Date startDate = Date.valueOf(request.getParameter("startDate"));
         Date endDate = Date.valueOf(request.getParameter("endDate"));
         int linerId = Integer.parseInt(request.getParameter("linerId"));
-        Cruise cruise = new Cruise();
-        cruise.setNumberOfPorts(numberOfPorts);
-        cruise.setPrice(price);
-        cruise.setStartDate(startDate);
-        cruise.setEndDate(endDate);
-        cruise.setLinerId(linerId);
+        Cruise cruise = new Cruise(linerId, price, numberOfPorts, startDate, endDate);
+        CruiseDataValidator cruiseDataValidator = new CruiseDataValidator();
+
 
         String nameUa = request.getParameter("nameUa");
         String nameEn = request.getParameter("nameEn");
@@ -45,6 +43,15 @@ public class PutCruiseIntoSessionCommand implements Command {
 
         TranslationCruise translationCruiseUa = new TranslationCruise(0, "ua", nameUa, descriptionUa);
         TranslationCruise translationCruiseEn = new TranslationCruise(0, "en", nameEn, descriptionEn);
+
+        boolean isDataValid = cruiseDataValidator.checkCruiseData(cruise);
+        boolean isTranslationValidUa = cruiseDataValidator.checkTranslationCruise(translationCruiseUa);
+        boolean isTranslationValidEn = cruiseDataValidator.checkTranslationCruise(translationCruiseEn);
+        if (!isTranslationValidEn && !isTranslationValidUa && !isDataValid) {
+            log.info("Data is not valid");
+            request.setAttribute("message", "Invalid data");
+            return new Forward(Path.PAGE__ADD_CRUISE);
+        }
 
         HttpSession session = request.getSession();
         List<CruisePort> ports = new ArrayList<>();

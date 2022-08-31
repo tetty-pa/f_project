@@ -7,7 +7,6 @@ import com.tpavlyshyn.fp.commands.action.Forward;
 
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.UserService;
-import com.tpavlyshyn.fp.services.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -32,14 +31,12 @@ public class NewPasswordCommand implements Command {
             String confPassword = request.getParameter("confPassword");
 
             if (newPassword != null && newPassword.equals(confPassword)) {
-
                 boolean result = userService.setNewPassword(newPassword, (String) session.getAttribute("email"));
                 if (result) {
                     out.println("done");
                     return new Forward(Path.PAGE__LOGIN);
                 }
             }
-
         } catch (IOException | ServiceException e) {
             e.printStackTrace();
         }

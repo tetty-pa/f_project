@@ -30,7 +30,6 @@ public class ShowAllCruisesCommand implements Command {
     public Dispatcher execute(HttpServletRequest request, HttpServletResponse response){
         List<Cruise> cruises;
         try {
-
             String land = (String) request.getSession().getAttribute("locale");
             cruises = cruiseService.showCruises(land);
             request.setAttribute("cruises", cruises);

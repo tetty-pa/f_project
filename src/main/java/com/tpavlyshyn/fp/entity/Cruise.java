@@ -21,14 +21,22 @@ public class Cruise extends Entity {
     public Cruise() {
     }
 
-    public Cruise(int price, int numberOfPorts, String cruiseName, String description, Date startDate, Date endDate) {
+    public Cruise(int linerId, int price, int numberOfPorts, Date startDate, Date endDate) {
+        this.linerId = linerId;
+        this.price = price;
+        this.numberOfPorts = numberOfPorts;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Cruise(int price, int numberOfPorts, String cruiseName, String description, Date startDate, Date endDate, int linerId) {
         this.price = price;
         this.numberOfPorts = numberOfPorts;
         this.cruiseName = cruiseName;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
-
+        this.linerId = linerId;
     }
 
     public String getCruiseName() {

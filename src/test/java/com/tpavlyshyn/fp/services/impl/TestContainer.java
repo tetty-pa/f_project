@@ -23,6 +23,7 @@ public class TestContainer extends DataSourceBasedDBTestCase {
         tester.setDataSet(ds);
         tester.onSetup();
     }
+
     @Override
     protected IDataSet getDataSet() throws Exception {
         return new FlatXmlDataSetBuilder().build(getClass().getClassLoader()
@@ -40,14 +41,16 @@ public class TestContainer extends DataSourceBasedDBTestCase {
     }
 
     DataSource ds;
+
     protected DataSource getDataSource() {
 
-        if(ds==null) {
+        if (ds == null) {
             JdbcDataSource dataSource = new JdbcDataSource();
             dataSource.setURL(
-                    "jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:schema.sql'");
+                    "jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;NON_KEYWORDS=USER;init=runscript from 'classpath:schema.sql'");
             dataSource.setUser("sa");
             dataSource.setPassword("sa");
+
             return dataSource;
         }
         return ds;

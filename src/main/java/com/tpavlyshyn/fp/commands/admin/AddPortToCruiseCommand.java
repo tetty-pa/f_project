@@ -51,7 +51,7 @@ public class AddPortToCruiseCommand implements Command {
         cruisePorts.add(cruisePort);
 
         session.setAttribute("ports", cruisePorts);
-        return new Redirect(request.getContextPath() + "/" + Path.COMMAND__SHOW_ALL_PORTS);
+        return new Redirect(request.getContextPath() + Path.COMMAND__SHOW_ALL_PORTS);
     }
 }
 

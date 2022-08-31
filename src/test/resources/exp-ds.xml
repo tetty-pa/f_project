@@ -1,4 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
   <CRUISE ID="1" NUMBER_OF_PORTS="0" PRICE="1" START_DATE="2022-08-08 00:00:00.0" END_DATE="2022-08-08 00:00:00.0" LINER_ID="1"/>
+  <USER ID="1" LOGIN="lina.nerv@ukr.net" PASSWORD="linanerv" NAME="Lina" SURNAME="Nerv" URL_DOCUMENT='hi' ROLE_ID="1"/>
+  <USER ID="2" LOGIN="dana.kulk@gmail.com" PASSWORD="danakulk" NAME="Dana" SURNAME="Kulk" URL_DOCUMENT='hi' ROLE_ID="1"/>
+  <USER ID="3" LOGIN="vlad.black@gmail.com" PASSWORD="vladblack" NAME="Vlad" SURNAME="Black" URL_DOCUMENT='hi' ROLE_ID="1"/>
+  <USER1 ID="1" LOGIN="lina.nerv@ukr.net" PASSWORD="linanerv" NAME="Lina" SURNAME="Nerv" URL_DOCUMENT='hi' ROLE_ID="1"/>
+  <USER1 ID="2" LOGIN="dana.kulk@gmail.com" PASSWORD="danakulk" NAME="Dana" SURNAME="Kulk" URL_DOCUMENT='hi' ROLE_ID="1"/>
+  <USER_UPDATED ID="2" LOGIN="roger.pav@gmail.com" PASSWORD="rogerpav" NAME="Roger" SURNAME="Pav" URL_DOCUMENT='hi' ROLE_ID="1"/>
+  <PORT ID="1" LANG="en" CITY="New York" COUNTRY="USA"/>
+  <PORT ID="2" LANG="en" CITY="Boston" COUNTRY="USA"/>
+  <LINER id='1' liner_name='Dream' passenger_capacity='1210'/>
+  <LINER id='2' liner_name='Sleep' passenger_capacity='1110'/>
+  <LINER id='3' liner_name='Star' passenger_capacity='1000'/>
+  <LINER id='4' liner_name='Flower' passenger_capacity='800'/>
+  <REQUEST ID="4" AMOUNT="1" CRUISE_ID="2" USER_ID="2" />
+  <REQUEST ID="5" AMOUNT="1" CRUISE_ID="2" USER_ID="3" />
+  <USERS_REQUEST ID="4" AMOUNT="1" CRUISE_ID="2" USER_ID="1" />
+
 </dataset>

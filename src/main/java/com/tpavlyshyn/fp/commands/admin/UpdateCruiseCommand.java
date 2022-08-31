@@ -29,7 +29,7 @@ public class UpdateCruiseCommand implements Command {
 
     @Override
     public Dispatcher execute(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
+   /*     int id = Integer.parseInt(request.getParameter("id"));
         String cruiseName = request.getParameter("cruiseName");
         String description = request.getParameter("description");
 
@@ -37,7 +37,7 @@ public class UpdateCruiseCommand implements Command {
         Date startDate = Date.valueOf(request.getParameter("startDate"));
         Date endDate = Date.valueOf(request.getParameter("endDate"));
         int price = Integer.parseInt(request.getParameter("price"));
-        Cruise cruise = new Cruise(price, numberOfPorts, cruiseName, description, startDate, endDate);
+        Cruise cruise = new Cruise(price, numberOfPorts, cruiseName, description, startDate, endDate, 1);
         cruise.setId(id);
         try {
             boolean result = cruiseService.updateCruise(cruise);
@@ -46,7 +46,7 @@ public class UpdateCruiseCommand implements Command {
             return new Redirect("error page");
         }
 
-       /* var gson = new GsonBuilder()
+       *//* var gson = new GsonBuilder()
                 .create();
         try {
             var cruise = gson.fromJson(request.getReader(), Cruise.class);

@@ -35,7 +35,7 @@ public final class Fields {
 	public static final String REQUEST__CRUISE_ID= "cruise_id";
 	public static final String REQUEST__USER_ID= "user_id";
 	public static final String REQUEST__STATUS= "status";
-
+	public static final String PORT_ID= "port_id";
 	public static final String PORT_CITY= "city";
 	public static final String PORT_COUNTRY= "country";
 

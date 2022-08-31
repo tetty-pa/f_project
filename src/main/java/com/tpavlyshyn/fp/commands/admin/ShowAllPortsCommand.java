@@ -24,7 +24,7 @@ public class ShowAllPortsCommand implements Command {
     public Dispatcher execute(HttpServletRequest request, HttpServletResponse response) {
         String land = (String) request.getSession().getAttribute("locale");
         try {
-            int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+            int currentPage = 1;
             int recordsPerPage = 20;
             int start = currentPage * recordsPerPage - recordsPerPage;
 

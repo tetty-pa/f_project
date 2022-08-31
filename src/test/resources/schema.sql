@@ -1,5 +1,3 @@
-
-
 CREATE TABLE IF NOT EXISTS `company`
 (
     `id`              INT         NOT NULL AUTO_INCREMENT,
@@ -59,10 +57,6 @@ CREATE TABLE IF NOT EXISTS `translation_cruise`
 
 
 
-
-
-
-
 CREATE TABLE IF NOT EXISTS `role`
 (
     `id`   INT         NOT NULL,
@@ -72,30 +66,23 @@ CREATE TABLE IF NOT EXISTS `role`
 
 
 
-
-
-
-
 CREATE TABLE IF NOT EXISTS `user`
 (
-    `id`           INT          NOT NULL AUTO_INCREMENT,
-    `login`        VARCHAR(40)  NOT NULL UNIQUE,
-    `password`     VARCHAR(20)  NOT NULL,
-    `name`         VARCHAR(20)  NULL DEFAULT NULL,
-    `surname`      VARCHAR(20)  NULL DEFAULT NULL,
-    `url_document` VARCHAR(255) NULL DEFAULT NULL,
-    `role_id`      INT          NOT NULL,
-    PRIMARY KEY (`id`),
+    `id`           INT PRIMARY KEY NOT NULL AUTO_INCREMENT UNIQUE,
+    `login`        VARCHAR(40)     NOT NULL UNIQUE,
+    `password`     VARCHAR(20)     NOT NULL,
+    `name`         VARCHAR(20)     NULL DEFAULT NULL,
+    `surname`      VARCHAR(20)     NULL DEFAULT NULL,
+    `url_document` VARCHAR(255)    NULL DEFAULT NULL,
+    `role_id`      INT             NOT NULL,
+/*    PRIMARY KEY (`id`),
+*/
     CONSTRAINT `fk_user_role1`
         FOREIGN KEY (`role_id`)
             REFERENCES `role` (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 );
-
-
-
-
 
 
 
@@ -128,10 +115,8 @@ CREATE TABLE IF NOT EXISTS `port`
     `city`    VARCHAR(45) NOT NULL,
     `country` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE(`id`, `lang`)
+    UNIQUE (`id`, `lang`)
 );
-
-
 
 
 

@@ -5,6 +5,7 @@ import com.tpavlyshyn.fp.commands.Command;
 import com.tpavlyshyn.fp.commands.Path;
 import com.tpavlyshyn.fp.commands.action.Dispatcher;
 import com.tpavlyshyn.fp.commands.action.Forward;
+import com.tpavlyshyn.fp.commands.action.Redirect;
 import com.tpavlyshyn.fp.entity.user.User;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.UserService;
@@ -36,7 +37,7 @@ public class SubmitRegistrationCommand implements Command {
             try {
                 boolean result = userService.signUp(user);
                 if (result) {
-                    return new Forward(Path.PAGE__LOGIN);
+                    return new Redirect(request.getContextPath()+Path.PAGE__LOGIN);
                 }
             } catch (ServiceException e) {
                 e.printStackTrace();

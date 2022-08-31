@@ -1,13 +1,12 @@
 package com.tpavlyshyn.fp.commands.client;
 
 import com.tpavlyshyn.fp.EmailMessageHelper;
-import com.tpavlyshyn.fp.UserDataValidator;
+import com.tpavlyshyn.fp.validators.UserDataValidator;
 import com.tpavlyshyn.fp.commands.Command;
 import com.tpavlyshyn.fp.commands.Path;
 import com.tpavlyshyn.fp.commands.action.Dispatcher;
 import com.tpavlyshyn.fp.commands.action.Forward;
 import com.tpavlyshyn.fp.services.UserService;
-import com.tpavlyshyn.fp.services.impl.UserServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,24 +31,13 @@ public class RegistrationCommand implements Command {
         String surname = request.getParameter("surname");
 
         HttpSession session = request.getSession();
-        ;
 
-        boolean isLoginNotUnique = userService.checkUserLoginForUnique(login);
-        if (isLoginNotUnique) {
-            /*
-                out.println("login must be unique.");
-*/
+        boolean isLoginUnique = userService.checkUserLoginForUnique(login);
+        if (!isLoginUnique) {
             log.info("Login is not unique");
             request.setAttribute("message", "Login must be unique");
             return new Forward(Path.PAGE__REGISTRATION);
         }
-           /* boolean result = false;
-
-            result = userService.signUp(user);
-            if (result) {
-                out.println("done");
-            } else out.println("error");*/
-
         UserDataValidator userDataValidator = new UserDataValidator();
         boolean isDataValid = userDataValidator.checkData(login, password, name, surname);
         if (!isDataValid) {
