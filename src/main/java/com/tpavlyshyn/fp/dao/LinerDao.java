@@ -6,6 +6,6 @@ import com.tpavlyshyn.fp.exceptions.DaoException;
 import java.util.List;
 
 public interface LinerDao extends AbstractDao<Integer, Liner> {
-    List<Liner> findAll() throws DaoException;
 
+    List<Liner> findAll() throws DaoException;
 }

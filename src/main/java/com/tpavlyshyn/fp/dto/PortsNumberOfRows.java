@@ -1,6 +1,6 @@
 package com.tpavlyshyn.fp.dto;
 
-import com.tpavlyshyn.fp.entity.Cruise;
+
 import com.tpavlyshyn.fp.entity.Port;
 
 import java.util.List;

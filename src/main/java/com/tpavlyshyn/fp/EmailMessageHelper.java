@@ -61,8 +61,7 @@ public class EmailMessageHelper {
 
         if (value==otp)
         {
-/*            request.setAttribute("email", request.getParameter("email"));
-            request.setAttribute("status", "success");*/
+            request.setAttribute("email", request.getParameter("email"));
             return true;
         }
         else

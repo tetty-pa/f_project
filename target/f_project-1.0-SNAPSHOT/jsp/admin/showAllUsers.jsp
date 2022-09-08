@@ -3,14 +3,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 <html>
 <head>
     <title>Users</title>
     <jsp:include page="/jsp/header.jsp"/>
 
 </head>
-<body>
+<body style="height: 100%">
 
 <div class="table__container">
     <div class="title"><fmt:message key="showAllUsers.title"/></div>
@@ -39,4 +39,6 @@
     </table>
 </div>
 </body>
+<jsp:include page="/jsp/footer.jsp"/>
+
 </html>

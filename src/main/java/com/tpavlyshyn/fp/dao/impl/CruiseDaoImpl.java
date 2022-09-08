@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,11 +54,6 @@ public class CruiseDaoImpl implements CruiseDao {
     private static final String SQL__ADD_TRANSLATION_CRUISE =
             "INSERT INTO translation_cruise(cruise_id, lang, cruise_name, description) " +
                     "VALUES (?, ?, ?, ?)";
-    private static final String SQL__ADD_CRUISE1 =
-            "INSERT INTO cruise(id, number_of_ports, price, " +
-                    "start_date, end_date, liner_id) VALUES " +
-                    " (default, ?, ?, ?, ?, ?);" +
-                    "INSERT INTO translation_cruise(cruise_id, lang, cruise_name, description) VALUES(?, ?, ?, ?), (?, ?, ?, ?)";
 
 
     private static final String SQL__FIND_FREE_PLACES_BY_ID =
@@ -72,11 +66,6 @@ public class CruiseDaoImpl implements CruiseDao {
                     ") r on c.id = r.cruise_id " +
                     "WHERE c.id = ?;";
 
-
-    private static final String SQL__UPDATE_CRUISE =
-            " UPDATE cruise SET cruise_name =?, description=? , number_of_ports=? , price=? ," +
-                    " start_date=? , end_date=? " +
-                    " WHERE id=?";
 
     private static final String SQL__ADD_PORT_TO_CRUISE =
             "INSERT INTO cruise_has_port(cruise_id, port_id, sequence_number ,arrival_time) " +
@@ -111,7 +100,7 @@ public class CruiseDaoImpl implements CruiseDao {
             log.error(ex.getMessage(), ex);
             throw new DaoException(ex.getMessage(), ex);
         }
-        return Optional.ofNullable(cruise);
+        return Optional.of(cruise);
     }
 
     @Override
@@ -300,7 +289,7 @@ public class CruiseDaoImpl implements CruiseDao {
         int freePlaces = 0;
 
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_FREE_PLACES_BY_ID);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_FREE_PLACES_BY_ID)) {
 
             pstmt.setInt(1, cruise_id);
             try (ResultSet rs = pstmt.executeQuery()) {

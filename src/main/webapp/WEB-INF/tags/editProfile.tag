@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 <!-- Modal -->
 <div class="modal fade" id="profile-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -42,7 +42,7 @@
                 </table>
             </div>
             <div id="profile-edit" style="display: none;">
-                <h3 class="mt-2">Please Edit Carefully</h3>
+                <h3 class="title " style="margin-top: 10px">Please Edit Carefully</h3>
                 <form action="${pageContext.request.contextPath}/controller/" method="post">
                     <input type="hidden" name = "command" value="editProfile">
                     <table class="table">
@@ -54,20 +54,10 @@
                             <td><fmt:message key="label.name"/> :</td>
                             <td><input type="text" class="form-control" name="name" value="${sessionScope.user.name}"/>
                         </tr>
-                        <tr>
-                            <td><fmt:message key="label.password"/> :</td>
-                            <td><input type="password" class="form-control" name="password" value="${sessionScope.user.password}"/>
-                        </tr>
-                        <tr>
-                            <td><fmt:message key="newPassword..confirm_new_password"/> :</td>
-                            <td><input type="password" class="form-control" name="passwordSecond" value=""/>
-                        </tr>
-                       <%-- <tr>
-                            <td><fmt:message key="login.title"/> :</td>
-                            <input type="email" class="form-control" name="login" value="${sessionScope.user.login}"/>
-                        </tr>--%>
 
                     </table>
+                    <a class="nav__link" style="font-size: 14px; color: #4a4a4a"
+                       href="${pageContext.request.contextPath}/jsp/common/forgotPassword.jsp"><fmt:message key="label.change_pass"/></a>
 
                     <div class="container">
                         <button type="submit" class="btn btn-outline-primary"><fmt:message key="button.submit"/></button>

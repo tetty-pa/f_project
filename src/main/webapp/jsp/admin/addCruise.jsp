@@ -1,19 +1,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 <html>
 <head>
     <title>Add Cruise Page</title>
     <jsp:include page="/jsp/header.jsp"/>
 </head>
-<body>
+<body style="height: 100%">
 
 <div class="container">
     <div class="title"><fmt:message key="addCruise.title"/></div>
 
     <div style="width:50%; float: left; display: inline-block;">
-
+        <%
+            if(request.getAttribute("message")!=null)
+            {
+                out.print("<p class='text-danger ml-1'>"+request.getAttribute("message")+"</p>");
+            }
+        %>
         <form method="POST" action="${pageContext.request.contextPath}/controller/">
             <input type="hidden" name="command" value="putCruiseIntoSession"/>
             <input type="hidden" name="currentPage" value="1">
@@ -61,5 +66,7 @@
     </div>
 
 </div>
+<jsp:include page="/jsp/footer.jsp"/>
+
 </body>
 </html>

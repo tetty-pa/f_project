@@ -1,6 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 <html>
 <head>
 
@@ -27,7 +27,7 @@
     </style>
 </head>
 
-<body>
+<body style="height: 100%;">
 <div class="form-gap"></div>
 <div class="container">
     <div class="row justify-content-center">
@@ -81,40 +81,7 @@
 
 <script type='text/javascript'
         src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js'></script>
+<jsp:include page="/jsp/footer.jsp"/>
 
-<%--
-<script>
-    $(document).ready(function () {
-        $('#enter-otp-form').on('submit', function (event) {
-            event.preventDefault();
-            let form = new FormData(this);
-            $.ajax({
-                url: "${pageContext.request.contextPath}/controller?command=${requestScope.command}",
-                type: 'POST',
-                data: form,
-                success: function (data, textStatus, jqXHR) {
-                    console.log(data)
-                    if (data.trim() === 'done') {
-                        swal(
-                            'Successfully!',
-                            'going to login page',
-                            'success'
-                        ).then((value) => {
-                            window.location = "${pageContext.request.contextPath}/jsp/common/login.jsp"
-                        });
-
-                    } else {
-                        window.location = "${pageContext.request.contextPath}/jsp/common/newPassword.jsp"
-                    }
-
-                },
-                processData: false,
-                contentType: false
-            });
-
-        });
-    });
-</script>
---%>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package com.tpavlyshyn.fp.tags;
 
-import jakarta.servlet.jsp.JspException;
+
 import jakarta.servlet.jsp.JspWriter;
 import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 
@@ -8,7 +8,7 @@ import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Locale;
+
 
 public class CurrencyTag extends SimpleTagSupport {
     private String locale;
@@ -26,13 +26,13 @@ public class CurrencyTag extends SimpleTagSupport {
     }
 
     @Override
-    public void doTag() throws JspException, IOException {
+    public void doTag() throws  IOException {
         JspWriter jspWriter = getJspContext().getOut();
 
         if (locale.equals("en")) {
             jspWriter.write(priceInDollars + "$");
         } else if (locale.equals("ua")) {
-            float priceInUAH = new BigDecimal(30 * priceInDollars)
+            float priceInUAH = new BigDecimal(40 * priceInDollars)
                     .setScale(2, RoundingMode.UP).floatValue();
             jspWriter.write(priceInUAH + "₴");
         }

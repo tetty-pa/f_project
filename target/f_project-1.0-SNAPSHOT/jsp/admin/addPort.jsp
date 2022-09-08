@@ -2,7 +2,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,7 +13,7 @@
 <body>
 
 
-<div class="container">
+<div class="container" style="margin-top: 70px">
 
     <div class="table__container">
         <div class="title" style=" margin-top: 0"><fmt:message key="showAllCruises.ports"/></div>
@@ -97,6 +97,8 @@
         </div>
     </nav>
 </div>
+<jsp:include page="/jsp/footer.jsp"/>
+
 </body>
 </html>
 <script>

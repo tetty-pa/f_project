@@ -10,10 +10,13 @@ import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.LinerService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class FindAllLinersCommand implements Command {
+    private final static Logger log = Logger.getLogger(FindAllLinersCommand.class);
+
     private final LinerService linerService;
 
     public FindAllLinersCommand(LinerService linerService) {
@@ -22,12 +25,12 @@ public class FindAllLinersCommand implements Command {
 
     @Override
     public Dispatcher execute(HttpServletRequest request, HttpServletResponse response) {
-        List<Liner> liners = null;
+        List<Liner> liners ;
         try {
             liners = linerService.showAllLiners();
         } catch (ServiceException e) {
-            e.printStackTrace();
-            return new Redirect("error page");
+            log.error(e.getMessage());
+            return new Redirect(Path.ERROR_PAGE);
         }
         request.setAttribute("liners", liners);
         return new Forward(Path.PAGE__ADD_CRUISE);

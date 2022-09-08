@@ -9,7 +9,6 @@ import com.tpavlyshyn.fp.entity.request.Request;
 import com.tpavlyshyn.fp.entity.user.User;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.RequestService;
-import com.tpavlyshyn.fp.services.impl.RequestServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,7 +39,7 @@ public class ShowUsersRequestsCommand implements Command {
             request.setAttribute("requests", requests);
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
-            return new Redirect("error page");
+            return new Redirect(Path.ERROR_PAGE);
         }
         return new Forward(Path.PAGE__SHOW_USERS_REQUESTS);
     }

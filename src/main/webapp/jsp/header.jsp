@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 
 <html>
 <head>
@@ -26,19 +26,6 @@
 <body>
 <%--Header--%>
 
-<%--<header class="header">
-    <div class="container">
-        <div class="header__inner">
-
-            <a class="link-dark"  href="${pageContext.request.contextPath}/controller/?command=changeLang&lang=en">EN</a>
-            <a class="link-dark"  href="${pageContext.request.contextPath}/controller/?command=changeLang&lang=ua">UA</a>
-            <a class="logo" href="${pageContext.request.contextPath}/index.jsp"><img class="logo"
-                                                                                     src="${pageContext.request.contextPath}/img/logo.png"
-                                                                                     alt=""></a>
-            <tag:userMenu/>
-        </div>
-    </div>
-</header>--%>
 
 <div class="header">
     <nav class="navbar navbar-expand-lg">

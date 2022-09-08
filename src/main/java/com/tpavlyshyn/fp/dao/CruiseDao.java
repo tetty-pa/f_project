@@ -11,7 +11,9 @@ import java.util.Optional;
 
 public interface CruiseDao extends AbstractDao<Integer, Cruise>{
     List<Cruise> findAllByLang(String lang) throws DaoException;
+
     Optional<Cruise> findByIdAndLang(Integer id, String lang) throws DaoException;
+
     CruisesNumberOfRows findAllWithParam(String whereExpression,
                                          Integer from,
                                          Integer to,
@@ -20,12 +22,8 @@ public interface CruiseDao extends AbstractDao<Integer, Cruise>{
                                          int currentPage,
                                          int recordsPerPage,
                                          String land) throws DaoException;
+
     int getFreePlaces(int cruise_id) throws DaoException;
-/*
-    boolean createTranslationCruise(TranslationCruise cruise) throws DaoException;
-*/
-/*
-    boolean addPortToCruise(int cruiseId, int portId, int sequenceNumber, Date arrivalTime) throws DaoException;
-*/
+
     boolean createCruiseWithTranslations(Cruise cruise, TranslationCruise translationCruiseUa, TranslationCruise translationCruiseEn, List<CruisePort> cruisePorts) throws DaoException;
     }

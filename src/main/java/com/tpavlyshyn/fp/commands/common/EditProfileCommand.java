@@ -12,6 +12,7 @@ import com.tpavlyshyn.fp.validators.UserDataValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
 import java.util.Objects;
@@ -32,29 +33,24 @@ public class EditProfileCommand implements Command {
 
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String passwordSecond = request.getParameter("passwordSecond");
-        if (Objects.equals(password, passwordSecond)) {
-            user.setName(name);
-            user.setSurname(surname);
-            user.setLogin(login);
-            user.setPassword(password);
-            HttpSession session = request.getSession();
-            User user1 = (User) session.getAttribute("user");
-            user.setId(user1.getId());
-            UserDataValidator userDataValidator = new UserDataValidator();
-            boolean isDataValid = userDataValidator.checkData(login, name, name, surname);
-            if(isDataValid) {
-                try {
-                    userService.editProfile(user);
-                } catch (ServiceException ex) {
-                    log.error(ex.getMessage(), ex);
-                    ex.printStackTrace();
-                }
+
+        HttpSession session = request.getSession();
+        User user1 = (User) session.getAttribute("user");
+        user.setId(user1.getId());
+        UserDataValidator userDataValidator = new UserDataValidator();
+        boolean isNameValid = userDataValidator.checkName(name);
+        boolean isSurNameValid = userDataValidator.checkName(surname);
+        if (isNameValid && isSurNameValid) {
+            try {
+                user.setName(name);
+                user.setSurname(surname);
+                userService.editProfile(user);
+            } catch (ServiceException ex) {
+                log.error(ex.getMessage(), ex);
+                return new Redirect(Path.ERROR_PAGE);
             }
         }
-        return new Redirect(url);
 
+        return new Redirect(url);
     }
 }

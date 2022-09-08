@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao {
 
     private static final String SQL__FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login=?;";
     private static final String SQL__FIND_USER_BY_ID = "SELECT * FROM user WHERE id=?;";
-    private static final String SQL_UPDATE_USER = "UPDATE user SET login=?, password=?, name=?, surname=?" + " WHERE id=?";
+    private static final String SQL_UPDATE_USER = "UPDATE user SET name=?, surname=?" + " WHERE id=?";
     private static final String SQL_UPDATE_PASSWORD = "UPDATE user SET password=?" + " WHERE login=?";
     private static final String SQL__ADD_USER = "INSERT INTO user( id, login, password, name, surname, role_id ) " + "VALUES (default , ?, ?, ?, ?, 1) ";
     private static final String SQL__DELETE_USER = "DELETE FROM user WHERE id=?";
@@ -37,9 +37,9 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> findById(Integer id) throws DaoException {
         User user = null;
 
-        try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_USER_BY_ID);) {
+        try (Connection connection = ds.getConnection(); PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_USER_BY_ID)) {
             pstmt.setInt(1, id);
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) user = extractUser(rs);
             }
             return Optional.ofNullable(user);
@@ -51,9 +51,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean delete(Integer id) throws DaoException {
-        boolean result = false;
+        boolean result;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__DELETE_USER);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__DELETE_USER)) {
             pstmt.setInt(1, id);
             result = pstmt.executeUpdate() > 0;
             connection.commit();
@@ -68,7 +68,7 @@ public class UserDaoImpl implements UserDao {
     public boolean create(User user) throws DaoException {
         boolean result ;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_USER, Statement.RETURN_GENERATED_KEYS);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__ADD_USER, Statement.RETURN_GENERATED_KEYS)) {
             setUser(pstmt, user);
             result = pstmt.executeUpdate() > 0;
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
@@ -89,9 +89,9 @@ public class UserDaoImpl implements UserDao {
     public boolean update(User user) throws DaoException {
         boolean result;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL_UPDATE_USER);) {
-            setUser(pstmt, user);
-            pstmt.setInt(5, user.getId());
+             PreparedStatement pstmt = connection.prepareStatement(SQL_UPDATE_USER)) {
+            pstmt.setString(1, user.getName());
+            pstmt.setString(2, user.getSurname());
             result = pstmt.executeUpdate() > 0;
             connection.commit();
         } catch (SQLException ex) {
@@ -105,7 +105,7 @@ public class UserDaoImpl implements UserDao {
     public boolean updatePassword(String password, String login) throws DaoException {
         boolean result;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL_UPDATE_PASSWORD);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL_UPDATE_PASSWORD)) {
             pstmt.setString(1, password);
             pstmt.setString(2, login);
             result = pstmt.executeUpdate() > 0;
@@ -121,9 +121,9 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> findUserByLogin(String login) throws DaoException {
         User user = null;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_USER_BY_LOGIN);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_USER_BY_LOGIN)) {
             pstmt.setString(1, login);
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) user = extractUser(rs);
             }
         } catch (SQLException ex) {
@@ -137,7 +137,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() throws DaoException {
         List<User> users = new ArrayList<>();
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL_FIND_ALL_USERS);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL_FIND_ALL_USERS)) {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     users.add(extractUser(rs));
@@ -154,7 +154,7 @@ public class UserDaoImpl implements UserDao {
     public boolean updateUrlDocuments(int userId, String urlDocuments) throws DaoException {
         boolean result;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL_UPDATE_URL_DOCUMENTS);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL_UPDATE_URL_DOCUMENTS)) {
             pstmt.setString(1, urlDocuments);
             pstmt.setInt(2, userId);
             result = pstmt.executeUpdate() > 0;
@@ -170,9 +170,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean findByLogin(String login) throws DaoException {
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_USER_BY_LOGIN);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_USER_BY_LOGIN)) {
             pstmt.setString(1, login);
-            try (ResultSet resultSet = pstmt.executeQuery();) {
+            try (ResultSet resultSet = pstmt.executeQuery()) {
                 return resultSet.next();
             }
         } catch (SQLException ex) {
@@ -185,7 +185,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findByCruiseId(Integer cruiseId) throws DaoException {
         List<User> users = new ArrayList<>();
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL_FIND_ALL_BY_CRUISE_ID);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL_FIND_ALL_BY_CRUISE_ID)) {
             pstmt.setInt(1 , cruiseId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -221,8 +221,6 @@ public class UserDaoImpl implements UserDao {
         pstmt.setString(k++, user.getPassword());
         pstmt.setString(k++, user.getName());
         pstmt.setString(k, user.getSurname());
-/*
-        pstmt.setString(k, user.getUrlDocument());
-*/
+
     }
 }

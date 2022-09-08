@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 
 <html>
 <head>
@@ -122,9 +122,6 @@
 
     form input {
         margin-right: .5rem;
-        /*
-        filter: invert(100%) hue-rotate(30deg) brightness(1.7);
-        */
         color: red;
         width: 100%;
 
@@ -132,41 +129,16 @@
 
     form input {
         border: none;
-        /*
-        border-bottom: 1px solid var(--grey);
-        */
         outline: none;
         background-color: transparent;
         font-size: 1.1rem;
-        /*
-        padding: .2rem 0;
-        */
+
     }
 
     form#cvc {
         color: white;
     }
 
-    /*
-        button {
-            height: 2.8rem;
-            width: 11.8rem;
-            font-size: .8rem;
-            position: absolute;
-            bottom: -10rem;
-            left: 10rem;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }*/
-
-    /*    form .fa-angle-right {
-            font-size: 2rem;
-            position: absolute;
-            left: 72%;
-        }*/
 
     .price-container {
         position: absolute;
@@ -182,9 +154,6 @@
 
     .price-container small {
         font-size: 0.6rem;
-        /*
-        color: var(--grey);
-        */
 
     }
 
@@ -259,6 +228,7 @@
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<jsp:include page="/jsp/footer.jsp"/>
 
 <script>
     $(function () {

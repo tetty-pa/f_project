@@ -1,7 +1,7 @@
 package com.tpavlyshyn.fp.dao.impl;
 
 import com.tpavlyshyn.fp.Fields;
-import com.tpavlyshyn.fp.entity.Port;
+
 import com.tpavlyshyn.fp.exceptions.DaoException;
 import com.tpavlyshyn.fp.dao.LinerDao;
 import com.tpavlyshyn.fp.entity.Liner;
@@ -33,9 +33,9 @@ public class LinerDaoImpl implements LinerDao {
         Liner liner = null;
 
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_LINER_BY_ID);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_LINER_BY_ID)) {
             pstmt.setInt(1, id);
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next())
                     liner = extractLiner(rs);
             }

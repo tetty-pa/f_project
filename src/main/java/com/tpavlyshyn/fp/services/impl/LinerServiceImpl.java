@@ -17,7 +17,7 @@ public class LinerServiceImpl implements LinerService {
 
     @Override
     public List<Liner> showAllLiners() throws ServiceException {
-        List<Liner> linerList = null;
+        List<Liner> linerList ;
         try {
             linerList = linerDao.findAll();
         } catch (DaoException e) {

@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ShowUsersByCruiseIdCommand implements Command {
     private final static Logger log = Logger.getLogger(ShowUsersByCruiseIdCommand.class);
@@ -36,7 +35,7 @@ public class ShowUsersByCruiseIdCommand implements Command {
             request.setAttribute("users", users);
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
-            return new Redirect("error page");
+            return new Redirect(Path.ERROR_PAGE);
         }
         return new Forward(Path.PAGE__SHOW_ALL_USERS);
     }

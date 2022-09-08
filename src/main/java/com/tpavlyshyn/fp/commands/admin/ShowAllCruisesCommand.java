@@ -8,14 +8,13 @@ import com.tpavlyshyn.fp.commands.action.Redirect;
 import com.tpavlyshyn.fp.entity.Cruise;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.CruiseService;
-import com.tpavlyshyn.fp.services.impl.CruiseServiceImpl;
 
-import jakarta.servlet.ServletConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import java.util.List;
+
 
 public class ShowAllCruisesCommand implements Command {
     private final static Logger log = Logger.getLogger(ShowAllCruisesCommand.class);
@@ -35,7 +34,7 @@ public class ShowAllCruisesCommand implements Command {
             request.setAttribute("cruises", cruises);
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
-            return new Redirect("error page");
+            return new Redirect(Path.ERROR_PAGE);
         }
         return new Forward(Path.PAGE__SHOW_ALL_CRUISES);
     }

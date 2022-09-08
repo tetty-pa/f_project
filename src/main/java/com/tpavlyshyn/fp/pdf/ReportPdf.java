@@ -17,9 +17,7 @@ public class ReportPdf {
             document.add(new Paragraph("A Hello World PDF document."));
             document.close();
             writer.close();
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         }
     }

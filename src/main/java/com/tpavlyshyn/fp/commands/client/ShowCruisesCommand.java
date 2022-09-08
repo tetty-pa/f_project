@@ -40,10 +40,7 @@ public class ShowCruisesCommand implements Command {
         }
 
         int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-/*
-        int recordsPerPage = Integer.parseInt(request.getParameter("recordsPerPage"));
-*/
-        int recordsPerPage = 2;
+        int recordsPerPage = 3;
         int start = currentPage * recordsPerPage - recordsPerPage;
 
 
@@ -65,7 +62,7 @@ public class ShowCruisesCommand implements Command {
 
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
-            return new Redirect("error page");
+            return new Redirect(Path.ERROR_PAGE);
         }
         return new Forward(Path.PAGE__SHOW_CRUISES);
     }

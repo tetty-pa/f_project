@@ -33,14 +33,13 @@ public class AddCruiseCommand implements Command {
         TranslationCruise ua = (TranslationCruise) session.getAttribute("translationCruiseUa");
         TranslationCruise en = (TranslationCruise) session.getAttribute("translationCruiseEn");
         try {
-            if(!ports.isEmpty()) {
+            if (!ports.isEmpty()) {
                 boolean result = cruiseService.addCruiseWithTranslations(cruise, ua, en, ports);
-            }
-            else log.info("ports can`t be empty");
+            } else log.info("ports can`t be empty");
         } catch (ServiceException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            return new Redirect(Path.ERROR_PAGE);
         }
-
-        return new Redirect(request.getContextPath()+ Path.PAGE__INDEX);
+        return new Redirect(request.getContextPath() + Path.PAGE__INDEX);
     }
 }

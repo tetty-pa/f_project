@@ -66,9 +66,9 @@ public class RequestDaoImpl implements RequestDao {
     public Optional<Request> findById(Integer id) throws DaoException {
         Request request = null;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_REQUEST_BY_ID);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_REQUEST_BY_ID)) {
             pstmt.setInt(1, id);
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next())
                     request = extractRequest(rs);
             }
@@ -82,13 +82,9 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public boolean delete(Integer id) throws DaoException {
-        return deleteById(id, ds, SQL__DELETE_REQUEST, log);
-    }
-
-    static boolean deleteById(Integer id, DataSource ds, String sql, Logger log) throws DaoException {
         boolean result ;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__DELETE_REQUEST)) {
             pstmt.setInt(1, id);
             result = pstmt.executeUpdate() > 0;
             connection.commit();
@@ -96,14 +92,14 @@ public class RequestDaoImpl implements RequestDao {
             log.error(ex.getMessage(), ex);
             throw new DaoException(ex);
         }
-        return result;
-    }
+        return result;    }
+
 
     @Override
     public boolean create(Request request) throws DaoException {
-        boolean result = false;
+        boolean result ;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__CREATE_REQUEST, Statement.RETURN_GENERATED_KEYS);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__CREATE_REQUEST, Statement.RETURN_GENERATED_KEYS)) {
             int k = 1;
             pstmt.setInt(k++, request.getCruiseId());
             pstmt.setInt(k++, request.getUserId());
@@ -135,7 +131,7 @@ public class RequestDaoImpl implements RequestDao {
              PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_ALL_REQUEST)) {
             pstmt.setString(1, lang);
 
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Cruise cruise = CruiseDaoImpl.extractCruise(rs);
                     User user = UserDaoImpl.extractUser(rs);
@@ -157,10 +153,10 @@ public class RequestDaoImpl implements RequestDao {
     public List<Request> findByUserId(int id, String lang) throws DaoException {
         List<Request> requestList = new ArrayList<>();
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_USERS_REQUESTS);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__FIND_USERS_REQUESTS)) {
             pstmt.setInt(1, id);
             pstmt.setString(2, lang);
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Request request = extractRequest(rs);
                     Cruise cruise = CruiseDaoImpl.extractCruise(rs);
@@ -186,9 +182,9 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     private boolean updateStatus(int requestId, String sql) throws DaoException {
-        boolean result = false;
+        boolean result ;
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, requestId);
             result = pstmt.executeUpdate() > 0;
             connection.commit();
@@ -204,9 +200,9 @@ public class RequestDaoImpl implements RequestDao {
         int totalPrice = 0;
 
         try (Connection connection = ds.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(SQL__CALCULATE_PRICE_BY_ID);) {
+             PreparedStatement pstmt = connection.prepareStatement(SQL__CALCULATE_PRICE_BY_ID)) {
             pstmt.setInt(1, requestId);
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next())
                     totalPrice = rs.getInt("total_price");
             }
@@ -221,9 +217,9 @@ public class RequestDaoImpl implements RequestDao {
     @Override
     public boolean findRequestByCruiseId(int cruiseId) throws DaoException {
         try (Connection connection = ds.getConnection();
-            PreparedStatement pstmt =  connection.prepareStatement(SQL__FIND_REQUEST_BY_CRUISE_ID);) {
+            PreparedStatement pstmt =  connection.prepareStatement(SQL__FIND_REQUEST_BY_CRUISE_ID)) {
             pstmt.setInt(1, cruiseId);
-            try(ResultSet resultSet = pstmt.executeQuery();) {
+            try(ResultSet resultSet = pstmt.executeQuery()) {
                 return resultSet.next();
             }
         } catch (SQLException ex) {

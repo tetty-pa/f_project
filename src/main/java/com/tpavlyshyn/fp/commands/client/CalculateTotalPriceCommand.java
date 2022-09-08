@@ -7,7 +7,6 @@ import com.tpavlyshyn.fp.commands.action.Forward;
 import com.tpavlyshyn.fp.commands.action.Redirect;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.RequestService;
-import com.tpavlyshyn.fp.services.impl.RequestServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,7 +24,7 @@ public class CalculateTotalPriceCommand implements Command {
     @Override
     public Dispatcher execute(HttpServletRequest request, HttpServletResponse response) {
         int requestId = Integer.parseInt(request.getParameter("requestId"));
-        int totalPrice = 0;
+        int totalPrice;
         try {
             totalPrice = requestService.calculateTotalPrice(requestId);
             request.setAttribute("totalPrice", totalPrice);
@@ -33,7 +32,7 @@ public class CalculateTotalPriceCommand implements Command {
             request.setAttribute("requestU", request.getParameter("request"));
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
-            return new Redirect("error page");
+            return new Redirect(Path.ERROR_PAGE);
         }
         return new Forward(Path.PAGE__PAY);
     }

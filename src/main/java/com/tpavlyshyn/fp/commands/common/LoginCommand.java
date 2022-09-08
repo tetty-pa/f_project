@@ -1,5 +1,6 @@
 package com.tpavlyshyn.fp.commands.common;
 
+import com.tpavlyshyn.fp.MessageManager;
 import com.tpavlyshyn.fp.commands.Path;
 import com.tpavlyshyn.fp.commands.action.Redirect;
 import com.tpavlyshyn.fp.entity.user.User;
@@ -16,6 +17,8 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import java.util.Optional;
+
+import static com.tpavlyshyn.fp.MessageManager.INCORRECT_LOGIN;
 
 public class LoginCommand implements Command {
     private final static Logger log = Logger.getLogger(LoginCommand.class);
@@ -38,14 +41,14 @@ public class LoginCommand implements Command {
                 request.setAttribute("user", user.get());
                 HttpSession currentSession = request.getSession();
                 currentSession.setAttribute("user", user.get());
-                return new Redirect(request.getContextPath() + "/" + Path.PAGE__INDEX);
+                return new Redirect(request.getContextPath() + Path.PAGE__INDEX);
             }
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
-            return new Redirect("error page");
+            return new Redirect(Path.ERROR_PAGE);
         }
 
-        request.setAttribute("message", "Incorrect login or password.");
+        request.setAttribute("message", MessageManager.getProperty(INCORRECT_LOGIN));
         return new Forward(Path.PAGE__LOGIN);
     }
 }

@@ -57,6 +57,16 @@
             <filter-name>AuthorizationFilter</filter-name>
             <url-pattern>/controller/*</url-pattern>
         </filter-mapping>-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/error/404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/jsp/error/500.jsp</location>
+    </error-page>
+
     <listener>
         <listener-class>com.tpavlyshyn.fp.listener.ContextListener</listener-class>
     </listener>

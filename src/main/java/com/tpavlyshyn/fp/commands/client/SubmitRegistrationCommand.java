@@ -9,10 +9,11 @@ import com.tpavlyshyn.fp.commands.action.Redirect;
 import com.tpavlyshyn.fp.entity.user.User;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.UserService;
-import com.tpavlyshyn.fp.services.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.commons.codec.digest.DigestUtils;
+
 
 public class SubmitRegistrationCommand implements Command {
 
@@ -30,7 +31,7 @@ public class SubmitRegistrationCommand implements Command {
         String password = (String) session.getAttribute("password");
         String name = (String) session.getAttribute("name");
         String surname = (String) session.getAttribute("surname");
-        User user = new User(email, password, name, surname);
+        User user = new User(email, DigestUtils.sha256Hex(password), name, surname);
 
         boolean isValid = EmailMessageHelper.validate(request);
         if (isValid) {
@@ -40,7 +41,7 @@ public class SubmitRegistrationCommand implements Command {
                     return new Redirect(request.getContextPath()+Path.PAGE__LOGIN);
                 }
             } catch (ServiceException e) {
-                e.printStackTrace();
+                return new Redirect(Path.ERROR_PAGE);
             }
         }
         return new Forward(Path.PAGE__ENTER_OTP);

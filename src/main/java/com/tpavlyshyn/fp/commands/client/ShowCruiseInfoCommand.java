@@ -8,7 +8,6 @@ import com.tpavlyshyn.fp.commands.action.Redirect;
 import com.tpavlyshyn.fp.entity.Cruise;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.CruiseService;
-import com.tpavlyshyn.fp.services.impl.CruiseServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,7 +32,7 @@ public class ShowCruiseInfoCommand implements Command {
             request.setAttribute("cruise", cruise);
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
-            return new Redirect("error page");
+            return new Redirect(Path.ERROR_PAGE);
         }
         return new Forward(Path.PAGE__SHOW_CRUISE_INFO);
     }

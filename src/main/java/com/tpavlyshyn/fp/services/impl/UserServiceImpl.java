@@ -6,23 +6,17 @@ import com.tpavlyshyn.fp.exceptions.DaoException;
 import com.tpavlyshyn.fp.entity.user.User;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
     private final static Logger log = Logger.getLogger(UserServiceImpl.class);
-    /*
-        DaoFactory daoFactory;
-        UserDaoImpl userDao;
 
-        public UserService() {
-            daoFactory = DaoFactory.getInstance();
-            userDao = daoFactory.createUserDao();
-        }*/
     UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
@@ -47,6 +41,7 @@ public class UserServiceImpl implements UserService {
     public Optional<User> signIn(String login, String password) throws ServiceException {
         try {
             Optional<User> user = userDao.findUserByLogin(login);
+            password = DigestUtils.sha256Hex(password);
             if (user.isPresent() && password.equals(user.get().getPassword())) {
                 log.info("User is signed up --> " + user);
                 return user;
@@ -106,7 +101,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> showUsersByCruiseId(int cruiseId) throws ServiceException {
-        List<User> users = new ArrayList<>();
+        List<User> users ;
         try {
             users = userDao.findByCruiseId(cruiseId);
             if (!users.isEmpty()) log.info("Found users-->" + users);
@@ -121,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean editProfile(User user) throws ServiceException {
-        boolean result = false;
+        boolean result ;
         try {
             result = userDao.update(user);
             if (result) log.info("User was updated-->" + user);

@@ -17,15 +17,10 @@ import com.tpavlyshyn.fp.services.CruiseService;
 import org.apache.log4j.Logger;
 
 
-import java.sql.Date;
-import java.text.Collator;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class CruiseServiceImpl implements CruiseService {
@@ -90,7 +85,7 @@ public class CruiseServiceImpl implements CruiseService {
 
     @Override
     public boolean deleteCruise(int cruiseId) throws ServiceException {
-        boolean result = false;
+        boolean result ;
         try {
             result = cruiseDao.delete(cruiseId);
             if (result) log.info("Cruise with id = " + cruiseId + " was deleted");
@@ -104,7 +99,7 @@ public class CruiseServiceImpl implements CruiseService {
 
     @Override
     public Cruise showCruiseInfo(int cruiseId, String lang) throws ServiceException {
-        Optional<Cruise> cruise = Optional.empty();
+        Optional<Cruise> cruise;
         try {
             cruise = cruiseDao.findByIdAndLang(cruiseId, lang);
             log.info("Detailed info about-->" + cruise);
@@ -124,7 +119,7 @@ public class CruiseServiceImpl implements CruiseService {
             List<Integer> list = cruises.stream().map(Entity::getId).collect(Collectors.toList());
             List<Port> portList = portDao.findAllByCruiseIds(list, lang);
             for (Cruise cruise : cruises) {
-                List cruisesPorts = portList.stream().filter(port -> port.getCruiseId() == cruise.getId()).collect(Collectors.toList());
+                List<Port> cruisesPorts = portList.stream().filter(port -> port.getCruiseId() == cruise.getId()).collect(Collectors.toList());
                 cruise.setPortList(cruisesPorts);
             }
             log.error(portList);

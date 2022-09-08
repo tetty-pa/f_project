@@ -8,7 +8,6 @@ import com.tpavlyshyn.fp.commands.action.Redirect;
 import com.tpavlyshyn.fp.entity.user.User;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.UserService;
-import com.tpavlyshyn.fp.services.impl.UserServiceImpl;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,13 +32,12 @@ public class UploadDocumentsCommand implements Command {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         int userId = user.getId();
-        //request.getParameter("file");
+
         try {
 
             Part part = request.getPart("file");
             String fileName = part.getSubmittedFileName();
 
-            //String path = request.getServletContext().getRealPath("/"+"img"+ File.separator+fileName);
             String path = Path.IMAGES_STORE + File.separator + fileName;
 
             InputStream is = part.getInputStream();
@@ -50,7 +48,7 @@ public class UploadDocumentsCommand implements Command {
             }
         } catch (ServiceException | ServletException | IOException ex) {
             log.error(ex.getMessage(), ex);
-            return new Redirect("error page");
+            return new Redirect(Path.ERROR_PAGE);
         }
         return new Forward(Path.PAGE__INDEX);
 
@@ -60,7 +58,7 @@ public class UploadDocumentsCommand implements Command {
         boolean test = false;
         try {
             byte[] buf = new byte[1024];
-            is.read();
+            int read = is.read();
 
             OutputStream outputStream = new FileOutputStream(path);
 
@@ -71,10 +69,6 @@ public class UploadDocumentsCommand implements Command {
             outputStream.close();
             is.close();
 
-      /*      fops.write(byt);
-            fops.flush();
-            fops.close();
-*/
             test = true;
 
         } catch (Exception e) {

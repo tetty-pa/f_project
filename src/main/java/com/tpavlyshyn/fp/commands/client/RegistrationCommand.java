@@ -1,6 +1,7 @@
 package com.tpavlyshyn.fp.commands.client;
 
 import com.tpavlyshyn.fp.EmailMessageHelper;
+import com.tpavlyshyn.fp.MessageManager;
 import com.tpavlyshyn.fp.validators.UserDataValidator;
 import com.tpavlyshyn.fp.commands.Command;
 import com.tpavlyshyn.fp.commands.Path;
@@ -12,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
+
+import static com.tpavlyshyn.fp.MessageManager.*;
 
 
 public class RegistrationCommand implements Command {
@@ -35,14 +38,14 @@ public class RegistrationCommand implements Command {
         boolean isLoginUnique = userService.checkUserLoginForUnique(login);
         if (!isLoginUnique) {
             log.info("Login is not unique");
-            request.setAttribute("message", "Login must be unique");
+            request.setAttribute("message", MessageManager.getProperty(LOGIN_IS_NOT_AVAILABLE));
             return new Forward(Path.PAGE__REGISTRATION);
         }
         UserDataValidator userDataValidator = new UserDataValidator();
         boolean isDataValid = userDataValidator.checkData(login, password, name, surname);
         if (!isDataValid) {
             log.info("Data is not valid");
-            request.setAttribute("message", "Invalid data");
+            request.setAttribute("message", MessageManager.getProperty(DATA_IS_NOT_VALID));
             return new Forward(Path.PAGE__REGISTRATION);
         }
 
@@ -55,7 +58,7 @@ public class RegistrationCommand implements Command {
             return new Forward(Path.PAGE__ENTER_OTP);
         } else {
             log.info("Can't send message to this email");
-            request.setAttribute("message", "Can't send message to this email");
+            request.setAttribute("message", MessageManager.getProperty(CAN_NOT_SEND_MESSAGE));
         }
         return new Forward(Path.PAGE__REGISTRATION);
 

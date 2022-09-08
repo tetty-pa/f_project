@@ -2,14 +2,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 
 <html>
 <head>
     <title>Requests</title>
     <jsp:include page="/jsp/header.jsp"/>
 </head>
-<body>
+<body style="height: 100%">
 
 <div class="table__container">
     <div class="title"><fmt:message key="showAllRequests.title"/></div>
@@ -35,7 +35,7 @@
                 <td>${requestU.user.surname}</td>
                 <td>
                     <a class="link-info"
-                       href="${pageContext.request.contextPath}/controller?command=showCruiseInfo&cruiseId=${requestU.cruise.id}">${requestU.cruise.cruiseName}</a>
+                       href="${pageContext.request.contextPath}/controller/?command=showCruiseInfo&cruiseId=${requestU.cruise.id}">${requestU.cruise.cruiseName}</a>
                         ${requestU.cruise.cruiseName}
                 </td>
                 <td>${requestU.cruise.startDate}</td>
@@ -56,4 +56,6 @@
     </table>
 </div>
 </body>
+<jsp:include page="/jsp/footer.jsp"/>
+
 </html>

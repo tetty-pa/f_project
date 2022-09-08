@@ -5,6 +5,7 @@ body {
     font-family: "Segoe UI Historic", serif;
     */
     font-family: "Book Antiqua", serif;
+    flex: 1 0 auto;
 }
 
 h1, h2, h3, h4 {
@@ -32,8 +33,9 @@ h1, h2, h3, h4 {
 }
 
 .intro__title {
-    font-size: 60px;
-    color: white;
+    font-family: "Courier New";
+    font-size: 100px;
+    color: #FFFFFF;
     text-align: center;
 }
 
@@ -209,21 +211,23 @@ h1, h2, h3, h4 {
     justify-content: center;
     position: relative;
     text-align: center;
-    margin: 0 0 0 50px;
+    margin: 0 0 0 100px;
 }
 
 .button_2:active {
     border-color: #ffffff;
     outline: 0;
     color: #ffffff;
-    font-weight: lighter;
+    font-weight: bold;
+    font-size: 20px;
     background-color: #65645b;
 }
 
 .button_2:hover {
     border-color: #ffffff;
     background-color: #65645b;
-    font-weight: lighter;
+    font-weight: bold;
+    font-size: 20px;
     color: #ffffff;
 }
 
@@ -474,22 +478,20 @@ nav {
 
 .pagination {
     list-style: none;
+    /*
     margin: 0;
+    */
     padding: 0;
     display: flex;
     column-gap: 2px;
+    margin-bottom: 20px;
     box-sizing: border-box;
 }
 
 .table__container {
-    margin: 100px 100px 100px 100px;
+    margin: 30px 100px 100px 100px;
     position: relative;
-    /*
-    margin: auto;
-    */
-    /*
-    text-align: center;
-    */
+
 }
 
 .edit {
@@ -564,8 +566,6 @@ nav {
 
 ul {
     list-style-type: none;
-
-
 }
 
 .user_menu {

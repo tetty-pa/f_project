@@ -1,7 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 <html>
 <head>
     <meta charset='utf-8'>
@@ -34,7 +34,7 @@
         }
     </style>
 </head>
-<body>
+<body style="height: 100%;">
 <div class="container padding-bottom-3x mb-3 mt-5 ">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
@@ -61,7 +61,7 @@
                     <div class="form-group">
                         <label for="email-for-pass"><fmt:message key="forgot_password.enter_email"/></label>
                         <input
-                            class="form-control border-danger" type="text" name="email" id="email-for-pass" required=""><small
+                            class="form-control border-danger" type="text" name="email" id="email-for-pass" required="" value="${sessionScope.user.login}"><small
                             class="form-text text-muted"><fmt:message key="forgot_password.enter_email_sub"/></small>
                     </div>
                 </div>
@@ -76,6 +76,7 @@
         </div>
     </div>
 </div>
+<jsp:include page="/jsp/footer.jsp"/>
 
 </body>
 </html>

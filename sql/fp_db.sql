@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `fp_db`.`user`
 (
     `id`           INT          NOT NULL AUTO_INCREMENT,
     `login`        VARCHAR(40)  NOT NULL UNIQUE,
-    `password`     VARCHAR(20)  NOT NULL,
+    `password`     VARCHAR(100)  NOT NULL,
     `name`         VARCHAR(20)  NULL DEFAULT NULL,
     `surname`      VARCHAR(20)  NULL DEFAULT NULL,
     `url_document` VARCHAR(255) NULL DEFAULT NULL,

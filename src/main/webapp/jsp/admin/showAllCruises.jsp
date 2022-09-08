@@ -3,14 +3,14 @@
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 <html>
 <head>
     <title>Cruises</title>
     <jsp:include page="/jsp/header.jsp"/>
 </head>
 
-
+<body>
 <div class="table__container">
     <div class="title"><fmt:message key="showAllCruises.title"/></div>
     <form method="GET" action="${pageContext.request.contextPath}/controller/">
@@ -57,3 +57,5 @@
     </table>
 
 </div>
+</body>
+<jsp:include page="/jsp/footer.jsp"/>

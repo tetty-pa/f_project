@@ -4,6 +4,7 @@ import com.tpavlyshyn.fp.entity.Cruise;
 import com.tpavlyshyn.fp.entity.TranslationCruise;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class CruiseDataValidator extends Validator {
 
@@ -21,7 +22,8 @@ public class CruiseDataValidator extends Validator {
         if (price <= 0) {
             return false;
         }
-        return startDate != null && endDate != null && !startDate.after(endDate);
+
+        return endDate != null && !startDate.after(endDate);
     }
 
     public boolean checkTranslationCruise(TranslationCruise translationCruise) {

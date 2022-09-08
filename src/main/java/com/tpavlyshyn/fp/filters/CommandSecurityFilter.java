@@ -72,7 +72,7 @@ public class CommandSecurityFilter implements Filter {
 
     }
 
-    public void init(FilterConfig fConfig) throws ServletException {
+    public void init(FilterConfig fConfig) {
 
         String avoidURLs = fConfig.getInitParameter("avoid-urls");
         StringTokenizer token = new StringTokenizer(avoidURLs, ",");

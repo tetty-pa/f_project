@@ -2,16 +2,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="messages"/>
+<fmt:setBundle basename="page_content"/>
 <html>
 <head>
     <title>My orders</title>
-    <%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-              integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">--%>
     <jsp:include page="/jsp/header.jsp"/>
 
 </head>
-<body>
+<body style="height: 100%">
 <div class="table__container">
     <div class="title"><fmt:message key="showUsersOrders.title"/></div>
 
@@ -58,11 +56,13 @@
             </tr>
         </c:forEach>
 
-            </table>
+    </table>
     </c:if>
     <c:if test="${ empty requestScope.requests}">
         <fmt:message key="label.haveNotOrders"/>
     </c:if>
 </div>
+<jsp:include page="/jsp/footer.jsp"/>
+
 </body>
 </html>

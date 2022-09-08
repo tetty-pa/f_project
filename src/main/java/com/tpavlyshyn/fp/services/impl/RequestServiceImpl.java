@@ -13,16 +13,6 @@ import java.util.List;
 public class RequestServiceImpl implements RequestService {
 
     private final static Logger log = Logger.getLogger(RequestServiceImpl.class);
-/*
-    DaoFactory daoFactory;
-    RequestDaoImpl requestDao;
-    CruiseDaoImpl cruiseDao;
-
-    public RequestService() {
-        daoFactory = DaoFactory.getInstance();
-        requestDao = daoFactory.createRequestDao();
-        cruiseDao = daoFactory.createCruiseDao();
-    }*/
 
     RequestDao requestDao;
     CruiseDao cruiseDao;

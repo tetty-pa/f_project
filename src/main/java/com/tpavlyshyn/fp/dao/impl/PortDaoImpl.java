@@ -2,7 +2,6 @@ package com.tpavlyshyn.fp.dao.impl;
 
 import com.tpavlyshyn.fp.Fields;
 import com.tpavlyshyn.fp.dao.PortDao;
-import com.tpavlyshyn.fp.dto.CruisesNumberOfRows;
 import com.tpavlyshyn.fp.dto.PortsNumberOfRows;
 import com.tpavlyshyn.fp.entity.Port;
 import com.tpavlyshyn.fp.exceptions.DaoException;

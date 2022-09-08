@@ -1,12 +1,11 @@
 package com.tpavlyshyn.fp.commands.admin;
 
 import com.tpavlyshyn.fp.commands.Command;
+import com.tpavlyshyn.fp.commands.Path;
 import com.tpavlyshyn.fp.commands.action.Dispatcher;
 import com.tpavlyshyn.fp.commands.action.Redirect;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 import com.tpavlyshyn.fp.services.RequestService;
-import com.tpavlyshyn.fp.services.impl.CruiseServiceImpl;
-import com.tpavlyshyn.fp.services.impl.RequestServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +28,7 @@ public class SubmitRequestCommand implements Command {
             requestService.submitRequest(requestId);
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
-            return new Redirect("error page");
+            return new Redirect(Path.ERROR_PAGE);
         }
         return new Redirect("${pageContext.request.contextPath}/controller?command=showAllRequests");
     }

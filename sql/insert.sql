@@ -12,13 +12,13 @@ VALUES (1, 'client');
 -- user values
 -- ---------------
 INSERT INTO user
-VALUES (default, 'lina.nerv@ukr.net', 'linanerv', 'Lina', 'Nerv', null, 1);
+VALUES (default, 'lina.nerv@ukr.net', '314cd6a945a1e2ed2f9bc8925d9182c6cd4b6e5df8b4083a9f1f558be11d3cd3', 'Lina', 'Nerv', null, 1);
 INSERT INTO user
-VALUES (default, 'roger.pav@gmail.com', 'rogerpav', 'Roger', 'Pav', null, 0);
+VALUES (default, 'roger.pav@gmail.com', 'eefac726930bd6ff97320deb5f9d781b195fdecc131a244b3007ab51b33d0424', 'Roger', 'Pav', null, 0);
 INSERT INTO user
-VALUES (default, 'dana.kulk@gmail.com', 'danakulk', 'Dana', 'Kulk', null, 1);
+VALUES (default, 'dana.kulk@gmail.com', '62350c830600d9dda7ad76b5d8c890dc28170e1e195c08b88730038e275aae12', 'Dana', 'Kulk', null, 1);
 INSERT INTO user
-VALUES (default, 'vlad.black@gmail.com', 'vladblack', 'Vlad', 'Black', null, 1);
+VALUES (default, 'vlad.black@gmail.com', '803d32109ff6eab7e72ef48a3f2e41df02c1e91bb3ac6527fcc2a12ae60f2fbf', 'Vlad', 'Black', null, 1);
 -- ---------------
 -- company values
 -- ---------------
@@ -39,19 +39,19 @@ VALUES (default, 'Flower', '/img/linerPhoto/4.png', 800, 1);
 -- cruise values
 -- ---------------
 INSERT INTO cruise
-VALUES (1, '/img/cruisePhoto/1.png', 5, 569, '2022-05-12', '2022-05-19', 1);
+VALUES (1, '/img/cruisePhoto/1.png', 5, 569, '2023-05-12', '2023-05-19', 1);
 INSERT INTO cruise
-VALUES (2, '/img/cruisePhoto/2.png', 5, 759, '2022-07-01', '2022-07-15', 2);
+VALUES (2, '/img/cruisePhoto/2.png', 5, 759, '2023-07-01', '2023-07-15', 2);
 INSERT INTO cruise
-VALUES (3, '/img/cruisePhoto/3.png', 5, 787, '2022-12-1', '2022-12-15', 3);
+VALUES (3, '/img/cruisePhoto/3.png', 5, 787, '2023-12-1', '2023-12-15', 3);
 INSERT INTO cruise
-VALUES (4, '/img/cruisePhoto/4.png', 6, 901, '2022-07-05', '2022-07-15', 3);
+VALUES (4, '/img/cruisePhoto/4.png', 6, 901, '2023-07-05', '2023-07-15', 3);
 INSERT INTO cruise
-VALUES (5, '/img/cruisePhoto/5.png', 7, 979, '2022-07-01', '2022-07-15', 4);
+VALUES (5, '/img/cruisePhoto/5.png', 7, 979, '2023-07-01', '2023-07-15', 4);
 INSERT INTO cruise
-VALUES (6, '/img/cruisePhoto/6.png', 2, 201, '2022-07-05', '2022-07-09', 1);
+VALUES (6, '/img/cruisePhoto/6.png', 2, 201, '2023-07-05', '2023-07-09', 1);
 INSERT INTO cruise
-VALUES (7, '/img/cruisePhoto/7.png', 4, 649, '2022-06-09', '2022-06-16', 2);
+VALUES (7, '/img/cruisePhoto/7.png', 4, 649, '2023-06-09', '2023-06-16', 2);
 
 
 -- ---------------
@@ -257,8 +257,11 @@ CREATE EVENT e_hourly
     WHERE c.end_date < now();
 
 
-SELECT cruise_id, port_id, lang, city, country
-FROM port
-         INNER JOIN cruise_has_port chp on port.id = chp.port_id
-WHERE lang = 'en'
-  AND cruise_id IN (1, 2)
+SELECT *
+         FROM cruise
+         INNER JOIN liner l on cruise.liner_id = l.id
+         INNER JOIN translation_cruise tc on cruise.id = tc.cruise_id
+         INNER JOIN cruise_has_port chp on cruise.id = chp.cruise_id
+         INNER JOIN port p on chp.port_id = p.id
+          WHERE cruise.id = ?
+          AND tc.lang = ? AND p.lang=?

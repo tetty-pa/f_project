@@ -1,23 +1,18 @@
 package com.tpavlyshyn.fp.commands.client;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.tpavlyshyn.fp.commands.Command;
 import com.tpavlyshyn.fp.commands.Path;
 import com.tpavlyshyn.fp.commands.action.Dispatcher;
 import com.tpavlyshyn.fp.commands.action.Forward;
-import com.tpavlyshyn.fp.entity.request.Request;
+import com.tpavlyshyn.fp.commands.action.Redirect;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
-import com.tpavlyshyn.fp.services.CruiseService;
 import com.tpavlyshyn.fp.services.RequestService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import javax.swing.text.StyleConstants;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 
@@ -82,7 +77,7 @@ public class PdfCommand implements Command {
             document.add(new LineSeparator(2f, 100, BaseColor.DARK_GRAY, Element.ALIGN_CENTER, 1f));
             writer.close();
         } catch (DocumentException | IOException | ServiceException e) {
-            e.printStackTrace();
+            return new Redirect(Path.ERROR_PAGE);
         }
         return new Forward(Path.PAGE__INDEX);
     }

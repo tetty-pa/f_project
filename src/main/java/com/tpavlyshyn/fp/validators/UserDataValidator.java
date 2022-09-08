@@ -1,7 +1,5 @@
 package com.tpavlyshyn.fp.validators;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserDataValidator extends Validator{
 
@@ -38,6 +36,11 @@ public class UserDataValidator extends Validator{
         }
         return matchPattern(password, PASSWORD_PATTERN);
     }
-
+    public boolean checkName(String name) {
+        if (name == null || name.isEmpty()) {
+            return false;
+        }
+        return matchPattern(name, NAME_PATTERN);
+    }
 
 }

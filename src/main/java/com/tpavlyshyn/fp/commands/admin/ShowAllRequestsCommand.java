@@ -34,7 +34,7 @@ public class ShowAllRequestsCommand implements Command {
             request.setAttribute("requests", requests);
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
-            return new Redirect("error page");
+            return new Redirect(Path.ERROR_PAGE);
         }
         return new Forward(Path.PAGE__SHOW_ALL_REQUESTS);
     }

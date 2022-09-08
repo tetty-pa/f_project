@@ -105,8 +105,7 @@ public class ContextListener implements ServletContextListener {
         commands.addCommand("calculateTotalPrice", command);
         command = new PayCommand(requestService);
         commands.addCommand("pay", command);
-        command = new UpdateCruiseCommand(cruiseService);
-        commands.addCommand("updateCruise", command);
+
         command = new LogoutCommand();
         commands.addCommand("logout", command);
         command = new EditProfileCommand(userService);
@@ -133,7 +132,7 @@ public class ContextListener implements ServletContextListener {
         command = new ShowAllPortsCommand(cruiseService);
         commands.addCommand("showAllPorts", command);
 
-        command = new AddPortToCruiseCommand(cruiseService);
+        command = new AddPortToCruiseCommand();
         commands.addCommand("addPortToCruise", command);
 
         command = new AddCruiseCommand(cruiseService);

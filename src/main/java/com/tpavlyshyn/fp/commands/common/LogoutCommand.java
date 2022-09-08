@@ -18,8 +18,7 @@ public class LogoutCommand implements Command {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
 
-        if (session != null)
-            session.invalidate();
+        session.invalidate();
 
         log.debug("User logout-->"+user);
         return new Redirect(request.getContextPath()+Path.PAGE__INDEX);
