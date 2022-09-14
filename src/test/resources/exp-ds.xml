@@ -6,7 +6,8 @@
   <USER ID="3" LOGIN="vlad.black@gmail.com" PASSWORD="vladblack" NAME="Vlad" SURNAME="Black" URL_DOCUMENT='hi' ROLE_ID="1"/>
   <USER1 ID="1" LOGIN="lina.nerv@ukr.net" PASSWORD="linanerv" NAME="Lina" SURNAME="Nerv" URL_DOCUMENT='hi' ROLE_ID="1"/>
   <USER1 ID="2" LOGIN="dana.kulk@gmail.com" PASSWORD="danakulk" NAME="Dana" SURNAME="Kulk" URL_DOCUMENT='hi' ROLE_ID="1"/>
-  <USER_UPDATED ID="2" LOGIN="roger.pav@gmail.com" PASSWORD="rogerpav" NAME="Roger" SURNAME="Pav" URL_DOCUMENT='hi' ROLE_ID="1"/>
+  <USER_UPDATED ID="3" LOGIN="roger.pav@gmail.com" PASSWORD="rogerpav" NAME="Roger" SURNAME="Pav" URL_DOCUMENT='hi' ROLE_ID="1"/>
+
   <PORT ID="1" LANG="en" CITY="New York" COUNTRY="USA"/>
   <PORT ID="2" LANG="en" CITY="Boston" COUNTRY="USA"/>
   <LINER id='1' liner_name='Dream' passenger_capacity='1210'/>

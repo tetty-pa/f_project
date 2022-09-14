@@ -75,14 +75,14 @@ public class UserServiceImplTest extends TestContainer {
         ITable expectedUsers = loader.load("/exp-ds.xml").getTable("user1");
         assertEquals(expectedUsers.getRowCount(), users.size());
     }
-//TODO  fix this fucking shit
-//    public void testEditProfile() throws ServiceException, DataSetException {
-//        user.setId(2);
-//        boolean result = us.editProfile(user);
-//        assertTrue(result);
-//        ITable expectedUsers = loader.load("/exp-ds.xml").getTable("user_updated");
-//        assertEquals(expectedUsers.getValue(0, "login"), "roger.pav@gmail.com");
-//    }
+
+   public void testEditProfile() throws ServiceException, DataSetException {
+     user.setId(2);
+        boolean result = us.editProfile(user);
+        assertTrue(result);
+        ITable expectedUsers = loader.load("/exp-ds.xml").getTable("user_updated");
+        assertEquals(expectedUsers.getValue(0, "login"), "roger.pav@gmail.com");
+    }
 
     public void testCheckLoginForUnique() {
         boolean result = us.checkUserLoginForUnique(user.getLogin());

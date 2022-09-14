@@ -92,6 +92,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement pstmt = connection.prepareStatement(SQL_UPDATE_USER)) {
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getSurname());
+            pstmt.setInt(3, user.getId());
             result = pstmt.executeUpdate() > 0;
             connection.commit();
         } catch (SQLException ex) {
