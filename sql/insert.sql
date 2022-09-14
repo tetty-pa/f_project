@@ -258,7 +258,7 @@ CREATE EVENT e_hourly
 
 
 SELECT *
-         FROM cruise
+         FROM user
          INNER JOIN liner l on cruise.liner_id = l.id
          INNER JOIN translation_cruise tc on cruise.id = tc.cruise_id
          INNER JOIN cruise_has_port chp on cruise.id = chp.cruise_id

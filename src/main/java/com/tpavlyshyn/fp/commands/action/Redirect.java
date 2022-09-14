@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Redirect implements Dispatcher {
-    String path;
+    private final String path;
 
     public Redirect(String path) {this.path = path;}
 

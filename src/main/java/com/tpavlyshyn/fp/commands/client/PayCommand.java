@@ -18,15 +18,17 @@ public class PayCommand implements Command {
     public PayCommand(RequestService requestService) {
         this.requestService = requestService;
     }
+
     @Override
-    public Dispatcher execute(HttpServletRequest request, HttpServletResponse response)  {
+    public Dispatcher execute(HttpServletRequest request, HttpServletResponse response) {
         int requestId = Integer.parseInt(request.getParameter("requestId"));
+
         try {
             requestService.pay(requestId);
         } catch (ServiceException ex) {
             log.error(ex.getMessage(), ex);
             return new Redirect(Path.ERROR_PAGE);
         }
-        return new Redirect(request.getContextPath()+Path.PAGE__PAY);
+        return new Redirect(request.getContextPath() + Path.PAGE__INDEX);
     }
 }

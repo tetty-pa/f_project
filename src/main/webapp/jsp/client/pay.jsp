@@ -4,12 +4,13 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="page_content"/>
 
+
 <html>
 <head>
     <title>Payment page</title>
     <jsp:include page="/jsp/header.jsp"/>
 </head>
-<body>
+<body style="height: 100%">
 <style>
     :root {
         --black: #525252;
@@ -25,6 +26,7 @@
     }
 
     #main {
+        margin-top: 50px;
         width: 41.875rem;
         height: 18.4375rem;
         background-color: var(--black);
@@ -32,6 +34,7 @@
         z-index: 1;
         justify-content: left;
     }
+
     h2 {
         color: white;
         font-size: 18px;
@@ -158,12 +161,11 @@
     }
 
     .container__file_uploading {
-        margin: 0px 0px 0px 0px;
+        align-items: center;
         height: 600px;
-        width: 80%;
-        position: absolute;
+        width: 95%;
+        position: relative;
         display: inline-block;
-
     }
 </style>
 
@@ -171,6 +173,8 @@
 <div class="container">
     <div class="title"><fmt:message key="pay.title"/></div>
     <div id="page">
+        <br>
+        <br>
         <div id="main">
             <div class="card">
                 <div class="chip">
@@ -196,7 +200,7 @@
                         <input type="text" id="cvc" placeholder="000">
                     </label>
                     <label for="remember"><fmt:message key="pay.save_info"/>
-                        <input type="checkbox" checked="checked" id="remember">
+                        <input type="checkbox" style="margin-left: 400px" checked="checked" id="remember">
                     </label>
                 </form>
             </div>
@@ -205,30 +209,37 @@
                 <small><fmt:message key="pay.inc_shipping"/></small>
                 <form method="GET" action="${pageContext.request.contextPath}/controller/">
                     <input type="hidden" name="command" value="pay"/>
-                    <input class="button_red" style="width: 250px" type="submit" value="<fmt:message key="button.pay_now"/>" name="pay"/>
+                    <input class="button_red" style="width: 250px" type="submit"
+                           value="<fmt:message key="button.pay_now"/>" name="pay"/>
                     <input type="hidden" name="requestId" value="${requestScope.requestId}"/>
                 </form>
             </div>
         </div>
+
     </div>
-    <div class="container__file_uploading">
-        <div class="title"><fmt:message key="pay.file_title"/></div>
-       <div style="margin-left: 400px"><fmt:message key="pay.select_file"/> <br/>
-       </div>
-        <form class="form_file" id="comm1" method="POST" action="${pageContext.request.contextPath}/controller/"
-              enctype="multipart/form-data">
-            <input type="hidden" name="command" value="uploadDocuments"/>
-            <input class="input_file" type="file" name="file"/>
-            <p><fmt:message key="pay.drag_file"/></p>
-            <button class="button_red" style="margin-left: 150px" type="submit">Upload File</button>
-        </form>
-    </div>
+    <c:if test="${sessionScope.user.urlDocument eq null}">
+        <div class="container__file_uploading">
+            <div class="title"><fmt:message key="pay.file_title"/></div>
+            <div style="margin-left: 450px"><fmt:message key="pay.select_file"/> <br/>
+            </div>
+            <form class="form_file" id="comm1" method="POST" action="${pageContext.request.contextPath}/controller/"
+                  enctype="multipart/form-data">
+                <input type="hidden" name="command" value="uploadDocuments"/>
+                <input class="input_file" type="file" name="file"/>
+                <p><fmt:message key="pay.drag_file"/></p>
+                <button class="button_red" style="margin-left: 150px" type="submit">Upload File</button>
+            </form>
+        </div>
+    </c:if>
 </div>
 
+
 </body>
-</html>
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <jsp:include page="/jsp/footer.jsp"/>
+</html>
+
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 
 <script>
     $(function () {

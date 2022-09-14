@@ -8,10 +8,11 @@ import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.util.fileloader.DataFileLoader;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.h2.jdbcx.JdbcDataSource;
+import org.junit.Ignore;
 
 import javax.sql.DataSource;
 
-public class TestContainer extends DataSourceBasedDBTestCase {
+public abstract class TestContainer extends DataSourceBasedDBTestCase {
 
     DataFileLoader loader = new FlatXmlDataFileLoader();
 

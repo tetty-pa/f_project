@@ -1,19 +1,86 @@
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\LinerHasStaff.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\Entity.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\dao\DaoException.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\DBManager.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\Request.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\Company.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\Fields.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\dao\impl\UserDaoImpl.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\Cruise.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\dao\UserDao.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\enums\Status.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\Staff.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\Liner.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\dao\AbstractDao.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\Position.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\enums\Role.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\com\tpavlyshyn\fp\db\entity\User.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\HelloServlet.java
-C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project\src\main\java\o.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\ShowAllCruisesCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\filters\PageSecurityFilter.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\impl\LinerDaoImpl.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\PortDao.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\client\ShowCruiseInfoCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\LinerDao.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\UserDao.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\ShowAllRequestsCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\listener\SessionListener.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\listener\ContextListener.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\impl\PortDaoImpl.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\entity\Cruise.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\controller\Controller.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\entity\TranslationCruise.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\CruiseDao.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\Command.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\filters\CommandSecurityFilter.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\AddPortToCruiseCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\action\Dispatcher.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\common\LogoutCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\entity\Entity.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\entity\user\User.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dto\PortsNumberOfRows.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\entity\Liner.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\services\impl\UserServiceImpl.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\services\LinerService.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\services\CruiseService.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\client\PayCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\services\UserService.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\DeleteCruiseCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\NoCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\MessageManager.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\validators\CruiseDataValidator.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\entity\Company.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\ShowAllPortsCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\entity\request\Status.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\services\impl\LinerServiceImpl.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\pdf\ReportPdf.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\client\UploadDocumentsCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\DurationRanges.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\services\RequestService.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\entity\Port.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\entity\user\Role.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dto\CruisePort.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\exceptions\ServiceException.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\client\PdfCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\services\impl\CruiseServiceImpl.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\action\Redirect.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\impl\UserDaoImpl.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\client\ShowCruisesCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\client\SubmitRegistrationCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\ShowUsersByCruiseIdCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\filters\EncodingFilter.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\client\ShowUsersRequestsCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\common\ChangeLangCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\common\ForgotPasswordCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\PutCruiseIntoSessionCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\common\EditProfileCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\common\NewPasswordCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\entity\request\Request.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\FindAllLinersCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\EmailMessageHelper.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\tags\DateTag.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\tags\CurrencyTag.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\client\MakeRequestCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\RemovePortFromCruiseCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\RequestDao.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\CommandContainer.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\exceptions\DaoException.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\SubmitRequestCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\client\RegistrationCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\impl\CruiseDaoImpl.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\services\impl\RequestServiceImpl.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\impl\RequestDaoImpl.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dto\CruisesNumberOfRows.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\Path.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\client\CalculateTotalPriceCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\ShowAllUsersCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\Fields.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\validators\Validator.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\common\ValidateOtpCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\dao\AbstractDao.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\common\LoginCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\admin\AddCruiseCommand.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\validators\UserDataValidator.java
+C:\Users\Tetiana Pavlyshyn\IdeaProjects\f_project - Copy\src\main\java\com\tpavlyshyn\fp\commands\action\Forward.java

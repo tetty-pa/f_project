@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Forward implements Dispatcher {
-    private String path;
+    private final String path;
 
     public Forward(String path) {this.path = path;}
 

@@ -11,10 +11,12 @@ import com.tpavlyshyn.fp.services.RequestService;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.sql.DataSource;
 import java.util.List;
+
 
 public class RequestServiceImplTest extends TestContainer {
     RequestService rs;
@@ -41,7 +43,7 @@ public class RequestServiceImplTest extends TestContainer {
         assertTrue(result);
     }
 
-    public void testShowUsersRequests() throws ServiceException, DataSetException {
+  /*  public void testShowUsersRequests() throws ServiceException, DataSetException {
         List<Request> requests = rs.showUsersRequests(2, LANGUAGE);
         var expectedCruise = loader.load("/exp-ds.xml").getTable("request_users");
         assertEquals(expectedCruise.getRowCount(), requests.size());
@@ -52,7 +54,7 @@ public class RequestServiceImplTest extends TestContainer {
         var expectedCruise = loader.load("/exp-ds.xml").getTable("request");
         assertEquals(expectedCruise.getRowCount(), requests.size());
     }
-
+*/
     public void testSubmitRequest() throws ServiceException {
         boolean result = rs.submitRequest(4);
         assertTrue(result);

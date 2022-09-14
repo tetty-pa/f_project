@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="ctg" uri="/WEB-INF/tlds/currencyTag.tld" %>
+<%@ taglib prefix="dtg" uri="/WEB-INF/tlds/dateTag.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="page_content"/>

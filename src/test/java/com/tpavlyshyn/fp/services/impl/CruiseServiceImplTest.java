@@ -12,6 +12,7 @@ import com.tpavlyshyn.fp.entity.TranslationCruise;
 import com.tpavlyshyn.fp.exceptions.ServiceException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 
 
 import java.sql.Date;

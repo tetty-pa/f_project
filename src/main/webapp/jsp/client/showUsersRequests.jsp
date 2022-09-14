@@ -47,22 +47,24 @@
                             <input type="hidden" name="startDate" value="${requestU.cruise.startDate}"/>
                             <input type="hidden" name="endDate" value="${requestU.cruise.endDate}"/>
                             <input type="hidden" name="amount" value="${requestU.amount}"/>
-                            <button class="btn btn-secondary" type="submit">Download report</button>
+                            <button class="btn btn-secondary" type="submit"><fmt:message key="label.report"/></button>
                         </form>
                     </c:if>
                 </td>
 
-
             </tr>
         </c:forEach>
-
+        </c:if>
     </table>
-    </c:if>
+
     <c:if test="${ empty requestScope.requests}">
         <fmt:message key="label.haveNotOrders"/>
     </c:if>
 </div>
-<jsp:include page="/jsp/footer.jsp"/>
+
 
 </body>
+<jsp:include page="/jsp/footer.jsp"/>
+
 </html>
+

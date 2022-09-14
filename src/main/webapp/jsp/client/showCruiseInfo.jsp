@@ -4,6 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="page_content"/>
+<%@ taglib prefix="ctg" uri="/WEB-INF/tlds/currencyTag.tld" %>
+<%@ taglib prefix="dtg" uri="/WEB-INF/tlds/dateTag.tld" %>
 <html>
 <head>
     <title>Cruise</title>
@@ -20,9 +22,13 @@
             <div class="cruise__description">${requestScope.cruise.description}</div>
             <div class="cruise__price"><fmt:message key="label.price"/>: ${requestScope.cruise.price}$</div>
             <div class="text-black">
-                ${requestScope.cruise.numberOfPorts} <fmt:message key="showCruises.ports_visited"/> ,
-                <fmt:message key="showCruiseInfo.dates"/> ${requestScope.cruise.startDate}-
-                ${requestScope.cruise.endDate}
+                ${requestScope.cruise.numberOfPorts} <fmt:message key="showCruises.ports_visited"/>
+                    <br>
+                    <div class="text-primary">
+                <fmt:message key="showCruiseInfo.dates"/>  <dtg:dateTag date="${requestScope.cruise.startDate}" locale="${sessionScope.locale}"/> -
+                    <dtg:dateTag date="${requestScope.cruise.endDate}" locale="${sessionScope.locale}"/>
+
+                    </div>
                     <br>
                     <br>
                 <div class="text text-uppercase"><fmt:message key="showCruiseInfo.route"/></div>
@@ -48,10 +54,10 @@
         <form id="form1" method="POST" action="${pageContext.request.contextPath}/controller/">
             <input type="hidden" name="command" value="makeRequest"/>
             <input type="hidden" name="cruiseId" value="${requestScope.cruise.id}"/>
-            <div class="field">
+            <div>
                 <br>
                 <hr>
-                <div class=" col-md-3 "><fmt:message key="showCruiseInfo.have_many_places"/></div>
+                <div class=" col-md-3 " ><fmt:message key="showCruiseInfo.have_many_places"/></div>
                 <label>
                     <input type="number" value="1" min="1" name="amount" required/>
                 </label><fmt:message key="label.amount"/><br>

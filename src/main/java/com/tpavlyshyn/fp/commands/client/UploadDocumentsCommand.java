@@ -44,7 +44,7 @@ public class UploadDocumentsCommand implements Command {
             boolean test = uploadFile(is, path);
             boolean result = userService.setDocuments(userId, path);
             if (test && result) {
-                return new Forward(Path.PAGE__INDEX);
+                return new Redirect(request.getContextPath() + Path.PAGE__INDEX);
             }
         } catch (ServiceException | ServletException | IOException ex) {
             log.error(ex.getMessage(), ex);
@@ -58,7 +58,7 @@ public class UploadDocumentsCommand implements Command {
         boolean test = false;
         try {
             byte[] buf = new byte[1024];
-            int read = is.read();
+            is.read();
 
             OutputStream outputStream = new FileOutputStream(path);
 
