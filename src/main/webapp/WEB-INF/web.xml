@@ -44,7 +44,7 @@
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 
-       <!-- <filter>
+        <filter>
             <filter-name>AuthorizationFilter</filter-name>
             <filter-class>com.tpavlyshyn.fp.filters.CommandSecurityFilter</filter-class>
             <init-param>
@@ -56,7 +56,7 @@
         <filter-mapping>
             <filter-name>AuthorizationFilter</filter-name>
             <url-pattern>/controller/*</url-pattern>
-        </filter-mapping>-->
+        </filter-mapping>
     <error-page>
         <error-code>404</error-code>
         <location>/jsp/error/404.jsp</location>

@@ -21,17 +21,19 @@ public class AddPortToCruiseCommand implements Command {
     private final static Logger log = Logger.getLogger(AddPortToCruiseCommand.class);
 
 
-
     @Override
     public Dispatcher execute(HttpServletRequest request, HttpServletResponse response) {
         int portId = Integer.parseInt(request.getParameter("portId"));
         String arrivalTime = request.getParameter("time");
-        int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-
+        String page = (request.getParameter("currentPage"));
+        int currentPage;
+        if (page != null) {
+            currentPage = Integer.parseInt(page);
+        } else currentPage = 1;
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm");
-        java.util.Date date ;
+        java.util.Date date;
         try {
-             date = formatter.parse(arrivalTime);
+            date = formatter.parse(arrivalTime);
         } catch (ParseException e) {
             log.error(e.getMessage());
             return new Redirect(Path.ERROR_PAGE);
@@ -43,11 +45,11 @@ public class AddPortToCruiseCommand implements Command {
 
         int sequence_number = cruisePorts.size() + 1;
 
-        CruisePort cruisePort = new CruisePort( portId, sequence_number, sqlStartDate);
+        CruisePort cruisePort = new CruisePort(portId, sequence_number, sqlStartDate);
         cruisePorts.add(cruisePort);
 
         session.setAttribute("ports", cruisePorts);
-        return new Redirect(request.getContextPath() + Path.COMMAND__SHOW_ALL_PORTS+currentPage);
+        return new Redirect(request.getContextPath() + Path.COMMAND__SHOW_ALL_PORTS + currentPage);
     }
 }
 

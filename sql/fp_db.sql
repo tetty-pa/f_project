@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `fp_db`.`request`
     `amount`    INT NOT NULL,
     `cruise_id` INT NOT NULL,
     `user_id`   INT NOT NULL,
-    `status`    ENUM ('OPENED', 'CONFIRMED', 'PAID', 'CLOSED'),
+    `status`    ENUM ('OPENED', 'CONFIRMED','DECLINED', 'PAID', 'CLOSED'),
     PRIMARY KEY (`id`),
     INDEX `fk_request_cruise1_idx` (`cruise_id` ASC) VISIBLE,
     INDEX `fk_request_user1_idx` (`user_id` ASC) VISIBLE,

@@ -4,7 +4,7 @@ import com.tpavlyshyn.fp.entity.user.Role;
 import com.tpavlyshyn.fp.entity.user.User;
 
 public enum Status {
-    OPENED, CONFIRMED, PAID, CLOSED;
+    OPENED, CONFIRMED,DECLINED,  PAID, CLOSED;
 
  /*   public static Status getStatus(Request request) {
         int statusId = request.getStatusId();

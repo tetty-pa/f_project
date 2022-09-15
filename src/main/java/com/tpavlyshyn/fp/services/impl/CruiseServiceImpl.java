@@ -65,7 +65,7 @@ public class CruiseServiceImpl implements CruiseService {
         List<String> params = new ArrayList<>();
         params.add("?");
         params.add("?");
-        return params.stream().reduce((a, b) -> " AND DATEDIFF(end_date, start_date) BETWEEN " + a + " AND " + b);
+        return params.stream().reduce((a, b) -> " AND DATEDIFF(end_date, start_date) BETWEEN " + a + " AND " + b +" AND start_date>now() \n");
     }
 
     private Optional<String> builtWhereMonthOpt(Optional<Integer> monthOpt, Optional<Integer> yearOpt) {

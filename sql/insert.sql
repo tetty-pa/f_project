@@ -257,11 +257,16 @@ CREATE EVENT e_hourly
     WHERE c.end_date < now();
 
 
+CREATE EVENT e2_hourly
+    ON SCHEDULE
+        EVERY 5 HOUR
+    COMMENT 'Makes request declined'
+    DO
+    UPDATE request INNER JOIN cruise c on request.cruise_id = c.id
+    SET request.status='DECLINED'
+    WHERE c.start_date>now() AND status='CONFIRMED';
+
+
+
 SELECT *
-         FROM user
-         INNER JOIN liner l on cruise.liner_id = l.id
-         INNER JOIN translation_cruise tc on cruise.id = tc.cruise_id
-         INNER JOIN cruise_has_port chp on cruise.id = chp.cruise_id
-         INNER JOIN port p on chp.port_id = p.id
-          WHERE cruise.id = ?
-          AND tc.lang = ? AND p.lang=?
+         FROM request
